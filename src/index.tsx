@@ -1,13 +1,38 @@
+import './index.scss';
+
+import { createTheme, ThemeProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import {App} from './components/App';
+
+import { App } from './components/App';
+
 import reportWebVitals from './reportWebVitals';
+import { HashRouter } from 'react-router-dom';
+
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {},
+      defaultProps: {},
+    },
+  },
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <HashRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </HashRouter>
+  </ThemeProvider>,
+
   document.getElementById('root')
 );
 
@@ -15,3 +40,7 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+// <React.StrictMode>
+//   <App />
+// </React.StrictMode>,

@@ -17,7 +17,7 @@ const theme = createTheme({
   },
 });
 
-export default function CorsiAttivi() {
+export const CorsiAttivi: React.FC= () =>  {
   return (
     <Card sx={{ maxWidth: 0.6, position: "relative", margin: 20 }}>
       <CardContent>
