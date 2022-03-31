@@ -1,12 +1,13 @@
+
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
-import { Dashboard } from './dashboard';
+import { Dashboard } from './dashboard_tutor';
 import { Home } from './home';
 import { Layout } from './layout';
 import { Login } from './login';
-import { NoMatch } from './noMatch';
+import { NoMatch } from './no_match';
 import { SideBar } from './sidebar';
 
 export const App: React.FC = () => {
