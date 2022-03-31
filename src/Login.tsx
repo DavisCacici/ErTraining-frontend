@@ -1,23 +1,46 @@
-import {FormControl,Button, InputLabel,Input, Card, CardContent, Typography, CardActions} from '@mui/material'
+import {Link, Checkbox, FormControl, FormControlLabel,Button, Card, CardContent, Typography, CardActions, TextField, CardMedia} from '@mui/material'
+import LockIcon from '@mui/icons-material/Lock';
+
 
 const Login:React.FunctionComponent = () => {
     return <div>
-        <Card sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)', minWidth: 275 }}>
+        <Card sx={{ flexDirection: 'column', alignContent: 'space-between', display: 'inline-block', mx: '5px', transform: 'scale(0.9)', minWidth: 275, minHeight:400, borderRadius: '25px'  }}>
             <CardContent>
-                <Typography sx={{ fontSize: 25 }} color="text.primary" gutterBottom>
-                Questo è il titolo del LOGIN
-                </Typography>
-                <FormControl>
-                <InputLabel htmlFor="mail-input">Email address</InputLabel>
-                <Input id="mail-input" aria-describedby="my-helper-text" />
-                </FormControl>
+                <CardMedia
+                component='img'
+                height="125"
+                src = "logo192.png"
+                alt="Er Training Logo"
+                sx={{transform: 'scale(0.95)'}}
+                />
+                {/*<Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
+                BENVENUTO IN ER TRAINING
+                </Typography>*/}
+                
+                <FormControl margin="dense">
+                    <TextField
+                    required
+                    id="mail-required"
+                    label="Mail"
+                    type="email"
+                    sx={{mt: 2, mb:1}}
+                    />
                 <br/>
-                <FormControl>
-                <InputLabel htmlFor="password-input">Password</InputLabel>
-                <Input id="password-input" aria-describedby="my-helper-text" />
-                </FormControl>
-                <CardActions>
-                    <Button>Login</Button>
+                    <TextField
+                    required
+                    id="password-required"
+                    label="Password"
+                    type="password"
+                    sx={{mt: 1, mb:2}}
+                    />
+                    <div className='loginDiv'>
+                        <FormControlLabel control={<Checkbox />} label="Ricordami" />
+                        <LockIcon></LockIcon>
+                        <Link href="#">Recupera Password</Link>
+                    </div>
+                    </FormControl>
+                <CardActions sx={{display:"block", mx:1 }}>
+                    <Button sx={{px:15}} variant="contained">Login</Button>
                 </CardActions>
                 
             </CardContent>

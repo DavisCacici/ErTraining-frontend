@@ -1,11 +1,17 @@
 .App {
   text-align: center;
-  background-color: #61dafb;
+  background: linear-gradient(296.41deg, #D9EDFF 7.21%, #FFE6B6 97.29%);
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.loginDiv{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {
