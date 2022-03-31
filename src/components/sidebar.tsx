@@ -153,7 +153,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
       <p>
         <button onClick={onLogout}>LOGOUT</button>
       </p>
-      <List>
+      {/* <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItemButton
             key={text}
@@ -199,7 +199,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         ))}
-      </List>
+      </List> */}
     </Drawer>
   );
 };

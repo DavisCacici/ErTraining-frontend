@@ -6,9 +6,17 @@
 //   -webkit-font-smoothing: antialiased;
 //   -moz-osx-font-smoothing: grayscale;
 // }
+
+hmtl {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background: #efefef;
+  height: 100vh;
+  background: linear-gradient(to top left, #28b487, #7dd56f);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
 }
 
 code {
