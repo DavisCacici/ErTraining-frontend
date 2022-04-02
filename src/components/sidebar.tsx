@@ -1,25 +1,3 @@
-// export const SideBar: React.FC = () => {
-//   return (
-//     <div className="box">
-//       <h2>Sidebar!</h2>
-//       <p>
-//         <Link to={AppRoutes.HOME}>Go to Home</Link>
-//       </p>
-//       <p>
-//         <Link to={AppRoutes.LOGIN}>Go to Login</Link>
-//       </p>
-//       <p>
-//         <Link to={AppRoutes.ABOUT}>Go to About</Link>
-//       </p>
-//       <p>
-//         <Link to={AppRoutes.DASHBOARD}>Go to Dashboard</Link>
-//       </p>
-//     </div>
-//   );
-// };
-
-// import './layout.scss';
-
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Routes as AppRoutes } from '../routes';
@@ -42,11 +20,25 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import {
+  DashboardTwoTone,
+  HomeTwoTone,
+  InfoTwoTone,
+  LogoutTwoTone,
+  PermIdentityTwoTone,
+  SettingsApplicationsTwoTone,
+} from '@mui/icons-material';
+import { SearchAppBar } from './searchbar';
+import CardMedia from '@mui/material/CardMedia';
+import { height } from '@mui/system';
 
 const drawerWidth = 300;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
+  height: '95vh',
+  borderRadius: 40,
+  margin: 15,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -55,6 +47,9 @@ const openedMixin = (theme: Theme): CSSObject => ({
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
+  height: '95vh',
+  borderRadius: 40,
+  margin: 15,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -62,7 +57,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(10)} + 1px)`,
   },
 });
 
@@ -74,28 +69,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-
-// interface AppBarProps extends MuiAppBarProps {
-//   open?: boolean;
-// }
-
-// const AppBar = styled(MuiAppBar, {
-//   shouldForwardProp: (prop) => prop !== 'open',
-// })<AppBarProps>(({ theme, open }) => ({
-//   zIndex: theme.zIndex.drawer + 1,
-//   transition: theme.transitions.create(['width', 'margin'], {
-//     easing: theme.transitions.easing.sharp,
-//     duration: theme.transitions.duration.leavingScreen,
-//   }),
-//   ...(open && {
-//     marginLeft: drawerWidth,
-//     width: `calc(100% - ${drawerWidth}px)`,
-//     transition: theme.transitions.create(['width', 'margin'], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   }),
-// }));
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -131,36 +104,39 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
   };
 
   return (
-    <Drawer variant="permanent" open={open}>
-      <DrawerHeader>
-        <IconButton onClick={handleDrawer}>
-          {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-        </IconButton>
-      </DrawerHeader>
-      <Divider />
-      <p>
-        <Link to={AppRoutes.HOME}>Go to Home</Link>
-      </p>
-      <p>
-        <Link to={AppRoutes.LOGIN}>Go to Login</Link>
-      </p>
-      <p>
-        <Link to={AppRoutes.ABOUT}>Go to About</Link>
-      </p>
-      <p>
-        <Link to={AppRoutes.DASHBOARD}>Go to Dashboard</Link>
-      </p>
-      <p>
-        <button onClick={onLogout}>LOGOUT</button>
-      </p>
-      {/* <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+    <Box>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{ borderColor: 'black', borderRadius: 40 }}
+      >
+        <DrawerHeader>
+          <CardMedia
+            component="img"
+            height="125"
+            src="logo192Er.png"
+            alt="Er Training Logo"
+            sx={{
+              transform: 'scale(0.75)',
+              display: !open ? 'none' : 'flex',
+            }}
+          />
+          <div style={{ height: '130px', marginInline: 'auto' }}>
+            <IconButton onClick={handleDrawer} sx={{ mt: 5 }}>
+              {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </div>
+        </DrawerHeader>
+        <SearchAppBar open={open} />
+        <List>
           <ListItemButton
-            key={text}
+            component={Link}
+            to="/"
+            key={'home'}
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
+              justifyContent: 'initial',
+              px: 3.5,
             }}
           >
             <ListItemIcon
@@ -170,21 +146,21 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
                 justifyContent: 'center',
               }}
             >
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <HomeTwoTone />
             </ListItemIcon>
-            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+            <ListItemText
+              primary={'HOME'}
+              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+            />
           </ListItemButton>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItemButton
-            key={text}
+            component={Link}
+            to="about"
+            key={'about'}
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
+              justifyContent: 'initial',
+              px: 3.5,
             }}
           >
             <ListItemIcon
@@ -194,12 +170,115 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
                 justifyContent: 'center',
               }}
             >
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <InfoTwoTone />
             </ListItemIcon>
-            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+            <ListItemText
+              primary={'ABOUT'}
+              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+            />
           </ListItemButton>
-        ))}
-      </List> */}
-    </Drawer>
+          <ListItemButton
+            component={Link}
+            to="dashboard"
+            key={'dashboard'}
+            sx={{
+              minHeight: 48,
+              justifyContent: 'initial',
+              px: 3.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <DashboardTwoTone />
+            </ListItemIcon>
+            <ListItemText
+              primary={'DASHBOARD'}
+              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+            />
+          </ListItemButton>
+          <Divider />
+          <ListItemButton
+            component={Link}
+            onClick={onLogout}
+            to="settings"
+            key={'settings'}
+            sx={{
+              minHeight: 48,
+              justifyContent: 'initial',
+              px: 3.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <SettingsApplicationsTwoTone />
+            </ListItemIcon>
+            <ListItemText
+              primary={'SETTINGS'}
+              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+            />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            onClick={onLogout}
+            to="profile"
+            key={'profile'}
+            sx={{
+              minHeight: 48,
+              justifyContent: 'initial',
+              px: 3.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <PermIdentityTwoTone />
+            </ListItemIcon>
+            <ListItemText
+              primary={'PROFILE'}
+              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+            />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            onClick={onLogout}
+            to="#"
+            key={'logout'}
+            sx={{
+              minHeight: 48,
+              justifyContent: 'initial',
+              px: 3.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <LogoutTwoTone />
+            </ListItemIcon>
+            <ListItemText
+              primary={'LOGOUT'}
+              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+            />
+          </ListItemButton>
+        </List>
+      </Drawer>
+    </Box>
   );
 };
