@@ -1,6 +1,6 @@
 import React from "react";
 // MUI
-import { Box, Button, Card, CardActionArea, CardContent, Grid, IconButton, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, Grid, IconButton, SvgIcon, Typography } from "@mui/material";
 import { createTheme } from "@mui/system";
 
 // CSS customizzato
@@ -40,22 +40,39 @@ export const CorsiAttivi: React.FC= () =>  {
           </Typography>        
         
           <Card sx={{ maxWidth: 980, maxHeight: 40, padding: -2}} style={{backgroundColor: "#E4F7FF", margin: 10}}>  
-            <CardContent>   
-              <div style={{
-                display: 'flex',
-                alignItems: 'center'
-              }}>            
-                <Typography variant="body2" color="text.secondary"> 
-                  <span>Corso sicurezza rischio basso</span>                                  
-                </Typography>   
+            <CardContent>                  
+              <Box>
+                <Typography sx={{ display: 'flex', alignItems: 'left', m: 0, p: 0 }} variant="body2" color="text.secondary"> 
+                  Corso sicurezza rischio basso                                
+                </Typography> 
+              </Box>  
 
-                <IconButton sx={{ m: -4, ml: 60, mb: -3}} edge="end" size="small" color="primary">                                       
-                  <PlayCircleTwoToneIcon sx={{ mr: 2}}/>  
-                  <EditTwoToneIcon sx={{ mr: 2}}/>   
-                  <DeleteTwoToneIcon sx={{ mr: 2}}/>               
-                </IconButton>                 
-              </div>                                      
-            </CardContent>           
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <IconButton edge={false} size="small" color="primary">                                       
+                  <PlayCircleTwoToneIcon sx={{ mr: 2}}/>              
+                </IconButton>     
+
+                <IconButton edge={false} size="small" color="primary">
+                  <EditTwoToneIcon sx={{ mr: 2}}/>                   
+                </IconButton>   
+
+                <IconButton edge={false} size="small" color="primary">
+                  <DeleteTwoToneIcon sx={{ mr: 2}}/>                   
+                </IconButton>
+              </Box>                                   
+            </CardContent> 
+
+            {/* <CardActions disableSpacing>
+              <IconButton aria-label="Vai ai giochi interattivi del corso">
+                <PlayCircleTwoToneIcon />
+              </IconButton>
+              <IconButton aria-label="Modifica corso">
+                <EditTwoToneIcon />
+              </IconButton>
+              <IconButton aria-label="Elimina corso">
+                <DeleteTwoToneIcon />
+              </IconButton>
+            </CardActions>           */}
           </Card>
 
           <Card sx={{ maxWidth: 980, maxHeight: 40, }} style={{backgroundColor: "#E4F7FF", margin: 10}}>
