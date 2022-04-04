@@ -8,11 +8,11 @@ import React from 'react'
   return (
     <Box>
         <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Impostazioni profilo</Typography>
-        <Grid container direction="column" alignItems="center" justifyContent="center" style={{minHeight:"60vh"}}>
+        <Grid container direction="column" alignItems="stretch" justifyContent="center" style={{minHeight:"30vh"}}>
         <Grid item>
-            <Card sx={{ pr: '30px', pb: '75px'}}>
+            <Card sx={{py: '20px'}}>
                 <CardContent>
-                    <Typography sx={{minWidth:300}} textAlign='left' variant="h6">Abilita tema scuro:</Typography>
+                    <Typography textAlign='left' variant="h6">Abilita tema scuro:</Typography>
                     <FormControlLabel control={<Switch onChange={ (e) => {
                         if(e.target.checked){
                         setEnableDarkTheme('ON');
