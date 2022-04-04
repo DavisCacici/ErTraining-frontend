@@ -9,8 +9,12 @@ import {
   CardContent,
   Grid,
   IconButton,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   Stack,
-  SvgIcon,
+  styled,
   Typography,
 } from "@mui/material";
 import { createTheme } from "@mui/system";
@@ -36,6 +40,20 @@ const theme = createTheme({
     ].join(","),
   },
 });
+
+// const Item = styled(Card)(({ theme }) => ({
+//   ...theme.typography.body2,
+//   padding: theme.spacing(1),
+//   textAlign: 'left',
+//   color: theme.palette.text.secondary,
+// }));
+
+// const IconItem = styled(Card)(({ theme }) => ({
+//   ...theme.typography.body2,
+//   padding: theme.spacing(1),
+//   textAlign: 'right',
+//   color: theme.palette.text.secondary,
+// }));
 
 const IconeAzioniCorso: React.FC = () => {
   return (
@@ -68,67 +86,34 @@ export const CorsiAttivi: React.FC = () => {
           </Typography>
 
           <Card
-            sx={{ maxWidth: 980, maxHeight: 40, padding: -2 }}
+            // sx={{ maxWidth: 980, maxHeight: 40, padding: -1 }}
+            sx={{ px: -3 }}
             style={{ backgroundColor: "#E4F7FF", margin: 10 }}
           >
-            <CardContent>
-              <Box>
-                <Typography
-                  sx={{ display: "flex", alignItems: "left", m: 0, p: 0 }}
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  Corso sicurezza rischio basso
-                </Typography>
-              </Box>
-
-              <Box>
-                <IconeAzioniCorso></IconeAzioniCorso>
-              </Box>
-
-              {/* <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton edge={false} size="small" color="primary">                                       
-                  <PlayCircleTwoToneIcon sx={{ mr: 2}}/>              
-                </IconButton>     
-
-                <IconButton edge={false} size="small" color="primary">
-                  <EditTwoToneIcon sx={{ mr: 2}}/>                   
-                </IconButton>   
-
-                <IconButton edge={false} size="small" color="primary">
-                  <DeleteTwoToneIcon sx={{ mr: 2}}/>                   
-                </IconButton>
-              </Box>                                    */}
-            </CardContent>
-
-            {/* <CardActions disableSpacing>
-              <IconButton aria-label="Vai ai giochi interattivi del corso">
-                <PlayCircleTwoToneIcon />
-              </IconButton>
-              <IconButton aria-label="Modifica corso">
-                <EditTwoToneIcon />
-              </IconButton>
-              <IconButton aria-label="Elimina corso">
-                <DeleteTwoToneIcon />
-              </IconButton>
-            </CardActions>           */}
-          </Card>
-
-          <Card
-            sx={{ maxWidth: 980, maxHeight: 40 }}
-            style={{ backgroundColor: "#E4F7FF", margin: 10 }}
-          >
-            <CardActionArea>
-              <CardContent>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  textAlign="left"
-                >
-                  Corso Sicurezza rischio alto
-                </Typography>
-              </CardContent>
-            </CardActionArea>
+            <CardContent>                             
+              <List>
+                <ListItemButton
+                  key={'prova'}
+                  sx={{
+                    minHeight: 20,
+                    justifyContent: 'center',
+                    px: 1,
+                  }}
+                  >
+                  <ListItemText primary={'Corso sicurezza livello basso'} sx={{ opacity: 1 }} />
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: 'auto',
+                        justifyContent: 'center',
+                        color: "secondary"
+                      }}
+                      >
+                      <IconeAzioniCorso/>
+                    </ListItemIcon>
+                </ListItemButton>
+              </List>              
+            </CardContent>            
           </Card>
         </CardContent>
       </Card>

@@ -25,6 +25,8 @@ const theme = createTheme({
   },
 });
 
+// TODO: usare una grid per rendere responsive i bottoni nello ShortcutComponent
+
 export default function ShortcutComponent() {
   return (
     <div className="card-style">
