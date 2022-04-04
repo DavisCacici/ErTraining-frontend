@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import {CorsiAttivi} from './corsi_attivi';
-import ShortcutComponent from './shortcut';
+import {CorsiAttivi} from './corsi-attivi';
+import {ShortcutComponent} from './shortcut';
 
 export const Dashboard: React.FC = () => {
   return (

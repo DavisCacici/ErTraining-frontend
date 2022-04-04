@@ -17,7 +17,7 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import { createTheme } from "@mui/system";
+import { createTheme, style } from "@mui/system";
 
 // CSS customizzato
 import "./corsi-attivi.scss";
@@ -106,7 +106,7 @@ export const CorsiAttivi: React.FC = () => {
                         minWidth: 0,
                         mr: 'auto',
                         justifyContent: 'center',
-                        color: "secondary"
+                        color: 'secondary'
                       }}
                       >
                       <IconeAzioniCorso/>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
-import { Dashboard } from './dashboard_tutor';
+import { Dashboard } from './dashboard-tutor';
 import { Home } from './home';
 import { Layout } from './layout';
 import { Login } from './login';
