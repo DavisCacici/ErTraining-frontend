@@ -59,13 +59,13 @@ const IconeAzioniCorso: React.FC = () => {
   return (
     <Stack direction="row" spacing={1}>
       <IconButton aria-label="play game">
-        <PlayCircleTwoToneIcon />
+        <PlayCircleTwoToneIcon color="primary"/>
       </IconButton>
       <IconButton aria-label="edit">
-        <EditTwoToneIcon />
+        <EditTwoToneIcon color="primary"/>
       </IconButton>
       <IconButton aria-label="delete">
-        <DeleteTwoToneIcon />
+        <DeleteTwoToneIcon color="primary"/>
       </IconButton>
     </Stack>
   );

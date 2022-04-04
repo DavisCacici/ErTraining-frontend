@@ -31,16 +31,6 @@ const theme = createTheme({
 const classes = {
   root: {
     flexGrow: 1,
-  },
-  paper: {
-    padding: 20,
-    textAlign: "center",
-    color: "blue",
-    fontFamily: "Roboto",
-  },
-  button: {
-    padding: 4,
-    borderRadius: 3
   }
 };
 
@@ -53,29 +43,25 @@ export const ShortcutComponent: React.FC = () => {
             <Typography gutterBottom variant="h5" component="div">
               <h5 className="card-title">Shortcut</h5>
             </Typography>
-            <Grid container spacing={3}>
-              <Grid item xs={6} sm={'auto'}>
-                <Button
-                  className="paper"
-                  variant="contained"
-                  sx={{ p: 4, borderRadius: 3}}
-                >
-                  CORSI ATTIVI
+            <Grid container>
+              <Grid item xs={3} sm={3}>
+                <Button variant="contained" sx={{ p: 2, borderRadius: 3}}>
+                  <div>CORSI ATTIVI</div>
                 </Button>
               </Grid>
-              <Grid item xs={6} sm={4}>
-                <Button className="paper" variant="contained" sx={{ p: 4, borderRadius: 3}}> 
-                  CORSI CONCLUSI
+              <Grid item xs={3} sm={3}>
+                <Button variant="contained" sx={{ p: 2, borderRadius: 3}}> 
+                  <div>CORSI CONCLUSI</div>
                 </Button>
               </Grid>
-              <Grid item xs={6} sm={'auto'}>
-                <Button className="paper" variant="outlined" sx={{ p: 4, borderRadius: 3}} startIcon={<AddCircleOutlineIcon />}>
-                  CREA CORSO
+              <Grid item xs={3} sm={3}>
+                <Button variant="outlined" sx={{ p: 2, borderRadius: 3}} startIcon={<AddCircleOutlineIcon />}>
+                  <div>CREA CORSO</div>
                 </Button>
               </Grid>
-              <Grid item xs={6} sm={3}>
-                <Button className="paper" variant="contained" sx={{ p: 4, borderRadius: 3}}>
-                  AGGIUNGI UTENTE
+              <Grid item xs={3} sm={3}>
+                <Button variant="contained" sx={{ p: 2, borderRadius: 3}}>
+                  <div>AGGIUNGI UTENTE</div>
                 </Button>
               </Grid>
             </Grid>
