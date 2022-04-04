@@ -21,14 +21,14 @@ export const Login: React.FC<LoginProps> = (props) => {
   return ( 
     <Grid container direction="column" alignItems="center" justifyContent="center" style={{minHeight:"100vh"}}>
         <Grid item>
-            <Card sx={{ px: '30px', py: '75px', borderRadius: '25px'}}>
+            <Card sx={{ px: '30px', py: '75px', borderRadius: '25px', transform: 'scale(0.95)'}}>
             <CardContent>
                 <CardMedia
                 component='img'
                 height="125"
                 src = "E 3.png"
                 alt="Er Training Logo"
-                sx={{mb:5, transform: 'scale(0.8)'}}
+                sx={{mb:5, transform: 'scale(0.85)'}}
                 />
                 
                 <FormControl margin="dense">
