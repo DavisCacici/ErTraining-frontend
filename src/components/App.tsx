@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
-import { Dashboard } from './dashboard_tutor';
+import { Dashboard } from './dashboard-tutor';
 import { Home } from './home';
 import { Layout } from './layout';
 import { Login } from './login';
 import { NoMatch } from './no_match';
+import { Profile } from './profile';
+import { Settings } from './settings';
 import { SideBar } from './sidebar';
 
 export const App: React.FC = () => {
@@ -46,6 +48,8 @@ export const App: React.FC = () => {
               <Route path={AppRoutes.LOGIN} element={<Login />} />
               <Route path={AppRoutes.ABOUT} element={<About />} />
               <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
+              <Route path={AppRoutes.PROFILE} element={<Profile />} />
+              <Route path={AppRoutes.SETTINGS} element={<Settings />} />
 
               <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
             </Route>
