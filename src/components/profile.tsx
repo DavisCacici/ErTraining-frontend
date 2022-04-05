@@ -11,8 +11,9 @@ import React from 'react'
         <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Gestione profilo</Typography>
         <Grid container direction="column" alignItems="stretch" justifyContent="center" style={{minHeight:"40vh"}}>
         <Grid item>
-            <Card sx={{ py: '20px'}} >
-                <CardContent>
+            <Card sx={{ pb: '20px'}} >
+                <CardContent sx={{ pb: '10px'}}>
+                    <Typography textAlign='left' variant="h6">Dati Utente</Typography>
                     <FormControl fullWidth margin='dense'>
                         <TextField
                         id="username"

@@ -21,7 +21,7 @@ export const Login: React.FC<LoginProps> = (props) => {
   return ( 
     <Grid container direction="column" alignItems="center" justifyContent="center" style={{minHeight:"100vh"}}>
         <Grid item>
-            <Card sx={{ px: '30px', py: '75px', borderRadius: '25px', transform: 'scale(0.95)'}}>
+            <Card sx={{ px: '20px', py: '30px', borderRadius: '25px', transform: 'scale(0.95)'}}>
             <CardContent>
                 <CardMedia
                 component='img'
