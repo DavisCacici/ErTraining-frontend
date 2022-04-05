@@ -204,7 +204,6 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
           <Divider />
           <ListItemButton
             component={Link}
-            onClick={onLogout}
             to="settings"
             key={'settings'}
             sx={{
@@ -229,7 +228,6 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
           </ListItemButton>
           <ListItemButton
             component={Link}
-            onClick={onLogout}
             to="profile"
             key={'profile'}
             sx={{

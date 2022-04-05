@@ -9,10 +9,10 @@ export const Routes = {
   LOGOUT: 'logout',
 
   DASHBOARD: 'dashboard',
-  // DASHBOARDADMIN: 'dashboardadmin',
-  // DASHBOARDTUTOR: 'dashboardtutor',
-  // DASHBOARDTEACHER: 'dashboardteacher',
-  // DASHBOARDSTUDENT: 'dashboardstudent',
+  // BOARDADMIN: 'boardadmin',
+  // BOARDTUTOR: 'boardtutor',
+  // BOARDTEACHER: 'boardteacher',
+  // BOARDSTUDENT: 'boardstudent',
 
   NOMATCH: '*',
 };
