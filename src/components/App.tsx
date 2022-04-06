@@ -3,7 +3,6 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
 import { Dashboard } from './dashboard-tutor';
-import { Home } from './home';
 import { Layout } from './layout';
 import { Login } from './login';
 import { NoMatch } from './no_match';
@@ -20,7 +19,6 @@ export const App: React.FC = () => {
   return (
     <Routes>
       <Route path={AppRoutes.HOME} element={<Login onLogin={handleLogin} />} />
-
       <Route
         path={AppRoutes.DASHBOARD}
         element={
