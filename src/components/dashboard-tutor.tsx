@@ -7,11 +7,11 @@ export const Dashboard: React.FC = () => {
     // nel div qui sotto c'era un className="box"
     <div> 
       <h2>Dashboard</h2>
-      <p>
+      <div>
         {/* <Link to="/">Go to the home page</Link> */}
         <ShortcutComponent></ShortcutComponent>
         <CorsiAttivi></CorsiAttivi>
-      </p>
+      </div>
     </div>
   );
 };

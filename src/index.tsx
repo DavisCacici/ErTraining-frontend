@@ -3,7 +3,7 @@ import './index.scss';
 import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 import { App } from './components/App';
@@ -26,11 +26,11 @@ const theme = createTheme({
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <HashRouter>
-      <React.StrictMode>
+    <React.StrictMode>
+      <HashRouter>
         <App />
-      </React.StrictMode>
-    </HashRouter>
+      </HashRouter>
+    </React.StrictMode>
   </ThemeProvider>,
 
   document.getElementById('root')

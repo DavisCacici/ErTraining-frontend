@@ -87,9 +87,6 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-// TODO: finire di sistemare grafica link
-// TODO: modernizzare grafica navbar
-
 interface SideBarProps {
   readonly onLogout: () => void;
 }
@@ -129,30 +126,6 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
         </DrawerHeader>
         <SearchAppBar open={open} />
         <List>
-          <ListItemButton
-            component={Link}
-            to="/"
-            key={'home'}
-            sx={{
-              minHeight: 48,
-              justifyContent: 'initial',
-              px: 3.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <HomeTwoTone />
-            </ListItemIcon>
-            <ListItemText
-              primary={'HOME'}
-              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
-            />
-          </ListItemButton>
           <ListItemButton
             component={Link}
             to="about"

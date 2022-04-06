@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
 import { Dashboard } from './dashboard-tutor';
@@ -14,49 +13,35 @@ import { SideBar } from './sidebar';
 
 export const App: React.FC = () => {
   const [authorized, setAuthorized] = useState(false);
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate(AppRoutes.DASHBOARD);
+  };
   return (
-    <div>
-      {!authorized ? (
-        <Login
-          onLogin={() => {
-            setAuthorized(true);
-          }}
-        />
-      ) : (
-        <div>
-          {/* TODO: login
-           <button
-            onClick={() => {
-              setAuthorized(!authorized); 
+    <Routes>
+      <Route path={AppRoutes.HOME} element={<Login onLogin={handleLogin} />} />
+
+      <Route
+        path={AppRoutes.DASHBOARD}
+        element={
+          <Layout
+            onLogout={() => {
+              setAuthorized(false);
             }}
-          >
-            login
-          </button> */}
-          <Routes>
-            <Route
-              path={AppRoutes.HOME}
-              element={
-                <Layout
-                  onLogout={() => {
-                    setAuthorized(false);
-                  }}
-                />
-              }
-            >
-              <Route index element={<Home />} />
+          />
+        }
+      >
+        <Route index element={<Dashboard />} />
 
-              <Route path={AppRoutes.LOGIN} element={<Login />} />
-              <Route path={AppRoutes.ABOUT} element={<About />} />
-              <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
-              <Route path={AppRoutes.PROFILE} element={<Profile />} />
-              <Route path={AppRoutes.SETTINGS} element={<Settings />} />
+        <Route path={AppRoutes.LOGIN} element={<Login />} />
+        <Route path={AppRoutes.ABOUT} element={<About />} />
+        <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
+        <Route path={AppRoutes.PROFILE} element={<Profile />} />
+        <Route path={AppRoutes.SETTINGS} element={<Settings />} />
 
-              <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
-            </Route>
-          </Routes>
-        </div>
-      )}
-    </div>
+        <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
+      </Route>
+    </Routes>
   );
 };
 
