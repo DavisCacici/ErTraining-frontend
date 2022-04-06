@@ -45,7 +45,7 @@ export const App: React.FC = () => {
             >
               <Route index element={<Home />} />
 
-              <Route path={AppRoutes.LOGIN} element={<Login />} />
+              {/* <Route path={AppRoutes.LOGIN} element={<Login />} /> */}
               <Route path={AppRoutes.ABOUT} element={<About />} />
               <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
               <Route path={AppRoutes.PROFILE} element={<Profile />} />

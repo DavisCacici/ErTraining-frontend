@@ -1,26 +1,35 @@
 import { Link as RouteLink } from 'react-router-dom';
-import { Link , Checkbox, FormControl, FormControlLabel,Button, Card, CardContent, Typography, CardActions, TextField, CardMedia} from '@mui/material'
-import LockIcon from '@mui/icons-material/Lock';
+import { Box,  Link , Checkbox, FormControl, FormControlLabel,Button, Card, CardContent, Typography, CardActions, TextField, CardMedia, Grid} from '@mui/material'
+import LockIcon from '@mui/icons-material/LockTwoTone';
+import { useEffect, useState } from 'react';
 
 interface LoginProps {
-  readonly onLogin?: () => void;
+  readonly onLogin: (email: string, password:string) => void;
 }
 
 export const Login: React.FC<LoginProps> = (props) => {
   const { onLogin } = props;
-  return (
-      <Card sx={{ flexDirection: 'column', alignContent: 'space-between', display: 'inline-block', mx: '5px', transform: 'scale(0.9)', minWidth: 275, minHeight:400, borderRadius: '25px'  }}>
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  /*useEffect(()=>{login(email, password);}, []);*/
+  const handleEmail = (e: any) => {
+    setEmail(e.target.value);
+  }
+  const handlePassword = (e: any) => {
+    setPassword(e.target.value);
+  }
+  return ( 
+    <Grid container direction="column" alignItems="center" justifyContent="center" style={{minHeight:"100vh"}}>
+        <Grid item>
+            <Card sx={{ px: '20px', py: '30px', borderRadius: '25px', transform: 'scale(0.95)'}}>
             <CardContent>
                 <CardMedia
                 component='img'
                 height="125"
-                src = "logo192Er.png"
+                src = "E 3.png"
                 alt="Er Training Logo"
-                sx={{transform: 'scale(0.95)'}}
+                sx={{mb:5, transform: 'scale(0.85)'}}
                 />
-                {/*<Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
-                BENVENUTO IN ER TRAINING
-                </Typography>*/}
                 
                 <FormControl margin="dense">
                     <TextField
@@ -28,7 +37,8 @@ export const Login: React.FC<LoginProps> = (props) => {
                     id="mail-required"
                     label="Mail"
                     type="email"
-                    sx={{mt: 2, mb:1}}
+                    onChange={handleEmail}
+                    sx={{mb:2}}
                     />
                 <br/>
                     <TextField
@@ -36,21 +46,23 @@ export const Login: React.FC<LoginProps> = (props) => {
                     id="password-required"
                     label="Password"
                     type="password"
-                    sx={{mt: 1, mb:2}}
+                    onChange={handlePassword}
+                    sx={{mt: 2, mb: 2}}
                     />
-                    <div className='loginDiv'>
+                    <Box sx={{mb: 5}}>        
                         <FormControlLabel control={<Checkbox />} label="Ricordami" />
-                        <LockIcon></LockIcon>
-                        <Link href="#">Recupera Password</Link>
-                    </div>
-                    </FormControl>
-                <CardActions sx={{display:"block", mx:1 }}>
-                    {/*<Button sx={{px:15}} variant="contained">Login</Button>*/}
-                    <Button sx={{px:15}} variant="contained" onClick={onLogin}>Login</Button>
+                        <FormControlLabel control={<LockIcon/> } label= {<Link href="#">Recupera Password</Link>} />
+                    </Box>
+                </FormControl>
+                <CardActions sx={{display:"block"}}>
+                    <Button sx={{mb: 5}} fullWidth variant="contained" onClick={()=>onLogin(email, password)}>Login</Button>
                 </CardActions>
                 
             </CardContent>
             
-        </Card>
+            </Card>      
+        </Grid>
+    </Grid>
+         
   );
 };
