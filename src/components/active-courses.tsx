@@ -20,7 +20,7 @@ import {
 import { createTheme, style } from "@mui/system";
 
 // CSS customizzato
-import "./corsi-attivi.scss";
+import "./active-courses.scss";
 
 // Icone
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
@@ -71,7 +71,7 @@ const IconeAzioniCorso: React.FC = () => {
   );
 };
 
-export const CorsiAttivi: React.FC = () => {
+export const ActiveCourses: React.FC = () => {
   return (
     <div className="card-style">
       <Card sx={{ maxWidth: 1010, position: "relative" }}>
@@ -82,7 +82,7 @@ export const CorsiAttivi: React.FC = () => {
             component="div"
             sx={{ fontWeight: "bold" }}
           >
-            <h5 className="card-title">Corsi attivi</h5>
+            <h5 className="card-title">List of active courses</h5>
           </Typography>
 
           <Card
