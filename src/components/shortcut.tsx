@@ -2,16 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {
   Button,
+  ButtonGroup,
   Card,
   CardActionArea,
   CardContent,
   createTheme,
   Grid,
+  Modal,
   Paper,
   Typography,
 } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import "./corsi-attivi.scss";
+import "./active-courses.scss";
 import { flexbox } from "@mui/system";
 
 const theme = createTheme({
@@ -43,25 +45,25 @@ export const ShortcutComponent: React.FC = () => {
             <Typography gutterBottom variant="h5" component="div">
               <h5 className="card-title">Shortcut</h5>
             </Typography>
-            <Grid container>
-              <Grid item xs={3} sm={3}>
-                <Button variant="contained" sx={{ p: 2, borderRadius: 3}}>
-                  <div>CORSI ATTIVI</div>
+             <Grid container spacing={0} direction="row">
+              <Grid item xs={3}>
+                <Button variant="contained" color="primary"  sx={{ p: 2 }}>
+                  Active <br/>courses
                 </Button>
               </Grid>
-              <Grid item xs={3} sm={3}>
-                <Button variant="contained" sx={{ p: 2, borderRadius: 3}}> 
-                  <div>CORSI CONCLUSI</div>
+              <Grid item xs={3}>
+                <Button variant="contained" color="primary"  sx={{ p: 2 }}>
+                  Completed <br/>courses
                 </Button>
               </Grid>
-              <Grid item xs={3} sm={3}>
-                <Button variant="outlined" sx={{ p: 2, borderRadius: 3}} startIcon={<AddCircleOutlineIcon />}>
-                  <div>CREA CORSO</div>
+              <Grid item xs={3}>
+                <Button variant="outlined" color="primary"  sx={{ p: 2 }}>
+                  Add course
                 </Button>
               </Grid>
-              <Grid item xs={3} sm={3}>
-                <Button variant="contained" sx={{ p: 2, borderRadius: 3}}>
-                  <div>AGGIUNGI UTENTE</div>
+              <Grid item xs={3}>
+                <Button variant="contained" color="primary"  sx={{ p: 2 }}>
+                  Add user
                 </Button>
               </Grid>
             </Grid>
@@ -71,43 +73,3 @@ export const ShortcutComponent: React.FC = () => {
     </div>
   );
 };
-
-{
-  /* // export default function ShortcutComponent() {
-//   return (
-//     <div className="card-style">
-//       <Card sx={{ maxWidth: 1010, position: "relative" }}>
-//         <CardContent>
-//           <Typography gutterBottom variant="h5" component="div">
-//             <h5 className="card-title">Shortcut</h5>
-//           </Typography>
-//           <Button
-//             sx={{ mt: 0, mb: 0, mr: 1, ml: 1, p: 3, borderRadius: 4 }}
-//             variant="contained"
-//           >
-//             CORSI ATTIVI
-//           </Button>
-//           <Button
-//             sx={{ mt: 0, mb: 0, mr: 0, ml: 1, p: 3, borderRadius: 4 }}
-//             variant="contained"
-//           >
-//             CORSI CONCLUSI
-//           </Button>
-//           <Button
-//             sx={{ mt: 0, mb: 0, mr: 0, ml: 20, p: 3, borderRadius: 4 }}
-//             variant="outlined"
-//           >
-//             CREA CORSO
-//           </Button>
-//           <Button
-//             sx={{ mt: 0, mb: 0, mr: 0, ml: 2, p: 3, borderRadius: 4 }}
-//             variant="contained"
-//           >
-//             AGGIUNGI UTENTE
-//           </Button>
-//         </CardContent>
-//       </Card>
-//     </div>
-//   );
-// } */
-}
