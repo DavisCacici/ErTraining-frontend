@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
+import { Anagrafiche } from './angrafiche';
 import { Dashboard } from './dashboard-tutor';
 import { Home } from './home';
 import { Layout } from './layout';
@@ -45,8 +46,8 @@ export const App: React.FC = () => {
             >
               <Route index element={<Home />} />
 
-              {/* <Route path={AppRoutes.LOGIN} element={<Login />} /> */}
-              <Route path={AppRoutes.ABOUT} element={<About />} />
+              {/* <Route path={AppRoutes.LOGIN} element= {<Anagrafiche type='Teacher' />}  /> */}
+              <Route path={AppRoutes.ABOUT} element={<About/>} />
               <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
               <Route path={AppRoutes.PROFILE} element={<Profile />} />
               <Route path={AppRoutes.SETTINGS} element={<Settings />} />

@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { SERVER_URL } from '../config';
-import jwt_decode from "jwt-decode";
+//import jwt_decode from "jwt-decode";
 
 export const login = (email: string, password: string, result: (result: string) => void) =>{
     axios.post(`${SERVER_URL}/login`, {
