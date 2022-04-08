@@ -1,7 +1,9 @@
-import { Box,  Stack , Checkbox, FormControl, FormControlLabel, IconButton, Card, CardContent, Typography, CardActions, TextField, CardMedia, Grid, Select} from '@mui/material'
-import {Table, TableBody, TableCell, TableHead, TableContainer, TableRow } from '@mui/material';
+import { Box,  Stack, IconButton, Card, Typography, InputAdornment, TextField,} from '@mui/material'
+import {Table, TableBody, TableCell, TableHead, TableContainer, TableRow, TablePagination } from '@mui/material';
 import { useState } from 'react';
 import { User, Role } from '../models/models'
+import L from 'lodash'
+import {teachersList, studentsList} from '../apis/tutor_call'
 // Icone
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
@@ -28,9 +30,21 @@ interface AnagraficheProps {
 }
  
 export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) => {
+    //pre Mock-up
+    let Data:User[] = []  
+  
+    //Chiamate Api condizionali in base al Props
+    {/*if(props.type === 'teacher'){
+      Data = teachersList();
+    }
+    else if(props.type === 'student')
+    {
+      Data= studentsList();
+    }else{
+      console.log("Questè è un problema");
+    } */}
 
-    const [type, setType] = useState('');
-
+    //Mock-up Data
     const ruoloTeacher:Role = {
         id: 0, 
         name: "teacher",
@@ -39,7 +53,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
 
     const user1:User = {
         id: 1 ,
-        user_name: 'username1',
+        user_name: 'pino',
         email: 'user1@mail.com' ,
         token: 'string',
         last_request: new Date(),
@@ -48,42 +62,67 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
 
     const user2:User = {
         id: 2 ,
-        user_name: 'username2',
+        user_name: 'giacomo',
         email: 'user2@mail.com' ,
         token: 'string',
         last_request: new Date(),
         role: ruoloTeacher
     };
 
-    const Data:User[] = [user1,user2]
-    
+    Data = [user1,user2]
 
+    //Hooks
+    const [type, setType] = useState('');
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [righeCorrenti, setRigheCorrenti] = useState<User[]>(Data);
+    const [valoreRicerca, setValoreRicerca] = useState<string>("");
+  
+    //Handler
+    const handleChangePage = (event: unknown, newPage: number) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+    };
+
+    const richiediRicerca = (newValChange: string) => {
+      const filteredRows = Data.filter((row) => {
+        return row.user_name.toLowerCase().includes(newValChange.toLowerCase());
+      });
+      setRigheCorrenti(filteredRows);
+    };
+    
     return <Box>
-        <Box display='flex' justifyContent='space-between' alignItems='end'>
+        <Box display='flex' justifyContent='space-between' alignItems='end' sx={{ pb: 5 }}>
             <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Anagrafica {props.type} </Typography>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                <SearchTwoToneIcon></SearchTwoToneIcon>
-                <TextField id="input-searchbar" label="Cerca..." variant="standard" />
+                <TextField id="input-searchbar" label="Cerca..." variant="outlined" onChange={(e)=>{setValoreRicerca(e.target.value.toString()); richiediRicerca(e.target.value.toString());}} InputProps={{startAdornment: (<InputAdornment position="start">
+                  <SearchTwoToneIcon fontSize='medium'></SearchTwoToneIcon>
+                </InputAdornment>
+              ),}}/>
             </Box>
         </Box>
         <Card>
             <Box display='flex' justifyContent='space-between' alignItems='center' sx={{ mx:2,my:1 }}>
                 <Typography  textAlign='left' variant="h6" fontWeight='bold'>{props.type}</Typography>
-                <IconButton aria-label='Add' onClick={()=>{console.log("Button Test")}}>
+                <IconButton color='primary' aria-label='Add' onClick={()=>{console.log("Button Test")}}>
                     <AddCircleTwoToneIcon fontSize='large' ></AddCircleTwoToneIcon>
                 </IconButton>
             </Box>
             <TableContainer>
-                <Table sx={{ minWidth: 400}}>
+                <Table sx={{minWidth: 400}}>
                     <TableHead>
                         <TableRow >
-                            <TableCell align='left'> Nome </TableCell>
+                            <TableCell align='left'> User_Name </TableCell>
                             <TableCell align="center"> ID </TableCell>
                             <TableCell align="right"> Azioni </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {Data.map((row) => (
+                        {righeCorrenti.map((row) => (
                         <TableRow
                             key={row.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -96,103 +135,17 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
                             </TableCell>
                         </TableRow>
                     ))}
-        </TableBody>
+                    </TableBody>
                 </Table>
-            </TableContainer>        
+            </TableContainer>
+            <TablePagination
+            rowsPerPageOptions={[1, 5, 10, 25]}
+            component="div"
+            count={Data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}/>       
         </Card>
-        
-
     </Box>
 };
-
-{/* QUESTO E UN ESEMPIO DI MATERIAL TABLE CON BARRA DI RICERCA */}
-{/*
-import React from "react";
-import MaterialTable from "material-table";
-import { TextField } from '@material-ui/core';
-import { Autocomplete } from "@material-ui/lab";
-
-class OrdenCompra extends React.Component {
-  state = {
-    options: ["option 1", "option 2"],
-    data: []
-  };
-
-  render() {
-    return (
-      <MaterialTable
-        title="Custom Edit Component Preview"
-        columns={[
-          {
-            title: "Name",
-            field: "name",
-            editComponent: props => (
-              <input
-                type="text"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
-              <Autocomplete
-              inputValue={props.value}
-              onInputChange={(e, nv) => { props.onChange(nv) }}
-      id="combo-box-demo"
-      options={this.options}
-      getOptionLabel={(option) => option}
-      style={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
-    />
-            )
-          },
-          { title: "Surname", field: "surname" },
-          { title: "Birth Year", field: "birthYear", type: "numeric" },
-          {
-            title: "Birth Place",
-            field: "birthCity",
-            lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
-          }
-        ]}
-        data={this.state.data}
-        editable={{
-          onRowAdd: newData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  const data = this.state.data;
-                  data.push(newData);
-                  this.setState({ data }, () => resolve());
-                }
-                resolve();
-              }, 1000);
-            }),
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  const data = this.state.data;
-                  const index = data.indexOf(oldData);
-                  data[index] = newData;
-                  this.setState({ data }, () => resolve());
-                }
-                resolve();
-              }, 1000);
-            }),
-          onRowDelete: oldData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  let data = this.state.data;
-                  const index = data.indexOf(oldData);
-                  data.splice(index, 1);
-                  this.setState({ data }, () => resolve());
-                }
-                resolve();
-              }, 1000);
-            })
-        }}
-      />
-    );
-  }
-}
-
-export default OrdenCompra;
- */}
