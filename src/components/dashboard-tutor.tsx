@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { ActiveCourses } from './active-courses';
-import { ShortcutComponent } from './shortcut';
+import { CoursesList } from './courses-list-tutor';
+import { ShortcutTutor } from './shortcut-tutor';
 
 export const Dashboard: React.FC = () => {
   return (
@@ -8,8 +8,8 @@ export const Dashboard: React.FC = () => {
       <h2>Dashboard</h2>
       <div>
         {/* <Link to="/">Go to the home page</Link> */}
-        <ShortcutComponent></ShortcutComponent>
-        <ActiveCourses></ActiveCourses>
+        <ShortcutTutor></ShortcutTutor>
+        <CoursesList></CoursesList>
       </div>
     </div>
   );

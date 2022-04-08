@@ -19,6 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { Routes as AppRoutes } from '../routes';
 import { User } from '../models/models';
 import { login } from '../apis/generale_call';
+import jwt_decode from 'jwt-decode';
 
 interface LoginProps {
   readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,23 +33,34 @@ export const Login: React.FC<LoginProps> = (props) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (user: string, pass: string) => {
-    //axios call
-    login(user, pass, (res) => {});
+  const handleLogin = async (user: string, pass: string) => {
+    //api call
+    const token = await login(user, pass)
+      .then((value) => {
+        const token = value.data.access_token;
+        console.log(token);
 
-    //set global usr
-    const loggedUser: User = {
-      id: 1,
-      user_name: user,
-      email: pass,
-    };
+        //set token in memory
+        sessionStorage.setItem('token', token);
 
-    //set token
-    // localStorage.setItem(("auth", "token"))
+        //get blobal user
+        // const payload = jwt_decode<object>(token);
+        // console.log(payload);
 
-    setGlobalUser(loggedUser);
-    setIsAuth(true);
-    navigate(AppRoutes.DASHBOARD);
+        //set global usr
+        const loggedUser: User = {
+          id: 1,
+          user_name: user,
+          email: pass,
+        };
+
+        setGlobalUser(loggedUser);
+        setIsAuth(true);
+        navigate(AppRoutes.DASHBOARD);
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   /*useEffect(()=>{login(email, password);}, []);*/

@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import {
   Button,
   ButtonGroup,
@@ -12,9 +11,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import "./active-courses.scss";
-import { flexbox } from "@mui/system";
+import "./courses-list.scss";
 
 const theme = createTheme({
   typography: {
@@ -33,10 +30,10 @@ const theme = createTheme({
 const classes = {
   root: {
     flexGrow: 1,
-  }
+  },
 };
 
-export const ShortcutComponent: React.FC = () => {
+export const ShortcutTutor: React.FC = () => {
   return (
     <div style={classes.root}>
       <div className="card-style">
@@ -45,24 +42,52 @@ export const ShortcutComponent: React.FC = () => {
             <Typography gutterBottom variant="h5" component="div">
               <h5 className="card-title">Shortcut</h5>
             </Typography>
-             <Grid container spacing={0} direction="row">
+            <Grid container spacing={0} direction="row">
               <Grid item xs={3}>
-                <Button variant="contained" color="primary"  sx={{ p: 2 }}>
-                  Active <br/>courses
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{ ml: 1 }}
+                  onClick={() => {
+                    console.log("Corsi attivi premuto!");
+                  }}
+                >
+                  Active <br />
+                  courses
                 </Button>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained" color="primary"  sx={{ p: 2 }}>
-                  Completed <br/>courses
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    console.log("Corsi completati premuto!");
+                  }}
+                >
+                  Completed <br />
+                  courses
                 </Button>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="outlined" color="primary"  sx={{ p: 2 }}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  sx={{ ml: 0 }}
+                  onClick={() => {
+                    console.log("Aggiungi corso premuto!");
+                  }}
+                >
                   Add course
                 </Button>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained" color="primary"  sx={{ p: 2 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    console.log("Aggiungi corso premuto!");
+                  }}
+                >
                   Add user
                 </Button>
               </Grid>

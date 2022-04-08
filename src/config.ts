@@ -1,7 +1,7 @@
 // NOTE: TEST DATA!!!
 
 // Dev:
-export const SERVER_URL = 'http://localhost/miobackend';
+export const SERVER_URL = 'http://127.0.0.1:8000';
 
 // Test:
 
