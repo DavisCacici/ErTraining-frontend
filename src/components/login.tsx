@@ -1,4 +1,4 @@
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
   Box,
   Link,
@@ -15,16 +15,42 @@ import {
   Grid,
 } from '@mui/material';
 import LockIcon from '@mui/icons-material/LockTwoTone';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Routes as AppRoutes } from '../routes';
+import { User } from '../models/models';
+import { login } from '../apis/generale_call';
 
 interface LoginProps {
-  readonly onLogin: (email: string, password: string) => void;
+  readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
+  readonly setGlobalUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
 export const Login: React.FC<LoginProps> = (props) => {
-  const { onLogin } = props;
+  const { setIsAuth, setGlobalUser } = props;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = (user: string, pass: string) => {
+    //axios call
+    login(user, pass, (res) => {});
+
+    //set global usr
+    const loggedUser: User = {
+      id: 1,
+      user_name: user,
+      email: pass,
+    };
+
+    //set token
+    // localStorage.setItem(("auth", "token"))
+
+    setGlobalUser(loggedUser);
+    setIsAuth(true);
+    navigate(AppRoutes.DASHBOARD);
+  };
+
   /*useEffect(()=>{login(email, password);}, []);*/
   const handleEmail = (e: any) => {
     setEmail(e.target.value);
@@ -32,6 +58,7 @@ export const Login: React.FC<LoginProps> = (props) => {
   const handlePassword = (e: any) => {
     setPassword(e.target.value);
   };
+
   return (
     <Grid
       container
@@ -89,7 +116,7 @@ export const Login: React.FC<LoginProps> = (props) => {
                 sx={{ mb: 5 }}
                 fullWidth
                 variant="contained"
-                onClick={() => onLogin(email, password)}
+                onClick={() => handleLogin(email, password)}
               >
                 Login
               </Button>

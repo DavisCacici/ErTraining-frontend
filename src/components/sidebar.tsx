@@ -23,6 +23,7 @@ import {
 } from '@mui/icons-material';
 import { SearchAppBar } from './searchbar';
 import CardMedia from '@mui/material/CardMedia';
+import { User } from '../models/models';
 
 const drawerWidth = 300;
 
@@ -81,10 +82,11 @@ const Drawer = styled(MuiDrawer, {
 
 interface SideBarProps {
   readonly onLogout: () => void;
+  readonly globalUser: User;
 }
 
 export const SideBar: React.FC<SideBarProps> = (props) => {
-  const { onLogout } = props;
+  const { onLogout, globalUser } = props;
   // const theme = useTheme();
   const [open, setOpen] = useState(true);
 
@@ -240,6 +242,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
             />
           </ListItemButton>
+          <div>{globalUser.user_name}</div>
         </List>
       </Drawer>
     </Box>

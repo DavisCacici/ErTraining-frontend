@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { User } from '../models/models';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
+import { ProtectedRoute } from './auth/protectedRoute';
 import { Dashboard } from './dashboard-tutor';
 import { Layout } from './layout';
 import { Login } from './login';
@@ -11,27 +13,36 @@ import { Settings } from './settings';
 import { SideBar } from './sidebar';
 
 export const App: React.FC = () => {
-  const [authorized, setAuthorized] = useState(false);
-  const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate(AppRoutes.DASHBOARD);
-  };
+  const [isAuth, setIsAuth] = useState(false);
+  const [globalUser, setGlobalUser] = useState<User>({
+    id: 0,
+    user_name: '',
+    email: '',
+  });
+
   return (
     <Routes>
-      <Route path={AppRoutes.HOME} element={<Login onLogin={handleLogin} />} />
       <Route
-        path={AppRoutes.DASHBOARD}
+        path={AppRoutes.LOGIN}
+        element={<Login setIsAuth={setIsAuth} setGlobalUser={setGlobalUser} />}
+      />
+
+      <Route
+        path={AppRoutes.HOME}
         element={
-          <Layout
-            onLogout={() => {
-              setAuthorized(false);
-            }}
-          />
+          <ProtectedRoute isAuth={isAuth}>
+            <Layout
+              globalUser={globalUser}
+              onLogout={() => {
+                setIsAuth(false);
+              }}
+            />
+          </ProtectedRoute>
         }
       >
         <Route index element={<Dashboard />} />
 
-        <Route path={AppRoutes.LOGIN} element={<Login />} />
+        {/* <Route path={AppRoutes.LOGIN} element={<Login setIsAuth={setIsAuth} />} /> */}
         <Route path={AppRoutes.ABOUT} element={<About />} />
         <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
         <Route path={AppRoutes.PROFILE} element={<Profile />} />

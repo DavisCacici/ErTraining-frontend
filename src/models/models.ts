@@ -15,9 +15,8 @@ export interface User {
   readonly id: number;
   readonly user_name: string;
   readonly email: string;
-  readonly token: string;
-  readonly last_request: Date;
-  readonly role: Role;
+  readonly last_request?: Date;
+  readonly role?: Role;
 }
 export interface Step {
   readonly step: string;

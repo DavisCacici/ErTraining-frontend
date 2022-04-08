@@ -6,6 +6,7 @@ import { SideBar } from './sidebar';
 import Box from '@mui/material/Box';
 
 import CssBaseline from '@mui/material/CssBaseline';
+import { User } from '../models/models';
 
 // export const Layout: React.FC = () => {
 //   return (
@@ -28,14 +29,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 interface LayoutProps {
   readonly onLogout: () => void;
+  readonly globalUser: User;
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { onLogout } = props;
+  const { onLogout, globalUser } = props;
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <SideBar onLogout={onLogout} />
+      <SideBar onLogout={onLogout} globalUser={globalUser} />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Outlet />
       </Box>
