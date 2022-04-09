@@ -26,7 +26,7 @@ export const Login: React.FC<LoginProps> = (props) => {
                 <CardMedia
                 component='img'
                 height="125"
-                src = "E 3.png"
+                src = "E_3.png"
                 alt="Er Training Logo"
                 sx={{mb:5, transform: 'scale(0.85)'}}
                 />

@@ -1,7 +1,7 @@
 import { Box,  Stack, IconButton, Card, Typography, InputAdornment, TextField,} from '@mui/material'
 import {Table, TableBody, TableCell, TableHead, TableContainer, TableRow, TablePagination } from '@mui/material';
 import { useState } from 'react';
-import { User, Role } from '../models/models'
+import { User } from '../models/models'
 import L from 'lodash'
 import {teachersList, studentsList} from '../apis/tutor_call'
 // Icone
@@ -45,34 +45,25 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
     } */}
 
     //Mock-up Data
-    const ruoloTeacher:Role = {
-        id: 0, 
-        name: "teacher",
-        description: "pessima descrizione"
-    }
 
     const user1:User = {
         id: 1 ,
         user_name: 'pino',
         email: 'user1@mail.com' ,
-        token: 'string',
-        last_request: new Date(),
-        role: ruoloTeacher
+        role: 'teacher'
     };
 
     const user2:User = {
         id: 2 ,
         user_name: 'giacomo',
         email: 'user2@mail.com' ,
-        token: 'string',
-        last_request: new Date(),
-        role: ruoloTeacher
+        role: 'teacher'
     };
 
     Data = [user1,user2]
 
     //Hooks
-    const [type, setType] = useState('');
+    //const [type, setType] = useState('');
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [righeCorrenti, setRigheCorrenti] = useState<User[]>(Data);
@@ -139,7 +130,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
                 </Table>
             </TableContainer>
             <TablePagination
-            rowsPerPageOptions={[1, 5, 10, 25]}
+            rowsPerPageOptions={[5, 10, 25]}
             component="div"
             count={Data.length}
             rowsPerPage={rowsPerPage}
