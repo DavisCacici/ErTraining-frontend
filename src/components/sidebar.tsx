@@ -105,7 +105,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
           <CardMedia
             component="img"
             height="125"
-            src="logo192Er.png"
+            src="E_3.png"
             alt="Er Training Logo"
             sx={{
               transform: 'scale(0.75)',
