@@ -4,6 +4,7 @@ import { User } from '../models/models';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
 import { ProtectedRoute } from './auth/protectedRoute';
+import { Anagrafiche } from './angrafiche';
 import { Dashboard } from './dashboard-tutor';
 import { Layout } from './layout';
 import { Login } from './login';
@@ -18,6 +19,7 @@ export const App: React.FC = () => {
     id: 0,
     user_name: '',
     email: '',
+    role: ''
   });
 
   return (

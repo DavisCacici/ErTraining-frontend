@@ -19,7 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { Routes as AppRoutes } from '../routes';
 import { User } from '../models/models';
 import { login } from '../apis/generale_call';
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 
 interface LoginProps {
   readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
@@ -81,7 +81,6 @@ export const Login: React.FC<LoginProps> = (props) => {
   const handlePassword = (e: any) => {
     setPassword(e.target.value);
   };
-
   return (
     <Grid
       container
@@ -103,11 +102,10 @@ export const Login: React.FC<LoginProps> = (props) => {
             <CardMedia
               component="img"
               height="125"
-              src="E 3.png"
+              src="E_3.png"
               alt="Er Training Logo"
               sx={{ mb: 5, transform: 'scale(0.85)' }}
             />
-
             <FormControl margin="dense">
               <TextField
                 required
