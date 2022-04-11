@@ -33,36 +33,47 @@ export const Login: React.FC<LoginProps> = (props) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (user: string, pass: string) => {
-    //api call
-    const token = await login(user, pass)
-      .then((value) => {
-        const token = value.data.access_token;
-        console.log(token);
+  // const handleLogin = async (user: string, pass: string) => {
+  //   //api call
+  //   const token = await login(user, pass)
+  //     .then((value) => {
+  //       const token = value.data.access_token;
+  //       console.log(token);
 
-        //set token in memory
-        sessionStorage.setItem('token', token);
+  //       //set token in memory
+  //       sessionStorage.setItem('token', token);
 
-        //get blobal user
-        // const payload = jwt_decode<object>(token);
-        // console.log(payload);
+  //       //get blobal user
+  //       // const payload = jwt_decode<object>(token);
+  //       // console.log(payload);
 
-        //set global usr
-        const loggedUser: User = {
-          id: 1,
-          user_name: user,
-          email: pass,
-          role: 'tutor'
-        };
+  //       //set global usr
+  //       const loggedUser: User = {
+  //         id: 1,
+  //         user_name: user,
+  //         email: pass,
+  //         role: 'tutor'
+  //       };
 
-        setGlobalUser(loggedUser);
-        setIsAuth(true);
-        navigate(AppRoutes.DASHBOARD);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
+  //       setGlobalUser(loggedUser);
+  //       setIsAuth(true);
+  //       navigate(AppRoutes.DASHBOARD);
+  //     })
+  //     .catch((error) => {
+  //       alert(error);
+  //     });
+  // };
+
+  const loggedUser: User = {
+            id: 1,
+            user_name: 'user',
+            email: 'pass',
+            role: 'tutor'
+          };
+  
+          setGlobalUser(loggedUser);
+          setIsAuth(true);
+          navigate(AppRoutes.DASHBOARD);
 
   /*useEffect(()=>{login(email, password);}, []);*/
   const handleEmail = (e: any) => {
@@ -113,7 +124,7 @@ export const Login: React.FC<LoginProps> = (props) => {
                     sx={{ mb: 5 }}
                     fullWidth
                     variant="contained"
-                    onClick={() => handleLogin(email, password)}>
+                    onClick={() =>{ {/*handleLogin(email, password)*/} }}>
                     Login
                   </Button>
                 </CardActions>

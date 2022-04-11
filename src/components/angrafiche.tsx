@@ -1,8 +1,7 @@
-import { Box,  Stack, IconButton, Card, Typography, InputAdornment, TextField,} from '@mui/material'
+import { Link, Box,  Stack, IconButton, Card, Typography, InputAdornment, TextField,} from '@mui/material'
 import {Table, TableBody, TableCell, TableHead, TableContainer, TableRow, TablePagination } from '@mui/material';
 import { useState } from 'react';
 import { User } from '../models/models'
-import L from 'lodash'
 import {teachersList, studentsList} from '../apis/tutor_call'
 // Icone
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
@@ -13,10 +12,10 @@ import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 const IconeAzioniAngarfica: React.FC = () => {
     return (
       <Stack direction='row' justifyContent='right' spacing={1}>
-        <IconButton aria-label="edit">
+        <IconButton onClick={ () => {console.log('Edit Button')}} aria-label="edit">
           <EditTwoToneIcon color="primary"/>
         </IconButton>
-        <IconButton aria-label="delete">
+        <IconButton onClick={ () => {console.log('Delete Button')}} aria-label="delete">
           <DeleteTwoToneIcon color="primary"/>
         </IconButton>
       </Stack>
@@ -97,7 +96,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
             </Box>
         </Box>
         <Card>
-            <Box display='flex' justifyContent='space-between' alignItems='center' sx={{ mx:2,my:1 }}>
+            <Box display='flex' justifyContent='space-between' alignItems='center' sx={{ mx:2, my:1 }}>
                 <Typography  textAlign='left' variant="h6" fontWeight='bold'>{props.type}</Typography>
                 <IconButton color='primary' aria-label='Add' onClick={()=>{console.log("Button Test")}}>
                     <AddCircleTwoToneIcon fontSize='large' ></AddCircleTwoToneIcon>
@@ -107,8 +106,8 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
                 <Table sx={{minWidth: 400}}>
                     <TableHead>
                         <TableRow >
-                            <TableCell align='left'> User_Name </TableCell>
-                            <TableCell align="center"> ID </TableCell>
+                            <TableCell align='left'> ID </TableCell>
+                            <TableCell align="left"> User_Name </TableCell>
                             <TableCell align="right"> Azioni </TableCell>
                         </TableRow>
                     </TableHead>
@@ -117,10 +116,10 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
                         <TableRow
                             key={row.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell component="th" scope="row">
+                            <TableCell >{row.id}</TableCell>
+                            <TableCell align="left">
                                 {row.user_name}
                             </TableCell>
-                            <TableCell align="center">{row.id}</TableCell>
                             <TableCell align="right">
                                 <IconeAzioniAngarfica></IconeAzioniAngarfica>
                             </TableCell>
