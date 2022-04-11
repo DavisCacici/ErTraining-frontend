@@ -52,7 +52,7 @@ export const Login: React.FC<LoginProps> = (props) => {
   const handleLogin = async (user: string, pass: string) => {
     // api call
     const response: AxiosResponse = await login(user, pass);
-    console.log(response);
+    // console.log(response);
 
     const token: string = response.data.access_token;
 

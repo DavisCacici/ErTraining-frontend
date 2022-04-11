@@ -37,14 +37,17 @@ export const App: React.FC = () => {
           </ProtectedRoute>
         }
       >
-        <Route index element={<Dashboard />} />
+        <Route index element={<Dashboard GLOBAL_USER={globalUser} />} />
 
         {/* <Route path={AppRoutes.LOGIN} element={<Login setIsAuth={setIsAuth} />} /> */}
         <Route
           path={AppRoutes.ABOUT}
           element={<Anagrafiche type="teacher" />}
         />
-        <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
+        <Route
+          path={AppRoutes.DASHBOARD}
+          element={<Dashboard GLOBAL_USER={globalUser} />}
+        />
         <Route path={AppRoutes.PROFILE} element={<Profile />} />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
 
