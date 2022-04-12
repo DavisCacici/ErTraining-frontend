@@ -11,9 +11,8 @@ export const login = (email: string, password: string) => {
     password: password,
   });
   // .then((value) => {
-  //   const token = value.data.access_token;
-
-  //   sessionStorage.setItem('token', token);
+  //   // const token = value.data.access_token;
+  //   // sessionStorage.setItem('token', token);
   //   // const payload = jwt_decode<object>(token);
   //   // console.log(payload);
   // })
@@ -24,20 +23,19 @@ export const login = (email: string, password: string) => {
 
 export const logout = () => {
   const token = sessionStorage.getItem('token');
-  axios
-    .post(
-      `${SERVER_URL}/logout`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-    .then((value) => console.log(value))
-    .catch((error) => console.log(error));
-  sessionStorage.removeItem('token');
-  sessionStorage.clear();
+  return axios.post(
+    `${SERVER_URL}/logout`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  // .then((value) => console.log(value))
+  // .catch((error) => console.log(error));
+  // sessionStorage.removeItem('token');
+  // sessionStorage.clear();
 };
 
 export const recovery = (email: string) => {

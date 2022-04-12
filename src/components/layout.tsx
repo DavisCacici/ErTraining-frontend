@@ -28,16 +28,16 @@ import { User } from '../models/models';
 // };
 
 interface LayoutProps {
-  readonly onLogout: () => void;
+  readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
   readonly globalUser: User;
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { onLogout, globalUser } = props;
+  const { setIsAuth, globalUser } = props;
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <SideBar onLogout={onLogout} globalUser={globalUser} />
+      <SideBar setIsAuth={setIsAuth} globalUser={globalUser} />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Outlet />
       </Box>
