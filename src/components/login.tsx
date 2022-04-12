@@ -49,43 +49,47 @@ export const Login: React.FC<LoginProps> = (props) => {
   const navigate = useNavigate();
 
   //TODO: error handling - ??
-  const handleLogin = async (user: string, pass: string) => {
+  const handleLogin = (user: string, pass: string) => {
     // api call
-    const response: AxiosResponse = await login(user, pass);
-    // console.log(response);
+    login(user, pass)
+      .then((res) => {
+        // return res;
+        // set token in memory
+        const token: string = res.data.access_token;
+        sessionStorage.setItem('token', token);
 
-    const token: string = response.data.access_token;
+        //get blobal user
+        const payload = jwt_decode<Payload>(token);
+        console.log(payload);
 
-    // set token in memory
-    sessionStorage.setItem('token', token);
-
-    //get blobal user
-    const payload = jwt_decode<Payload>(token);
-    console.log(payload);
-
-    if (response.status === 200) {
-      // set global usr
-      const loggedUser: User = {
-        id: payload.id,
-        user_name: payload.name,
-        email: payload.email,
-        role: payload.role,
-      };
-      setGlobalUser(loggedUser);
-      setIsAuth(true);
-      navigate(AppRoutes.DASHBOARD);
-    } else {
-      alert(response.status);
-    }
+        if (res.status === 200) {
+          // set global usr
+          const loggedUser: User = {
+            id: payload.id,
+            user_name: payload.name,
+            email: payload.email,
+            role: payload.role,
+          };
+          setGlobalUser(loggedUser);
+          setIsAuth(true);
+          navigate(AppRoutes.DASHBOARD);
+        }
+      })
+      .catch((err) => {
+        alert(`ERRORE: ${err}`);
+      });
   };
 
-  const fakeLogin = () => {
+  // FAKE LOGIN
+  const fakeLogin = (e: any) => {
+    e.preventDefault();
+    const role: string = e.target.value;
     // set global usr
     const loggedUser: User = {
       id: 1,
       user_name: 'fake',
       email: 'fake@login.com',
-      role: 'edit in login component',
+      role: role,
     };
     setGlobalUser(loggedUser);
     setIsAuth(true);
@@ -162,7 +166,17 @@ export const Login: React.FC<LoginProps> = (props) => {
             </CardActions>
           </CardContent>
           {/* per test senza servizio api attivo */}
-          <button onClick={fakeLogin}>FAKE LOGIN</button>
+          <div>
+            Select Role:
+            <div>
+              <select name="Role" onChange={fakeLogin}>
+                <option value="">None</option>
+                <option value="tutor">Tutor</option>
+                <option value="teacher">Teacher</option>
+                <option value="student">Student</option>
+              </select>
+            </div>
+          </div>
         </Card>
       </Grid>
     </Grid>

@@ -32,7 +32,7 @@ const drawerWidth = 300;
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
   height: '95vh',
-  borderRadius: 40,
+  borderRadius: 4,
   margin: 15,
   marginRight: 0,
   transition: theme.transitions.create('width', {
@@ -44,7 +44,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
 
 const closedMixin = (theme: Theme): CSSObject => ({
   height: '95vh',
-  borderRadius: 40,
+  borderRadius: 4,
   margin: 15,
   marginRight: 0,
   transition: theme.transitions.create('width', {
@@ -126,6 +126,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             src="logo192Er.png"
             alt="Er Training Logo"
             sx={{
+              padding: '5px',
               transform: 'scale(0.75)',
               display: !open ? 'none' : 'flex',
             }}
