@@ -1,8 +1,7 @@
 import { Box,  Stack, IconButton, Card, Typography, InputAdornment, TextField,} from '@mui/material'
 import {Table, TableBody, TableCell, TableHead, TableContainer, TableRow, TablePagination } from '@mui/material';
 import { useState } from 'react';
-import { User } from '../models/models'
-import L from 'lodash'
+import { User } from '../models/models';
 import {teachersList, studentsList} from '../apis/tutor_call'
 // Icone
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
