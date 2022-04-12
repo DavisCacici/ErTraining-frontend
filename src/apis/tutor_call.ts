@@ -22,12 +22,12 @@ export const tutorsList = () => {
     .catch((error)=>console.log(error));
 }
 
-export const teachersList = () => {
+export const teachersList = async () => {
     const token = sessionStorage.getItem('token');
     axios.get(`${SERVER_URL}/users/teachersList`,{ headers: {
         'Authorization': `Bearer ${token}` 
     }})
-    .then((value) => console.log(value))
+    .then(value => console.log(value))
     .catch((error)=>console.log(error));
 }
 
@@ -115,15 +115,6 @@ export const getCourse = (id: number) => {
     .catch((error)=>console.log(error));
 }
 
-export const getUsersCourse = (id: number) => {
-    const token = sessionStorage.getItem('token');
-    axios.get(`${SERVER_URL}/courses/getUsersCourse/${id}`,{ headers: {
-        'Authorization': `Bearer ${token}` 
-    }})
-    .then((value) => console.log(value))
-    .catch((error)=>console.log(error));
-}
-
 export const addCourse = () => {
     const token = sessionStorage.getItem('token');
     axios.post(`${SERVER_URL}/courses/addCourse`,{ headers: {
@@ -144,10 +135,29 @@ export const editCourse = (id: number) => {
     .catch((error)=>console.log(error));
 }
 
-
-export const addUsersToCourse = (id: number, users: Array<User>) => {
+export const deleteCourse = (id: number,) => {
     const token = sessionStorage.getItem('token');
-    axios.put(`${SERVER_URL}/courses/addUsersToCourse/${id}`, {
+    axios.delete(`${SERVER_URL}/courses/deleteCourse/${id}`, { headers: {
+        'Authorization': `Bearer ${token}` 
+    }})
+    .then((value) => console.log(value))
+    .catch((error)=>console.log(error));
+}
+
+//progress
+
+export const getUsersCourse = (id: number) => {
+    const token = sessionStorage.getItem('token');
+    axios.get(`${SERVER_URL}/courses/getUsersCourse/${id}`,{ headers: {
+        'Authorization': `Bearer ${token}` 
+    }})
+    .then((value) => console.log(value))
+    .catch((error)=>console.log(error));
+}
+
+export const addUsersCourse = (id: number, users: Array<User>) => {
+    const token = sessionStorage.getItem('token');
+    axios.put(`${SERVER_URL}/courses/addUsersCourse/${id}`, {
         users: users
     },{ headers: {
         'Authorization': `Bearer ${token}` 
@@ -155,3 +165,13 @@ export const addUsersToCourse = (id: number, users: Array<User>) => {
     .then((value) => console.log(value))
     .catch((error)=>console.log(error));
 }
+
+export const removeUsersCourse = (id: number,) => {
+    const token = sessionStorage.getItem('token');
+    axios.delete(`${SERVER_URL}/courses/removeUsersCourse/${id}`, { headers: {
+        'Authorization': `Bearer ${token}` 
+    }})
+    .then((value) => console.log(value))
+    .catch((error)=>console.log(error));
+}
+
