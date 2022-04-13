@@ -26,7 +26,7 @@ import "./courses-list.scss";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import PlayCircleTwoToneIcon from "@mui/icons-material/PlayCircleTwoTone";
-import { Course } from "../models/models";
+import { Course, User } from "../models/models";
 
 const theme = createTheme({
   typography: {
@@ -136,7 +136,7 @@ export const CoursesList: React.FC = () => {
                 sx={{
                   minHeight: 15,
                   justifyContent: "center",
-                  px: 1
+                  px: 1,
                 }}
               >
                 <ListItemText
