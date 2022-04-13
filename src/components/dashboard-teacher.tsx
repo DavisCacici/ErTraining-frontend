@@ -1,7 +1,7 @@
 import {CoursesList} from './courses-list-tutor';
 import { ShortcutTeacher } from './shortcut-teacher';
 
-export const Dashboard: React.FC = () => {
+export const DashboardTeacher: React.FC = () => {
   return (
     <div> 
       <h2>Dashboard</h2>
