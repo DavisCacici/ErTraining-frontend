@@ -5,7 +5,7 @@ import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
 import { ProtectedRoute } from './auth/protectedRoute';
 import { Anagrafiche } from './angrafiche';
-import { Dashboard } from './dashboard-tutor';
+import { Dashboard } from './dashboard';
 import { Layout } from './layout';
 import { Login } from './login';
 import { NoMatch } from './no_match';

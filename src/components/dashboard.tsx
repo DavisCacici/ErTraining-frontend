@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { CoursesList } from './courses-list-tutor';
+import { CoursesList } from './courses-list';
 import { ShortcutTutor } from './shortcut-tutor';
 import { User } from '../models/models';
+import { ShortcutTeacher } from './shortcut-teacher';
 
 interface DashboardProps {
   GLOBAL_USER: User;
@@ -14,7 +15,6 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
       <div style={{ margin: 'auto' }}>
         <h2>Dashboard</h2>
         <div>
-          {/* <Link to="/">Go to the home page</Link> */}
           <ShortcutTutor></ShortcutTutor>
           <CoursesList></CoursesList>
         </div>
@@ -23,7 +23,22 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
   }
 
   if (GLOBAL_USER.role === 'teacher') {
-    return <></>;
+    return (
+      <div style={{ margin: 'auto' }}>
+        <h2>Dashboard</h2>
+        <div>
+          <ShortcutTeacher></ShortcutTeacher>
+          <CoursesList></CoursesList>
+        </div>
+      </div>
+    );
   }
-  return <></>;
+  return (
+    <div style={{ margin: 'auto' }}>
+        <h2>Dashboard</h2>
+        <div>
+          <CoursesList></CoursesList>
+        </div>
+      </div>
+  );
 };

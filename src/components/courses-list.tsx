@@ -26,6 +26,7 @@ import "./courses-list.scss";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import PlayCircleTwoToneIcon from "@mui/icons-material/PlayCircleTwoTone";
+import { Course } from "../models/models";
 
 const theme = createTheme({
   typography: {
@@ -41,15 +42,24 @@ const theme = createTheme({
   },
 });
 
-const list = [
+let coursesList: Course[] = [
   {
-    courseName: "Corso sicurezza rischio basso",
+    id: 1,
+    name: "Corso Sicurezza sul Lavoro rischio basso",
+    description: "",
+    state: "active",
   },
   {
-    courseName: "Corso sicurezza rischio medio",
+    id: 2,
+    name: "Corso Sicurezza sul Lavoro rischio medio",
+    description: "",
+    state: "active",
   },
   {
-    courseName: "Corso sicurezza rischio alto",
+    id: 3,
+    name: "Corso Antincendio rischio alto",
+    description: "",
+    state: "active",
   },
 ];
 
@@ -120,32 +130,35 @@ export const CoursesList: React.FC = () => {
               borderRadius: "5px",
             }}
           >
-            <ListItemButton
-              key={"prova"}
-              sx={{
-                minHeight: 15,
-                justifyContent: "center",
-                px: 1,
-              }}
-            >
-              <ListItemText
-                primary={"Corso sicurezza rischio basso"}
-                sx={{ ml: 2, opacity: 1 }}
-                onClick={() => {
-                  console.log("Dettaglio corso premuto!");
-                }}
-              />
-              <ListItemIcon
+            {coursesList.map((Course) => (
+              <ListItemButton
+                key={Course.id}
                 sx={{
-                  minWidth: 0,
-                  mr: "auto",
+                  minHeight: 15,
                   justifyContent: "center",
-                  color: "secondary",
+                  px: 1
                 }}
               >
-                <IconeAzioniCorso />
-              </ListItemIcon>
-            </ListItemButton>
+                <ListItemText
+                  key={Course.name}
+                  primary={Course.name}
+                  sx={{ ml: 2, opacity: 1 }}
+                  onClick={() => {
+                    console.log("Dettaglio corso premuto!");
+                  }}
+                />
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: "auto",
+                    justifyContent: "center",
+                    color: "secondary",
+                  }}
+                >
+                  <IconeAzioniCorso />
+                </ListItemIcon>
+              </ListItemButton>
+            ))}
           </List>
         </CardContent>
       </Card>
