@@ -1,5 +1,6 @@
 import { Email, Password } from '@mui/icons-material';
 import axios from 'axios';
+import { transform } from 'typescript';
 import { SERVER_URL } from '../config';
 import { User } from '../models/models'
 
@@ -8,7 +9,9 @@ export const usersList = () => {
     const token = sessionStorage.getItem('token');
     axios.get(`${SERVER_URL}/users/usersList`,{ headers: {
         'Authorization': `Bearer ${token}` 
-    }})
+    }, transformResponse : [function(value){
+        return value;
+    }]}, )
     .then((value) => console.log(value))
     .catch((error)=>console.log(error));
 }
@@ -22,22 +25,18 @@ export const tutorsList = () => {
     .catch((error)=>console.log(error));
 }
 
-export const teachersList = () => {
+export const teachersList = ():Promise<User[]> => {
     const token = sessionStorage.getItem('token');
-    axios.get(`${SERVER_URL}/users/teachersList`,{ headers: {
+    return axios.get(`${SERVER_URL}/users/teachersList`,{ headers: {
         'Authorization': `Bearer ${token}` 
     }})
-    .then((value) => console.log(value))
-    .catch((error)=>console.log(error));
 }
 
-export const studentsList = () => {
+export const studentsList = ():Promise<User[]> => {
     const token = sessionStorage.getItem('token');
-    axios.get(`${SERVER_URL}/users/studentsList`,{ headers: {
+    return axios.get(`${SERVER_URL}/users/studentsList`,{ headers: {
         'Authorization': `Bearer ${token}` 
     }})
-    .then((value) => console.log(value))
-    .catch((error)=>console.log(error));
 }
 
 export const getUser = (id: number) => {
@@ -86,13 +85,11 @@ export const editPassword = (id: number, password: string) => {
     .catch((error)=>console.log(error));
 }
 
-export const deleteUser = (id: number,) => {
+export const deleteUser = (id: number) => {
     const token = sessionStorage.getItem('token');
-    axios.delete(`${SERVER_URL}/users/editUser/password/${id}`, { headers: {
+    return axios.delete(`${SERVER_URL}/users/editUser/password/${id}`, { headers: {
         'Authorization': `Bearer ${token}` 
     }})
-    .then((value) => console.log(value))
-    .catch((error)=>console.log(error));
 }
 
 //courses

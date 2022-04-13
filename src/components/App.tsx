@@ -4,7 +4,7 @@ import { User } from '../models/models';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
 import { ProtectedRoute } from './auth/protectedRoute';
-import { Anagrafiche } from './angrafiche';
+import { AnagraficaRouteWrapper } from './anagraficheRouteWrapper';
 import { Dashboard } from './dashboard-tutor';
 import { Layout } from './layout';
 import { Login } from './login';
@@ -45,7 +45,7 @@ export const App: React.FC = () => {
         <Route index element={<Dashboard />} />
 
         {/* <Route path={AppRoutes.LOGIN} element={<Login setIsAuth={setIsAuth} />} /> */}
-        <Route path={AppRoutes.ABOUT} element={<About />} />
+        <Route path={AppRoutes.ABOUT} element={<AnagraficaRouteWrapper />} />
         <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
         <Route path={AppRoutes.PROFILE} element={<Profile />} />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
