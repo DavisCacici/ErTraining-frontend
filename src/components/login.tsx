@@ -20,6 +20,21 @@ import { Routes as AppRoutes } from '../routes';
 import { User } from '../models/models';
 import { login } from '../apis/generale_call';
 import jwt_decode from 'jwt-decode';
+import { AxiosResponse } from 'axios';
+
+interface Payload {
+  email: string;
+  exp: number;
+  iat: number;
+  id: number;
+  iss: string;
+  jti: string;
+  name: string;
+  nbf: number;
+  prv: string;
+  role: string;
+  sub: string;
+}
 
 interface LoginProps {
   readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,34 +48,52 @@ export const Login: React.FC<LoginProps> = (props) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (user: string, pass: string) => {
-    //api call
-    const token = await login(user, pass)
-      .then((value) => {
-        const token = value.data.access_token;
-        console.log(token);
-
-        //set token in memory
+  //TODO: error handling - ??
+  const handleLogin = (user: string, pass: string) => {
+    // api call
+    login(user, pass)
+      .then((res) => {
+        // return res;
+        // set token in memory
+        const token: string = res.data.access_token;
         sessionStorage.setItem('token', token);
 
         //get blobal user
-        // const payload = jwt_decode<object>(token);
-        // console.log(payload);
+        const payload = jwt_decode<Payload>(token);
+        console.log(payload);
 
-        //set global usr
-        const loggedUser: User = {
-          id: 1,
-          user_name: user,
-          email: pass,
-        };
-
-        setGlobalUser(loggedUser);
-        setIsAuth(true);
-        navigate(AppRoutes.DASHBOARD);
+        if (res.status === 200) {
+          // set global usr
+          const loggedUser: User = {
+            id: payload.id,
+            user_name: payload.name,
+            email: payload.email,
+            role: payload.role,
+          };
+          setGlobalUser(loggedUser);
+          setIsAuth(true);
+          navigate(AppRoutes.DASHBOARD);
+        }
       })
-      .catch((error) => {
-        alert(error);
+      .catch((err) => {
+        alert(`ERRORE: ${err}`);
       });
+  };
+
+  // FAKE LOGIN
+  const fakeLogin = (e: any) => {
+    e.preventDefault();
+    const role: string = e.target.value;
+    // set global usr
+    const loggedUser: User = {
+      id: 1,
+      user_name: 'fake',
+      email: 'fake@login.com',
+      role: role,
+    };
+    setGlobalUser(loggedUser);
+    setIsAuth(true);
+    navigate(AppRoutes.DASHBOARD);
   };
 
   /*useEffect(()=>{login(email, password);}, []);*/
@@ -70,7 +103,6 @@ export const Login: React.FC<LoginProps> = (props) => {
   const handlePassword = (e: any) => {
     setPassword(e.target.value);
   };
-
   return (
     <Grid
       container
@@ -92,11 +124,10 @@ export const Login: React.FC<LoginProps> = (props) => {
             <CardMedia
               component="img"
               height="125"
-              src="E 3.png"
+              src="logo192Er.png"
               alt="Er Training Logo"
               sx={{ mb: 5, transform: 'scale(0.85)' }}
             />
-
             <FormControl margin="dense">
               <TextField
                 required
@@ -134,6 +165,18 @@ export const Login: React.FC<LoginProps> = (props) => {
               </Button>
             </CardActions>
           </CardContent>
+          {/* per test senza servizio api attivo */}
+          <div>
+            Select Role:
+            <div>
+              <select name="Role" onChange={fakeLogin}>
+                <option value="">None</option>
+                <option value="tutor">Tutor</option>
+                <option value="teacher">Teacher</option>
+                <option value="student">Student</option>
+              </select>
+            </div>
+          </div>
         </Card>
       </Grid>
     </Grid>

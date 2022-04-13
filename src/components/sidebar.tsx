@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Routes as AppRoutes } from '../routes';
 
@@ -24,14 +24,17 @@ import {
 import { SearchAppBar } from './searchbar';
 import CardMedia from '@mui/material/CardMedia';
 import { User } from '../models/models';
+import { logout } from '../apis/generale_call';
+import { AxiosResponse } from 'axios';
 
 const drawerWidth = 300;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
   height: '95vh',
-  borderRadius: 40,
+  borderRadius: 4,
   margin: 15,
+  marginRight: 0,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -41,8 +44,9 @@ const openedMixin = (theme: Theme): CSSObject => ({
 
 const closedMixin = (theme: Theme): CSSObject => ({
   height: '95vh',
-  borderRadius: 40,
+  borderRadius: 4,
   margin: 15,
+  marginRight: 0,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -81,14 +85,28 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 interface SideBarProps {
-  readonly onLogout: () => void;
+  readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
   readonly globalUser: User;
 }
 
 export const SideBar: React.FC<SideBarProps> = (props) => {
-  const { onLogout, globalUser } = props;
+  const { setIsAuth, globalUser } = props;
   // const theme = useTheme();
   const [open, setOpen] = useState(true);
+  const navigate = useNavigate();
+
+  //TODO: error handling - ??
+  const handleLogout = async () => {
+    const response: AxiosResponse = await logout();
+    if (response.status === 200) {
+      sessionStorage.removeItem('token');
+      sessionStorage.clear();
+      setIsAuth(false);
+      navigate(AppRoutes.LOGIN);
+    } else {
+      alert(response.status);
+    }
+  };
 
   const handleDrawer = () => {
     setOpen(!open);
@@ -108,6 +126,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             src="logo192Er.png"
             alt="Er Training Logo"
             sx={{
+              padding: '5px',
               transform: 'scale(0.75)',
               display: !open ? 'none' : 'flex',
             }}
@@ -219,7 +238,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
           </ListItemButton>
           <ListItemButton
             component={Link}
-            onClick={onLogout}
+            onClick={handleLogout}
             to="#"
             key={'logout'}
             sx={{
@@ -242,7 +261,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
             />
           </ListItemButton>
-          <div>{globalUser.user_name}</div>
+          <div>{globalUser.role}</div>
         </List>
       </Drawer>
     </Box>

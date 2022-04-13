@@ -4,6 +4,7 @@ import { User } from '../models/models';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
 import { ProtectedRoute } from './auth/protectedRoute';
+import { Anagrafiche } from './angrafiche';
 import { Dashboard } from './dashboard-tutor';
 import { Layout } from './layout';
 import { Login } from './login';
@@ -18,6 +19,7 @@ export const App: React.FC = () => {
     id: 0,
     user_name: '',
     email: '',
+    role: '',
   });
 
   return (
@@ -31,20 +33,21 @@ export const App: React.FC = () => {
         path={AppRoutes.HOME}
         element={
           <ProtectedRoute isAuth={isAuth}>
-            <Layout
-              globalUser={globalUser}
-              onLogout={() => {
-                setIsAuth(false);
-              }}
-            />
+            <Layout globalUser={globalUser} setIsAuth={setIsAuth} />
           </ProtectedRoute>
         }
       >
-        <Route index element={<Dashboard />} />
+        <Route index element={<Dashboard GLOBAL_USER={globalUser} />} />
 
         {/* <Route path={AppRoutes.LOGIN} element={<Login setIsAuth={setIsAuth} />} /> */}
-        <Route path={AppRoutes.ABOUT} element={<About />} />
-        <Route path={AppRoutes.DASHBOARD} element={<Dashboard />} />
+        <Route
+          path={AppRoutes.ABOUT}
+          element={<Anagrafiche type="teacher" />}
+        />
+        <Route
+          path={AppRoutes.DASHBOARD}
+          element={<Dashboard GLOBAL_USER={globalUser} />}
+        />
         <Route path={AppRoutes.PROFILE} element={<Profile />} />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
 
