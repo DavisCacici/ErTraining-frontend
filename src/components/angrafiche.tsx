@@ -39,7 +39,7 @@ const IconeAzioniAngarfica: React.FC = () => {
 };
 
 interface AnagraficheProps {
-  readonly type: string;
+  readonly GLOBAL_USER: User;
 }
 
 export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (
@@ -47,6 +47,8 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (
 ) => {
   //pre Mock-up
   let Data: User[] = [];
+  const { GLOBAL_USER } = props;
+  const type: string = GLOBAL_USER.role;
 
   //Chiamate Api condizionali in base al Props
   {
@@ -114,7 +116,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (
         sx={{ pb: 5 }}
       >
         <Typography textAlign="left" variant="h5" sx={{ fontWeight: 'bold' }}>
-          Anagrafica {props.type}{' '}
+          Anagrafica {type}{' '}
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
           <TextField
@@ -143,7 +145,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (
           sx={{ mx: 2, my: 1 }}
         >
           <Typography textAlign="left" variant="h6" fontWeight="bold">
-            {props.type}
+            {type}
           </Typography>
           <IconButton
             color="primary"

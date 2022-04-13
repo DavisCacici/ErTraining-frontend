@@ -10,10 +10,7 @@ export const Routes = {
   LOGOUT: 'logout',
 
   DASHBOARD: 'dashboard',
-  // BOARDADMIN: 'boardadmin',
-  // BOARDTUTOR: 'boardtutor',
-  // BOARDTEACHER: 'boardteacher',
-  // BOARDSTUDENT: 'boardstudent',
+  USERS: 'anagrafiche',
 
   NOMATCH: '*',
 };

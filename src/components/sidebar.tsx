@@ -86,11 +86,11 @@ const Drawer = styled(MuiDrawer, {
 
 interface SideBarProps {
   readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
-  readonly globalUser: User;
+  readonly GLOBAL_USER: User;
 }
 
 export const SideBar: React.FC<SideBarProps> = (props) => {
-  const { setIsAuth, globalUser } = props;
+  const { setIsAuth, GLOBAL_USER } = props;
   // const theme = useTheme();
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
@@ -139,30 +139,32 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
         </DrawerHeader>
         <SearchAppBar open={open} />
         <List>
-          <ListItemButton
-            component={Link}
-            to="about"
-            key={'about'}
-            sx={{
-              minHeight: 48,
-              justifyContent: 'initial',
-              px: 3.5,
-            }}
-          >
-            <ListItemIcon
+          {GLOBAL_USER.role === 'tutor' ?? (
+            <ListItemButton
+              component={Link}
+              to="anagrafiche"
+              key={'anagrafiche'}
               sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
+                minHeight: 48,
+                justifyContent: 'initial',
+                px: 3.5,
               }}
             >
-              <InfoTwoTone />
-            </ListItemIcon>
-            <ListItemText
-              primary={'ABOUT'}
-              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
-            />
-          </ListItemButton>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <InfoTwoTone />
+              </ListItemIcon>
+              <ListItemText
+                primary={'USERS'}
+                sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          )}
           <ListItemButton
             component={Link}
             to="dashboard"
@@ -238,6 +240,30 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
           </ListItemButton>
           <ListItemButton
             component={Link}
+            to="about"
+            key={'about'}
+            sx={{
+              minHeight: 48,
+              justifyContent: 'initial',
+              px: 3.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <InfoTwoTone />
+            </ListItemIcon>
+            <ListItemText
+              primary={'ABOUT'}
+              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+            />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
             onClick={handleLogout}
             to="#"
             key={'logout'}
@@ -261,7 +287,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
             />
           </ListItemButton>
-          <div>{globalUser.role}</div>
+          <div>{GLOBAL_USER.role}</div>
         </List>
       </Drawer>
     </Box>

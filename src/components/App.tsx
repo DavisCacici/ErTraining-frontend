@@ -33,7 +33,7 @@ export const App: React.FC = () => {
         path={AppRoutes.HOME}
         element={
           <ProtectedRoute isAuth={isAuth}>
-            <Layout globalUser={globalUser} setIsAuth={setIsAuth} />
+            <Layout GLOBAL_USER={globalUser} setIsAuth={setIsAuth} />
           </ProtectedRoute>
         }
       >
@@ -41,15 +41,16 @@ export const App: React.FC = () => {
 
         {/* <Route path={AppRoutes.LOGIN} element={<Login setIsAuth={setIsAuth} />} /> */}
         <Route
-          path={AppRoutes.ABOUT}
-          element={<Anagrafiche type="teacher" />}
-        />
-        <Route
           path={AppRoutes.DASHBOARD}
           element={<Dashboard GLOBAL_USER={globalUser} />}
         />
+        <Route
+          path={AppRoutes.USERS}
+          element={<Anagrafiche GLOBAL_USER={globalUser} />}
+        />
         <Route path={AppRoutes.PROFILE} element={<Profile />} />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
+        <Route path={AppRoutes.ABOUT} element={<About />} />
 
         <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
       </Route>

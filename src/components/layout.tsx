@@ -10,15 +10,15 @@ import { User } from '../models/models';
 
 interface LayoutProps {
   readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
-  readonly globalUser: User;
+  readonly GLOBAL_USER: User;
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { setIsAuth, globalUser } = props;
+  const { setIsAuth, GLOBAL_USER } = props;
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <SideBar setIsAuth={setIsAuth} globalUser={globalUser} />
+      <SideBar setIsAuth={setIsAuth} GLOBAL_USER={GLOBAL_USER} />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Outlet />
       </Box>
