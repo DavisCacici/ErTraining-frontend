@@ -139,7 +139,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
         </DrawerHeader>
         <SearchAppBar open={open} />
         <List>
-          {GLOBAL_USER.role === 'tutor' ?? (
+          {GLOBAL_USER.role === 'tutor' ? (
             <ListItemButton
               component={Link}
               to="anagrafiche"
@@ -164,7 +164,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
                 sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
-          )}
+          ) : null}
           <ListItemButton
             component={Link}
             to="dashboard"
