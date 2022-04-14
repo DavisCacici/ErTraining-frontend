@@ -19,7 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { Routes as AppRoutes } from '../routes';
 import { User } from '../models/models';
 import { login } from '../apis/generale_call';
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import { AxiosResponse } from 'axios';
 
 interface Payload {
@@ -164,9 +164,10 @@ export const Login: React.FC<LoginProps> = (props) => {
                 Login
               </Button>
             </CardActions>
-          </CardContent>
-          {/* per test senza servizio api attivo */}
-          <div>
+          </CardContent>  
+        </Card>
+        {/* per test senza servizio api attivo */}
+        <div>
             Select Role:
             <div>
               <select name="Role" onChange={fakeLogin}>
@@ -177,8 +178,9 @@ export const Login: React.FC<LoginProps> = (props) => {
               </select>
             </div>
           </div>
-        </Card>
       </Grid>
     </Grid>
+    
+          
   );
 };

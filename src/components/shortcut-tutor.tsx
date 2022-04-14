@@ -40,7 +40,7 @@ export const ShortcutTutor: React.FC = () => {
         <Card sx={{ maxWidth: 1010, position: "relative" }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              <h5 className="card-title">Shortcut</h5>
+              <h5 className="card-title">Shortcuts</h5>
             </Typography>
             <Grid container spacing={0} direction="row">
               <Grid item xs={3}>
