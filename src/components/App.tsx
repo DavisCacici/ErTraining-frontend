@@ -5,6 +5,7 @@ import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
 import { ProtectedRoute } from './auth/protectedRoute';
 import { Anagrafiche } from './angrafiche';
+import { AnagraficaRouteWrapper } from './anagraficheRouteWrapper';
 import { Dashboard } from './dashboard';
 import { Layout } from './layout';
 import { Login } from './login';
@@ -46,8 +47,8 @@ export const App: React.FC = () => {
         />
         <Route
           path={AppRoutes.USERS}
-          element={<Anagrafiche GLOBAL_USER={globalUser} />}
-        />
+          element={<AnagraficaRouteWrapper/>} 
+        />{/*AnagraficaRouteWrapper Anagrafiche GLOBAL_USER={globalUser} */}
         <Route path={AppRoutes.PROFILE} element={<Profile />} />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
         <Route path={AppRoutes.ABOUT} element={<About />} />
