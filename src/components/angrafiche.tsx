@@ -21,7 +21,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
     //pre Mock-up
     let Data:User[] = []  
     
-    const [type, setType] = useState(props.defaultType);
+    const [type, setType] = useState(' ');
 
     //Chiamate Api condizionali in base al Props
     function decideCalls(type:string){
