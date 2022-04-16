@@ -20,19 +20,25 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
     
     //pre Mock-up
     let Data:User[] = []  
-    
     const [type, setType] = useState(props.defaultType);
 
     //Chiamate Api condizionali in base al Props
     function decideCalls(type:string){
       if(type === 'teacher'){
-        teachersList().then((response)=> {console.log(response)})
-        .catch((error)=>{console.log(error); Data = [user1,user2]; setDataEnd(Data);});
+        teachersList().then((res)=> {
+          const data: Array<User> = res.data;
+          setDataEnd(data);          
+        })
+        .catch((error)=>{console.log(error);});
       }
       else if(type === 'student')
       {
-        studentsList().then((response)=> {console.log(response)})
-        .catch((error)=>{console.log(error); Data = [user1,user2]; setDataEnd(Data)});
+        studentsList().then((res)=> {
+          const data: User[] = res.data;
+          setDataEnd(data);
+          console.log(data);
+        })
+        .catch((error)=>{console.log(error);});
       }else{
         console.log("Questo è un problema");
       }
@@ -94,6 +100,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
         </Box>
           <AnagraficaContent search={chiaveDiRicerca} tableData={DataEnd} type={type}></AnagraficaContent>
       </Card>
+      <button onClick={()=> decideCalls(type)}>Premimi</button>
     </Box>
   );
 };

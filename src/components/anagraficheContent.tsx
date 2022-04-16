@@ -68,9 +68,9 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {richiediRicerca().map((row) => (
-                    <TableRow
-                        key={row.id}
+                    {richiediRicerca().map((row, index) => {
+                    return <TableRow
+                        key={index}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell >{row.id}</TableCell>
                         <TableCell align="left">
@@ -87,7 +87,7 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
                           </Stack>
                         </TableCell>
                     </TableRow>
-                ))}
+                    })}
                 </TableBody>
             </Table>
         </TableContainer>

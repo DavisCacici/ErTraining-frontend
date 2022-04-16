@@ -25,20 +25,18 @@ export const tutorsList = () => {
     .catch((error)=>console.log(error));
 }
 
-export const teachersList = async () => {
+export const teachersList = () => {
     const token = sessionStorage.getItem('token');
     return axios.get(`${SERVER_URL}/users/teachersList`,{ headers: {
         'Authorization': `Bearer ${token}` 
-    }})
-    .then(value => console.log(value))
-    .catch((error)=>console.log(error));
+    }});
 }
 
-export const studentsList = ():Promise<User[]> => {
+export const studentsList = () => {
     const token = sessionStorage.getItem('token');
     return axios.get(`${SERVER_URL}/users/studentsList`,{ headers: {
         'Authorization': `Bearer ${token}` 
-    }})
+    }});
 }
 
 export const getUser = (id: number) => {
