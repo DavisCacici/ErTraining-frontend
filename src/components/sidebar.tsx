@@ -15,6 +15,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {
   DashboardTwoTone,
+  FormatListBulletedTwoTone,
   HomeTwoTone,
   InfoTwoTone,
   LogoutTwoTone,
@@ -133,7 +134,11 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
           />
           <div style={{ height: '130px', marginInline: 'auto' }}>
             <IconButton onClick={handleDrawer} sx={{ mt: 5 }}>
-              {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              {!open ? (
+                <ChevronRightIcon sx={{ color: '#1976D2' }} />
+              ) : (
+                <ChevronLeftIcon sx={{ color: '#1976D2' }} />
+              )}
             </IconButton>
           </div>
         </DrawerHeader>
@@ -145,6 +150,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               to="anagrafiche"
               key={'anagrafiche'}
               sx={{
+                color: '#1976D2',
                 minHeight: 48,
                 justifyContent: 'initial',
                 px: 3.5,
@@ -152,12 +158,13 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             >
               <ListItemIcon
                 sx={{
+                  color: '#1976D2',
                   minWidth: 0,
                   mr: open ? 3 : 'auto',
                   justifyContent: 'center',
                 }}
               >
-                <InfoTwoTone />
+                <FormatListBulletedTwoTone sx={{ color: '#1976D2' }} />
               </ListItemIcon>
               <ListItemText
                 primary={'USERS'}
@@ -170,6 +177,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             to="dashboard"
             key={'dashboard'}
             sx={{
+              color: '#1976D2',
               minHeight: 48,
               justifyContent: 'initial',
               px: 3.5,
@@ -182,7 +190,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
                 justifyContent: 'center',
               }}
             >
-              <DashboardTwoTone />
+              <DashboardTwoTone sx={{ color: '#1976D2' }} />
             </ListItemIcon>
             <ListItemText
               primary={'DASHBOARD'}
@@ -195,6 +203,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             to="settings"
             key={'settings'}
             sx={{
+              color: '#1976D2',
               minHeight: 48,
               justifyContent: 'initial',
               px: 3.5,
@@ -207,7 +216,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
                 justifyContent: 'center',
               }}
             >
-              <SettingsApplicationsTwoTone />
+              <SettingsApplicationsTwoTone sx={{ color: '#1976D2' }} />
             </ListItemIcon>
             <ListItemText
               primary={'SETTINGS'}
@@ -219,6 +228,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             to="profile"
             key={'profile'}
             sx={{
+              color: '#1976D2',
               minHeight: 48,
               justifyContent: 'initial',
               px: 3.5,
@@ -231,7 +241,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
                 justifyContent: 'center',
               }}
             >
-              <PermIdentityTwoTone />
+              <PermIdentityTwoTone sx={{ color: '#1976D2' }} />
             </ListItemIcon>
             <ListItemText
               primary={'PROFILE'}
@@ -243,6 +253,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             to="about"
             key={'about'}
             sx={{
+              color: '#1976D2',
               minHeight: 48,
               justifyContent: 'initial',
               px: 3.5,
@@ -255,7 +266,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
                 justifyContent: 'center',
               }}
             >
-              <InfoTwoTone />
+              <InfoTwoTone sx={{ color: '#1976D2' }} />
             </ListItemIcon>
             <ListItemText
               primary={'ABOUT'}
@@ -268,6 +279,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
             to="#"
             key={'logout'}
             sx={{
+              color: '#1976D2',
               minHeight: 48,
               justifyContent: 'initial',
               px: 3.5,
@@ -280,7 +292,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
                 justifyContent: 'center',
               }}
             >
-              <LogoutTwoTone />
+              <LogoutTwoTone sx={{ color: '#1976D2' }} />
             </ListItemIcon>
             <ListItemText
               primary={'LOGOUT'}
