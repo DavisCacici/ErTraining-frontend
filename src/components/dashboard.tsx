@@ -16,8 +16,8 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
       <div style={{ margin: 'auto' }}>
         <h2>Dashboard</h2>
         <div>
-          {/* <ShortcutTutor></ShortcutTutor>
-          <CoursesList></CoursesList> */}
+          <ShortcutTutor></ShortcutTutor>
+          {/* <CoursesList></CoursesList> */}
           <AddCourse></AddCourse>
         </div>
       </div>

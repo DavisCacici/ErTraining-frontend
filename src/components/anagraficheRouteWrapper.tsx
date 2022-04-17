@@ -23,7 +23,7 @@ export const AnagraficaRouteWrapper:React.FC = () => {
     }
 
     if(creatingNew){
-        return <CreateOrEditUser startingType={type} stratingUser={passingUser} routeHandler={routeBackToAnagrafics}></CreateOrEditUser>
+        return <CreateOrEditUser startingType={type} startingUser={passingUser} routeHandler={routeBackToAnagrafics}></CreateOrEditUser>
     }else{
         return <Anagrafiche defaultType={type} routeCallback={routeToCreateUser}></Anagrafiche>
     }

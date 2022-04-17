@@ -12,8 +12,8 @@ export const ProgressStudent = () => {
     })
 
     return(
-        <>
+        <div>
         
-        </>
+        </div>
     )
 };

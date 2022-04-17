@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // MUI
 import {
   Box,
@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { createTheme, style } from "@mui/system";
 
+
 // CSS customizzato
 import "./courses-list.scss";
 
@@ -27,6 +28,7 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import PlayCircleTwoToneIcon from "@mui/icons-material/PlayCircleTwoTone";
 import { Course, User } from "../models/models";
+import { coursesList } from "../apis/tutor_call";
 
 const theme = createTheme({
   typography: {
@@ -41,27 +43,6 @@ const theme = createTheme({
     ].join(","),
   },
 });
-
-let coursesList: Course[] = [
-  {
-    id: 1,
-    name: "Corso Sicurezza sul Lavoro rischio basso",
-    description: "",
-    state: "active",
-  },
-  {
-    id: 2,
-    name: "Corso Sicurezza sul Lavoro rischio medio",
-    description: "",
-    state: "active",
-  },
-  {
-    id: 3,
-    name: "Corso Antincendio rischio alto",
-    description: "",
-    state: "active",
-  },
-];
 
 const IconeAzioniCorso: React.FC = () => {
   const [clickedButton, setClickedButton] = useState("");
@@ -110,6 +91,12 @@ const IconeAzioniCorso: React.FC = () => {
 };
 
 export const CoursesList: React.FC = () => {
+  const [courses, setCourses] = useState<Course[]>([]);
+  useEffect(() => {
+    coursesList().then((res: any) => setCourses(res.data.data as Course[]))
+    .catch((error: any) => alert(error));
+  });
+
   return (
     <div className="card-style">
       <Card sx={{ maxWidth: 1010, position: "relative" }}>
@@ -130,9 +117,9 @@ export const CoursesList: React.FC = () => {
               borderRadius: "5px",
             }}
           >
-            {coursesList.map((Course) => (
+            {courses.map((course) => (
               <ListItemButton
-                key={Course.id}
+                key={course.id}
                 sx={{
                   minHeight: 15,
                   justifyContent: "center",
@@ -140,8 +127,8 @@ export const CoursesList: React.FC = () => {
                 }}
               >
                 <ListItemText
-                  key={Course.name}
-                  primary={Course.name}
+                  key={course.name}
+                  primary={course.name}
                   sx={{ ml: 2, opacity: 1 }}
                   onClick={() => {
                     console.log("Dettaglio corso premuto!");
