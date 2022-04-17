@@ -15,6 +15,7 @@ interface AnagraficheContentProps {
     readonly type:string;
     readonly search:string|undefined;
     decideCall():void;
+    routeToCreateOrEdit(u:User):void;
 };
 
 
@@ -85,7 +86,7 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
                         </TableCell>
                         <TableCell align="right">
                           <Stack direction='row' justifyContent='right' spacing={1}>
-                            <IconButton onClick={ () => {console.log('Edit Button')}} aria-label="edit">
+                            <IconButton onClick={ () => {props.routeToCreateOrEdit(row)}} aria-label="edit">
                               <EditTwoToneIcon color="primary"/>
                             </IconButton>
                             <IconButton onClick={ () => deleteRequest(row.id)} aria-label="delete">

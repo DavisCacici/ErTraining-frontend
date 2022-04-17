@@ -1,7 +1,7 @@
 import { Box,Typography, InputAdornment, TextField, Card, IconButton, Tabs, Tab} from '@mui/material'
 import { User } from '../models/models'
 import { teachersList, studentsList, deleteUser } from '../apis/tutor_call'
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { AnagraficaContent } from './anagraficheContent';
 import _ from "lodash";
 // Icone
@@ -14,14 +14,12 @@ import SchoolTwoToneIcon from '@mui/icons-material/SchoolTwoTone';
 
 interface AnagraficheProps {
     readonly defaultType:string;
-    routeCallback(s:string):void;
+    routeCallback(s?:string,u?:User):void;
 };
  
 export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) => {
     
-    //pre Mock-up
-    let Data:User[] = []  
-    const [type, setType] = useState(props.defaultType);
+    const [type, setType] = useState('');
 
     //Chiamate Api condizionali in base al Props
     function decideCalls(type:string){
@@ -30,7 +28,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
           setDataEnd(res.data.data as User[]);  
           console.log(res.data.data);    
         })
-        .catch((error)=>{console.log(error);});
+        .catch((error)=>{console.log(error); setDataEnd([user1])});
       }
       else if(type === 'student')
       {
@@ -50,25 +48,16 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
         decideCalls(type);
       }, []) 
 
-  //Mock-up Data
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setType(newValue);
+    refershApi(newValue);
+  };
 
   const user1: User = {
     id: 1,
     user_name: 'pino',
     email: 'user1@mail.com',
     role: 'teacher',
-  };
-
-  const user2: User = {
-    id: 2,
-    user_name: 'giacomo',
-    email: 'user2@mail.com',
-    role: 'teacher',
-  };
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setType(newValue);
-    refershApi(newValue);
   };
 
   const [DataEnd, setDataEnd] = useState<User[]>([]);
@@ -95,11 +84,11 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
             <Tab value={'student'} icon={<SchoolTwoToneIcon />} label="STUDENTS" />
             <Tab value={'teacher'} icon={<CoPresentTwoToneIcon />} label="TEACHERS" />
           </Tabs>
-          <IconButton color='primary' aria-label='Add' onClick={()=>{console.log('route to Add User')}}>
+          <IconButton color='primary' aria-label='Add' onClick={()=>{props.routeCallback(type)}}>
               <AddCircleTwoToneIcon fontSize='large' ></AddCircleTwoToneIcon>
           </IconButton>
         </Box>
-          <AnagraficaContent search={chiaveDiRicerca} tableData={DataEnd} type={type} decideCall={() => refershApi(type)}></AnagraficaContent>
+          <AnagraficaContent search={chiaveDiRicerca} tableData={DataEnd} type={type} decideCall={() => refershApi(type)} routeToCreateOrEdit={(e:User) => {props.routeCallback(type, e)}}></AnagraficaContent>
       </Card>
     </Box>
   );

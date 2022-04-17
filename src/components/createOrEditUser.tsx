@@ -1,20 +1,24 @@
 import {Card, CardActions ,Button, FormControl, Grid, TextField, Box, Typography, CardContent, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material'
-import { useEffect, useState } from 'react';
+import {User} from '../models/models'
 import React from 'react'
 
 interface CreateUserProps{
-    readonly startingValue?:string;
+    readonly startingType?:string;
+    readonly stratingUser?:User;
     routeHandler():void;
 }
 
 
-export const CreateUser:React.FunctionComponent<CreateUserProps> = (props) => {
+export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props) => {
 
     //const [startingValue, setStartingValue] = useState('')
     function handleSelectStartingValue(s:string|undefined):string{
         return s?s:'';
     }
-
+    
+    const autoComopleteIfPossibile = (data:string|number|undefined) => {
+        return data? data:undefined;
+    }
     return (
     <Box>
         <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Crea Nuovo Utente</Typography>
@@ -25,8 +29,8 @@ export const CreateUser:React.FunctionComponent<CreateUserProps> = (props) => {
                     <FormControl fullWidth margin='dense'>
                     <InputLabel id="role-label">Role</InputLabel>
                         <Select
-                            defaultValue={handleSelectStartingValue(props.startingValue)}
-                            required={true}
+                            defaultValue={handleSelectStartingValue(props.startingType)}
+                            required
                             labelId="role-label"
                             id="role"
                             label="Role"
@@ -37,6 +41,8 @@ export const CreateUser:React.FunctionComponent<CreateUserProps> = (props) => {
                         </Select>
                         <FormHelperText>Selezionare un Ruolo è obbligatorio*</FormHelperText>
                         <TextField
+                        required
+                        defaultValue={autoComopleteIfPossibile(props.stratingUser?.user_name)}
                         id="username"
                         label="Nome"
                         type="email"
@@ -44,12 +50,22 @@ export const CreateUser:React.FunctionComponent<CreateUserProps> = (props) => {
                         onChange={() => {console.log("Hello !")}}
                         ></TextField>
                         <TextField
+                        required
+                        defaultValue={autoComopleteIfPossibile(props.stratingUser?.email)}
                         id="mail"
                         label="Mail"
                         type="email"
                         margin='dense'
                         onChange={() => {console.log("Hello !")}}
                         ></TextField>
+                        <TextField
+                        id="password"
+                        label="Password"
+                        type='password'
+                        margin='dense'
+                        onChange={() => {console.log("Hello !")}}
+                        ></TextField>
+                        <FormHelperText>Lasciare questo campo vuoto nel caso non si voglia modificare la password corrente</FormHelperText>
                     </FormControl>
                     <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
                         <Button variant="contained" onClick={()=>{props.routeHandler()}}>Crea</Button>

@@ -4,7 +4,7 @@ import { User } from '../models/models';
 import { Routes as AppRoutes } from '../routes';
 import { About } from './about';
 import { ProtectedRoute } from './auth/protectedRoute';
-import { Anagrafiche } from './angrafiche';
+import { Anagrafiche } from './anagrafiche';
 import { AnagraficaRouteWrapper } from './anagraficheRouteWrapper';
 import { Dashboard } from './dashboard';
 import { Layout } from './layout';
