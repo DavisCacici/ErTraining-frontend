@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   ButtonGroup,
@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 import "./courses-list.scss";
+import { AddCourse } from "./add-course";
+import { render } from "@testing-library/react";
 
 const theme = createTheme({
   typography: {
@@ -33,7 +35,13 @@ const classes = {
   },
 };
 
-export const ShortcutTutor: React.FC = () => {
+// interface ButtonProps {
+//   // readonly text: string;
+//   readonly clickCallback: () => void;
+// }
+
+export const ShortcutTutor: React.FC = (props) => {
+
   return (
     <div style={classes.root}>
       <div className="card-style">
@@ -75,7 +83,7 @@ export const ShortcutTutor: React.FC = () => {
                   sx={{ ml: 0 }}
                   onClick={() => {
                     console.log("Aggiungi corso premuto!");
-                  }}
+                  }}            
                 >
                   Add course
                 </Button>
@@ -85,7 +93,7 @@ export const ShortcutTutor: React.FC = () => {
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    console.log("Aggiungi corso premuto!");
+                    console.log("Aggiungi utente premuto!");
                   }}
                 >
                   Add user
@@ -98,3 +106,12 @@ export const ShortcutTutor: React.FC = () => {
     </div>
   );
 };
+
+function handleClick() {
+  throw new Error("Function not implemented.");
+}
+
+function clickCallback() {
+  throw new Error("Function not implemented.");
+}
+
