@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 import { App } from './components/App';
 
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -27,9 +27,9 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <React.StrictMode>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </React.StrictMode>
   </ThemeProvider>,
 

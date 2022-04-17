@@ -40,7 +40,7 @@ export const logout = () => {
 
 export const recovery = (email: string) => {
   return axios.post(`${SERVER_URL}/recovery`, {
-    email: email
+    email: email,
   });
   // .then((value) => {
   //   const token = value.data.access_token;
@@ -56,29 +56,40 @@ export const recovery = (email: string) => {
 
 export const profile = () => {
   const token = sessionStorage.getItem('token');
-  axios.get(`${SERVER_URL}/profile`,{headers: {
-      'Authorization': `Bearer ${token}` 
-  }})
-  .then((value) => console.log(value))
-  .catch((error)=>console.log(error));
-}
+  axios
+    .get(`${SERVER_URL}/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((value) => console.log(value))
+    .catch((error) => console.log(error));
+};
 
 export const resetPassword = () => {
   const token = sessionStorage.getItem('token');
-  axios.post(`${SERVER_URL}/resetPassword`,{
-    password : Password
-  } , {headers: {
-      'Authorization': `Bearer ${token}` 
-  }})
-  .then((value) => console.log(value))
-  .catch((error)=>console.log(error));
-}
+  axios
+    .post(
+      `${SERVER_URL}/resetPassword`,
+      {
+        password: Password,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((value) => console.log(value))
+    .catch((error) => console.log(error));
+};
 
 export const recoveryPassword = () => {
   const token = sessionStorage.getItem('token');
-  axios.post(`${SERVER_URL}/resetPassword`,{
-    email : Email
-  })
-  .then((value) => console.log(value))
-  .catch((error)=>console.log(error));
-}
+  axios
+    .post(`${SERVER_URL}/resetPassword`, {
+      email: Email,
+    })
+    .then((value) => console.log(value))
+    .catch((error) => console.log(error));
+};

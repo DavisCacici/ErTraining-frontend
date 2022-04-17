@@ -68,6 +68,7 @@ export const SearchAppBar: React.FC<searchProps> = (props) => {
         color="inherit"
         sx={{
           // justifyContent: open ? 'initial' : 'center',
+          color: '#1976D2',
           justifyContent: 'center',
           mr: 2,
           my: 1,
