@@ -1,7 +1,7 @@
 import Pusher from 'pusher-js';
 import React from "react";
 
-export const progressStudent = () => {
+export const ProgressStudent = () => {
     var pusher = new Pusher('b25895c8fd0b48f0c6b1', {
         cluster: 'eu'
     });
@@ -10,4 +10,10 @@ export const progressStudent = () => {
     channel.bind('changeProgress', function(data: any){
         alert(JSON.stringify(data));
     })
+
+    return(
+        <>
+        
+        </>
+    )
 };

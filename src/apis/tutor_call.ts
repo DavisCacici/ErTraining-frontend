@@ -87,7 +87,7 @@ export const editPassword = (id: number, password: string) => {
 
 export const deleteUser = (id: number) => {
     const token = sessionStorage.getItem('token');
-    return axios.delete(`${SERVER_URL}/users/editUser/password/${id}`, { headers: {
+    return axios.delete(`${SERVER_URL}/users/deleteUser/${id}`, { headers: {
         'Authorization': `Bearer ${token}` 
     }})
 }

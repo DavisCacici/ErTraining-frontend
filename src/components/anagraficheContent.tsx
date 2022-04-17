@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { Box, Stack, IconButton} from '@mui/material'
 import {Table, TableBody, TableCell, TableHead, TableContainer, TableRow, TablePagination } from '@mui/material';
 import { User } from '../models/models'
+import _ from "lodash";
 
 //icone
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import { deleteUser } from '../apis/tutor_call';
 
 
 interface AnagraficheContentProps {
     readonly tableData:User[];
     readonly type:string;
     readonly search:string|undefined;
+    decideCall():void;
 };
 
 
@@ -32,11 +35,11 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
       setPage(0);
     };
 
-    //const deleteRequest = (id:number) =>{
-      //deleteUser(id).then(() => {decideCalls(props.type)}).catch((e)=>{console.log(e); decideCalls(props.type);})
-    //} 
+    const deleteRequest = (id:number) =>{
+      deleteUser(id).then(() => {props.decideCall()}).catch((e)=>{console.log(e); props.decideCall();})
+    } 
 
-    const richiediRicerca = () =>{
+    const richiediRicerca = (): User[] =>{
         if(filterIfRequired(props.search)){
           const filteredRows = props.tableData.filter((row) => {
             return row.user_name.toLowerCase().includes((props.search as string).toLocaleLowerCase());
@@ -64,11 +67,12 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
                     <TableRow >
                         <TableCell align='left'> ID </TableCell>
                         <TableCell align="left"> User_Name </TableCell>
+                        <TableCell align="left"> Email </TableCell>
                         <TableCell align="right"> Azioni </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {richiediRicerca().map((row, index) => {
+                    {_.map(richiediRicerca(), (row, index) => {
                     return <TableRow
                         key={index}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -76,12 +80,15 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
                         <TableCell align="left">
                             {row.user_name}
                         </TableCell>
+                        <TableCell align="left">
+                            {row.email}
+                        </TableCell>
                         <TableCell align="right">
                           <Stack direction='row' justifyContent='right' spacing={1}>
                             <IconButton onClick={ () => {console.log('Edit Button')}} aria-label="edit">
                               <EditTwoToneIcon color="primary"/>
                             </IconButton>
-                            <IconButton onClick={ () => {console.log('Delete Button')}} aria-label="delete">
+                            <IconButton onClick={ () => deleteRequest(row.id)} aria-label="delete">
                               <DeleteTwoToneIcon color="primary"/>
                             </IconButton>
                           </Stack>

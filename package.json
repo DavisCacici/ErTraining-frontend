@@ -17,6 +17,7 @@
     "axios": "^0.26.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
+    "node-sass": "^7.0.1",
     "normalize.css": "^8.0.1",
     "pusher-js": "^7.0.6",
     "react": "^17.0.2",
@@ -51,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.181"
   }
 }

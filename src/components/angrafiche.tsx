@@ -3,6 +3,7 @@ import { User } from '../models/models'
 import { teachersList, studentsList, deleteUser } from '../apis/tutor_call'
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { AnagraficaContent } from './anagraficheContent';
+import _ from "lodash";
 // Icone
 
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
@@ -20,26 +21,21 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
     
     //pre Mock-up
     let Data:User[] = []  
-<<<<<<< HEAD
     const [type, setType] = useState(props.defaultType);
-=======
-    
-    const [type, setType] = useState(' ');
->>>>>>> f511d4f73e25d8fbab564746425fdcdb77c9503d
 
     //Chiamate Api condizionali in base al Props
     function decideCalls(type:string){
       if(type === 'teacher'){
         teachersList().then((res)=> {
-          const data: Array<User> = res.data;
-          setDataEnd(data);          
+          setDataEnd(res.data.data as User[]);  
+          console.log(res.data.data);    
         })
         .catch((error)=>{console.log(error);});
       }
       else if(type === 'student')
       {
         studentsList().then((res)=> {
-          const data: User[] = res.data;
+          const data: User[] = res.data.data;
           setDataEnd(data);
           console.log(data);
         })
@@ -103,9 +99,8 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
               <AddCircleTwoToneIcon fontSize='large' ></AddCircleTwoToneIcon>
           </IconButton>
         </Box>
-          <AnagraficaContent search={chiaveDiRicerca} tableData={DataEnd} type={type}></AnagraficaContent>
+          <AnagraficaContent search={chiaveDiRicerca} tableData={DataEnd} type={type} decideCall={() => refershApi(type)}></AnagraficaContent>
       </Card>
-      <button onClick={()=> decideCalls(type)}>Premimi</button>
     </Box>
   );
 };
