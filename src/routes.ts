@@ -11,7 +11,6 @@ export const Routes = {
 
   DASHBOARD: 'dashboard',
   USERS: 'anagrafiche',
-  PROGRESS: 'progress',
 
   NOMATCH: '*',
 };

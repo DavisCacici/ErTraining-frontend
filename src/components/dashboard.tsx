@@ -17,8 +17,8 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
         <h2>Dashboard</h2>
         <div>
           <ShortcutTutor></ShortcutTutor>
-          {/* <CoursesList></CoursesList> */}
-          <AddCourse></AddCourse>
+          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
+          {/* <AddCourse></AddCourse> */}
         </div>
       </div>
     );
@@ -30,7 +30,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
         <h2>Dashboard</h2>
         <div>
           <ShortcutTeacher></ShortcutTeacher>
-          <CoursesList></CoursesList>
+          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
         </div>
       </div>
     );
@@ -39,7 +39,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
     <div style={{ margin: 'auto' }}>
         <h2>Dashboard</h2>
         <div>
-          <CoursesList></CoursesList>
+          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
         </div>
       </div>
   );

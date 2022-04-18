@@ -53,7 +53,6 @@ export const App: React.FC = () => {
         <Route path={AppRoutes.PROFILE} element={<Profile />} />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
         <Route path={AppRoutes.ABOUT} element={<AnagraficaRouteWrapper />} />
-        <Route path={AppRoutes.PROGRESS} element={<ProgressStudent />} />
 
         <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
       </Route>

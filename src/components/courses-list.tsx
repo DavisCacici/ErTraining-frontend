@@ -29,6 +29,8 @@ import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import PlayCircleTwoToneIcon from "@mui/icons-material/PlayCircleTwoTone";
 import { Course, User } from "../models/models";
 import { coursesList } from "../apis/tutor_call";
+import { coursesTeacher } from '../apis/teacher_call';
+import { coursesStudent } from '../apis/student_call';
 
 const theme = createTheme({
   typography: {
@@ -89,13 +91,30 @@ const IconeAzioniCorso: React.FC = () => {
     </Stack>
   );
 };
+interface DashboardProps {
+  GLOBAL_USER: User;
+}
 
-export const CoursesList: React.FC = () => {
+export const CoursesList: React.FC<DashboardProps> = (props) => {
   const [courses, setCourses] = useState<Course[]>([]);
   useEffect(() => {
-    coursesList().then((res: any) => setCourses(res.data.data as Course[]))
-    .catch((error: any) => alert(error));
-  });
+    if(props.GLOBAL_USER.role === 'tutor')
+    {
+      coursesList().then((res: any) => setCourses(res.data.data as Course[]))
+      .catch((error: any) => alert(error));
+    }
+    if(props.GLOBAL_USER.role === 'teacher')
+    {
+      coursesTeacher().then((res: any) => setCourses(res.data.data as Course[]))
+      .catch((error: any) => alert(error));
+    }
+    if(props.GLOBAL_USER.role === 'student')
+    {
+      coursesStudent().then((res: any) => setCourses(res.data.data as Course[]))
+      .catch((error: any) => alert(error));
+    }
+    
+  }, []);
 
   return (
     <div className="card-style">

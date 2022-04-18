@@ -25,29 +25,29 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
     }
 
     const CreateUser = () => {
-        if(password !== undefined){
+        console.log(user);
+        let role = 0;
+        if(password){
             if(user.role === 'tutor')
             {
-                addUser(user.user_name, user.email, password, 1)
-                .then((value) => console.log(value))
-                .catch((error) => console.log(error));
+                role = 1
             }
             if(user.role === 'teacher')
             {
-                addUser(user.user_name, user.email, password, 2)
-                .then((value) => console.log(value))
-                .catch((error) => console.log(error));
+                role = 2
             }
             if(user.role === 'student')
             {
-                addUser(user.user_name, user.email, password, 3)
-                .then((value) => console.log(value))
-                .catch((error) => console.log(error));
+                role = 3
             }
+            addUser(user.user_name, user.email, password, role)
+            .then((value) => console.log(value))
+            .catch((error) => console.log(error));
         }
         else{
             alert('La password è obligatoria')
         }  
+        props.routeHandler();
     }
 
     const [password, setPassword] = useState<string>();
@@ -55,7 +55,7 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
         id: 0,
         email: '',
         user_name: '',
-        role: '',
+        role: props.startingType!,
     });
     //const [startingValue, setStartingValue] = useState('')
     function handleSelectStartingValue(s:string|undefined):string{
@@ -67,7 +67,6 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
     }
     return (
     <Box>
-        {console.log(user)}
         <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Crea Nuovo Utente</Typography>
         <Grid container direction="column" alignItems="stretch" justifyContent="center" style={{minHeight:"40vh"}}>
         <Grid item>
@@ -83,7 +82,6 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
                             label="Role"
                             onChange={(e)=>{
                                 setUser(prev => ({...prev, role: e.target.value}))
-                                console.log(user);
                             }}
                         >
                             <MenuItem value={'student'}>Student</MenuItem>
@@ -100,7 +98,6 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
                         margin='dense'
                         onChange={(e)=>{
                             setUser((prev) => ({...prev, user_name: e.target.value}))
-                            console.log(user);
                         }}
                         ></TextField>
                         <TextField
@@ -112,7 +109,6 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
                         margin='dense'
                         onChange={(e)=>{
                             setUser((prev) => ({...prev, email: e.target.value}))
-                            console.log(user);
                         }}
                         ></TextField>
                         <TextField
@@ -132,10 +128,9 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
                             }}>Modifica</Button>:
                             <Button variant="contained" onClick={()=>{
                                 CreateUser();
-                                props.routeHandler();
+                                
                             }}>Crea</Button>
-                        }
-                        
+                        }               
                     </CardActions>
                 </CardContent>    
             </Card>
