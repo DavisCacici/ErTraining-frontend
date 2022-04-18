@@ -94,6 +94,7 @@ export const ShortcutTutor: React.FC = (props) => {
                   color="primary"
                   onClick={() => {
                     console.log("Aggiungi utente premuto!");
+                    console.log("Aggiungi studente premuto!");
                   }}
                 >
                   Add user

@@ -33,12 +33,15 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
         <h2>Dashboard</h2>
         <div>
           <ShortcutTutor></ShortcutTutor>
-          <CoursesList
+          {/* <CoursesList
             id={0}
             name={""}
             state={""}
             description={""}
-          ></CoursesList>
+          ></CoursesList> */}
+          
+          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
+          {/* <AddCourse></AddCourse> */}
         </div>
       </div>
     );
@@ -50,12 +53,13 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
         <h2>Dashboard</h2>
         <div>
           <ShortcutTeacher></ShortcutTeacher>
-          <CoursesList
+          {/* <CoursesList
             id={0}
             name={""}
             state={""}
             description={""}
-          ></CoursesList>
+          ></CoursesList> */}
+          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
         </div>
       </div>
     );
@@ -71,6 +75,11 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
         } } setInput={function (value: SetStateAction<{ title: string; description: string; participants: string; }>): void {
           throw new Error("Function not implemented.");
         } } ></AddCourse> 
+    {/* <div style={{ margin: 'auto' }}>
+        <h2>Dashboard</h2>
+        <div>
+          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
+        </div> */}
       </div>
     </div>
   );
