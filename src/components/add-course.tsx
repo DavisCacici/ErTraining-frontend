@@ -10,40 +10,54 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowLeftTwoToneIcon from "@mui/icons-material/ArrowLeftTwoTone";
-import FileUploadTwoToneIcon from '@mui/icons-material/FileUploadTwoTone';
+import FileUploadTwoToneIcon from "@mui/icons-material/FileUploadTwoTone";
 import "./add-course.scss";
-import { useState } from "react";
+import { Props, useState } from "react";
+import { Course as CourseModel } from "../models/models";
 
 // TODO: aggiungere il componente per caricare il .csv con gli iscritti (UploadButton).
 
-// FIXME: nella card che contiene il form aggiungere barra di scorrimento per quando 
+// FIXME: nella card che contiene il form aggiungere barra di scorrimento per quando
 // la descrizione è multilinea, altrimenti il bottone Publish scompare sotto.
 
-const Input = styled('input')({
-  display: 'none',
-});
-
-// Bottone di Upload per il caricamento di file .csv con i dati dei partecipanti
-export const UploadButton: React.FC = () => {
-  return (
-    <Stack direction="row" alignItems="center" spacing={2}>
-      <label htmlFor="contained-button-file">
-        <Input accept="image/*" id="contained-button-file" multiple type="file" />
-        <Button variant="contained" component="span">
-          Upload
-        </Button>
-      </label>
-      <label htmlFor="icon-button-file">
-        <Input accept="image/*" id="icon-button-file" type="file" />
-        <IconButton color="primary" aria-label="upload picture" component="span">
-          <FileUploadTwoToneIcon />
-        </IconButton>
-      </label>
-    </Stack>
-  );
+interface AddCourseProps {
+  input: () => ["input"];
+  setInput: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      description: string;
+      participants: string;
+    }>
+  >;
 }
 
-export const AddCourse: React.FC = () => {
+export const AddCourse: React.FC<AddCourseProps> = (props) => {
+   
+
+  const [input, setInput] = useState({
+    title: "",
+    description: "",
+    participants: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+
+    setInput(prev => ({...prev, [e.target.name]: e.target.value}));    
+  };
+  
+  const handleClick = (): void => {
+    if (!input.title || !input.description || !input.participants) {
+      return;
+    }
+  
+    setInput({
+      ...input,
+      title: input.title,
+      description: input.description,
+      participants: input.participants,
+    });
+  };
+
   return (
     <div>
       <h2>Add course</h2>
@@ -59,9 +73,12 @@ export const AddCourse: React.FC = () => {
                 id="filled-basic"
                 label="Add course title"
                 variant="filled"
-                size= "small"
+                size="small"
                 helperText="* Please note this is a required field"
                 sx={{ width: "100%", mb: 3 }}
+                // value={{input.title}}
+                onChange={handleChange}
+                name="title"
               />
               <Typography gutterBottom variant="h5" component="h2">
                 <div className="add-course-form">Description</div>
@@ -72,11 +89,14 @@ export const AddCourse: React.FC = () => {
                 // helperText="Add a course description"
                 multiline
                 maxRows={4}
-                size= "small"
+                size="small"
                 // value={value}
                 // onChange={handleChange}
                 variant="filled"
                 sx={{ width: "100%", mb: 3 }}
+                // value={{ input.description }}
+                onChange={handleChange}
+                name="description"
               />
               <Typography gutterBottom variant="h5" component="h2">
                 <div className="add-course-form">Participants</div>
@@ -85,14 +105,17 @@ export const AddCourse: React.FC = () => {
                 id="filled-basic"
                 label="Add or upload participants"
                 variant="filled"
-                size= "small"
+                size="small"
                 // helperText="Add or upload participants"
                 sx={{ width: "100%", mb: 2 }}
+                // value={{ input.participants }}
+                onChange={handleChange}
+                name="participants"
               />
               {/* <UploadButton></UploadButton> */}
               <div>
                 <Grid container justifyContent={"center"}>
-                  <Button 
+                  <Button
                     variant="contained"
                     color="primary"
                     sx={{
@@ -102,9 +125,7 @@ export const AddCourse: React.FC = () => {
                       justifyContent: "center",
                       width: "20%",
                     }}
-                    onClick={() => {
-                      console.log("Publish course premuto!");
-                    }}
+                    onClick={handleClick}
                   >
                     Publish
                   </Button>
