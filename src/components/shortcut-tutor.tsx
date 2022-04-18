@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import {
   Button,
   ButtonGroup,
@@ -12,8 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import "./courses-list.scss";
-import { AddCourse } from "./add-course";
-import { render } from "@testing-library/react";
 
 const theme = createTheme({
   typography: {
@@ -35,10 +33,6 @@ const classes = {
   },
 };
 
-// interface ButtonProps {
-//   // readonly text: string;
-//   readonly clickCallback: () => void;
-// }
 
 export const ShortcutTutor: React.FC = (props) => {
 
@@ -81,9 +75,7 @@ export const ShortcutTutor: React.FC = (props) => {
                   variant="outlined"
                   color="primary"
                   sx={{ ml: 0 }}
-                  onClick={() => {
-                    console.log("Aggiungi corso premuto!");
-                  }}            
+                  onClick={()=>{ console.log("Aggiungi corso premuto!")}}
                 >
                   Add course
                 </Button>

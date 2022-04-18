@@ -2,20 +2,22 @@ import {
   Button,
   Card,
   CardContent,
+  FormControl,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   Stack,
   styled,
   TextField,
   Typography,
 } from "@mui/material";
-import ArrowLeftTwoToneIcon from "@mui/icons-material/ArrowLeftTwoTone";
-import FileUploadTwoToneIcon from "@mui/icons-material/FileUploadTwoTone";
 import "./add-course.scss";
 import { Props, useState } from "react";
 import { Course as CourseModel } from "../models/models";
-
-// TODO: aggiungere il componente per caricare il .csv con gli iscritti (UploadButton).
+import React from "react";
 
 // FIXME: nella card che contiene il form aggiungere barra di scorrimento per quando
 // la descrizione è multilinea, altrimenti il bottone Publish scompare sotto.
@@ -40,7 +42,7 @@ export const AddCourse: React.FC<AddCourseProps> = (props) => {
     participants: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChangeForm = (e: React.ChangeEvent<HTMLInputElement>): void => {
 
     setInput(prev => ({...prev, [e.target.name]: e.target.value}));    
   };
@@ -58,6 +60,12 @@ export const AddCourse: React.FC<AddCourseProps> = (props) => {
     });
   };
 
+  const [participants, setParticipants] = React.useState('');
+
+  const handleChangeSelect = (event: SelectChangeEvent) => {
+    setParticipants(event.target.value);
+  };
+
   return (
     <div>
       <h2>Add course</h2>
@@ -65,54 +73,55 @@ export const AddCourse: React.FC<AddCourseProps> = (props) => {
         <Card>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2" sx={{ mt: 2 }}>
-              <div className="add-course-form">Course title</div>
+              <div className="add-course-form">Add a course title</div>
             </Typography>
             <form>
               <TextField
                 required
-                id="filled-basic"
-                label="Add course title"
-                variant="filled"
+                id="outlined"
+                variant="outlined"
                 size="small"
                 helperText="* Please note this is a required field"
                 sx={{ width: "100%", mb: 3 }}
-                // value={{input.title}}
-                onChange={handleChange}
+                value={input.title}
+                onChange={handleChangeForm}
                 name="title"
               />
+
               <Typography gutterBottom variant="h5" component="h2">
-                <div className="add-course-form">Description</div>
+                <div className="add-course-form">Add a description</div>
               </Typography>
               <TextField
-                id="filled-multiline-flexible"
-                label="Add a description"
-                // helperText="Add a course description"
+                id="outlined-multiline-flexible"
                 multiline
                 maxRows={4}
                 size="small"
-                // value={value}
-                // onChange={handleChange}
-                variant="filled"
+                variant="outlined"
                 sx={{ width: "100%", mb: 3 }}
-                // value={{ input.description }}
-                onChange={handleChange}
+                value={ input.description }
+                onChange={handleChangeForm}
                 name="description"
               />
+             
               <Typography gutterBottom variant="h5" component="h2">
-                <div className="add-course-form">Participants</div>
+                <div className="add-course-form">Select participants</div>
               </Typography>
-              <TextField
-                id="filled-basic"
-                label="Add or upload participants"
-                variant="filled"
-                size="small"
-                // helperText="Add or upload participants"
-                sx={{ width: "100%", mb: 2 }}
-                // value={{ input.participants }}
-                onChange={handleChange}
-                name="participants"
-              />
-              {/* <UploadButton></UploadButton> */}
+
+              <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
+                <Select
+                  labelId="simple-select-label"
+                  id="simple-select"
+                  value={input.participants}
+                  onChange={handleChangeSelect}
+                >
+                  <MenuItem value={1}>Davis Cacici</MenuItem>
+                  <MenuItem value={2}>Marco Villa</MenuItem>
+                  <MenuItem value={3}>Leonardo Garuti</MenuItem>
+                  <MenuItem value={4}>Alexandro Burgagni</MenuItem>
+                  <MenuItem value={5}>Melania Tizzi</MenuItem>
+                </Select>
+              </FormControl>
+
               <div>
                 <Grid container justifyContent={"center"}>
                   <Button
