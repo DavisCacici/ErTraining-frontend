@@ -50,7 +50,7 @@ export const App: React.FC = () => {
           path={AppRoutes.USERS}
           element={<AnagraficaRouteWrapper/>} 
         />{/*AnagraficaRouteWrapper Anagrafiche GLOBAL_USER={globalUser} */}
-        <Route path={AppRoutes.PROFILE} element={<Profile />} />
+        <Route path={AppRoutes.PROFILE} element={<Profile GLOBAL_USER={globalUser} />} />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
         <Route path={AppRoutes.ABOUT} element={<AnagraficaRouteWrapper />} />
 
