@@ -46,7 +46,8 @@ const theme = createTheme({
   },
 });
 
-const IconeAzioniCorso: React.FC = () => {
+
+const IconeAzioniCorso: React.FC<DashboardProps> = (props) => {
   const [clickedButton, setClickedButton] = useState("");
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,17 +59,19 @@ const IconeAzioniCorso: React.FC = () => {
 
   return (
     <Stack direction="row" spacing={1}>
+      {props.GLOBAL_USER.role === 'student' ?
       <IconButton
-        aria-label="play game"
-        onClick={() => {
-          console.log("bottone Play Game premuto!");
-        }}
-        className="button"
-        name="play-button"
-      >
-        <PlayCircleTwoToneIcon color="primary" />
-      </IconButton>
-      <IconButton
+      aria-label="play game"
+      onClick={() => {
+        console.log("bottone Play Game premuto!");
+      }}
+      className="button"
+      name="play-button"
+    >
+      <PlayCircleTwoToneIcon color="primary" />
+    </IconButton> : 
+    <> 
+    <IconButton
         aria-label="edit"
         onClick={() => {
           console.log("bottone Edit premuto!");
@@ -88,6 +91,9 @@ const IconeAzioniCorso: React.FC = () => {
       >
         <DeleteTwoToneIcon color="primary" />
       </IconButton>
+      </>}
+      
+     
     </Stack>
   );
 };
@@ -115,29 +121,6 @@ export const CoursesList: React.FC<DashboardProps> = (props) => {
     }
     
   }, []);
-
- {/* export const CoursesList: React.FC<CourseList> = () => {
-
-  const [coursesList, setCoursesList] = useState<CourseList[]>([
-    {
-      id: 1,
-      name: "Corso Sicurezza sul Lavoro rischio basso",
-      description: "",
-      state: "active",
-    },
-    {
-      id: 2,
-      name: "Corso Sicurezza sul Lavoro rischio medio",
-      description: "",
-      state: "active",
-    },
-    {
-      id: 3,
-      name: "Corso Antincendio rischio alto",
-      description: "",
-      state: "active",
-    },
-  ]); */}
 
   return (
     <div className="card-style">
@@ -184,7 +167,7 @@ export const CoursesList: React.FC<DashboardProps> = (props) => {
                     color: "secondary",
                   }}
                 >
-                  <IconeAzioniCorso />
+                  <IconeAzioniCorso GLOBAL_USER={props.GLOBAL_USER}/>
                 </ListItemIcon>
               </ListItemButton>
             ))}

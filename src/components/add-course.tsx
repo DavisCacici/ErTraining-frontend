@@ -14,56 +14,66 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import OutlinedInput from '@mui/material/OutlinedInput';
 import "./add-course.scss";
-import { Props, useState } from "react";
-import { Course as CourseModel } from "../models/models";
+import { useEffect, useState } from "react";
+import _ from 'lodash';
 import React from "react";
+import { User, Course } from "../models/models";
+import { addCourse, usersList, addUsersCourse } from "../apis/tutor_call";
 
 // FIXME: nella card che contiene il form aggiungere barra di scorrimento per quando
 // la descrizione è multilinea, altrimenti il bottone Publish scompare sotto.
 
-interface AddCourseProps {
-  input: () => ["input"];
-  setInput: React.Dispatch<
-    React.SetStateAction<{
-      title: string;
-      description: string;
-      participants: string;
-    }>
-  >;
+
+interface Props {
+  // readonly GLOBAL_USER: User;
+  readonly courseID?: number;
 }
 
-export const AddCourse: React.FC<AddCourseProps> = (props) => {
-   
+export const AddCourse: React.FC<Props> = (props) => {
+
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    usersList().then((res: any) =>setUsers(res.data.data as User[])).catch((err)=>console.log(err));
+  }, []);
 
   const [input, setInput] = useState({
     title: "",
     description: "",
-    participants: "",
   });
+
 
   const handleChangeForm = (e: React.ChangeEvent<HTMLInputElement>): void => {
 
     setInput(prev => ({...prev, [e.target.name]: e.target.value}));    
+    // console.log(input);
   };
   
-  const handleClick = (): void => {
-    if (!input.title || !input.description || !input.participants) {
-      return;
+  const handleClick = async () => {
+    try{
+      var response = await addCourse(input.title, input.description);
+      if(participants.length > 0 )
+      {
+        addUsersCourse(response.data.data.id, participants).then((res)=>console.log(res)).catch((err)=>console.log(err));
+      }
     }
-  
-    setInput({
-      ...input,
-      title: input.title,
-      description: input.description,
-      participants: input.participants,
-    });
+    catch(e){
+      console.log(e);
+    }
+    
+    
+    
+    // console.log(participants);
   };
 
-  const [participants, setParticipants] = React.useState('');
+  const [participants, setParticipants] = useState<string[]>([]);
 
-  const handleChangeSelect = (event: SelectChangeEvent) => {
-    setParticipants(event.target.value);
+  const handleChangeSelect = (e: SelectChangeEvent<typeof participants>) => { 
+    setParticipants(
+      typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value,
+    );
   };
 
   return (
@@ -109,16 +119,16 @@ export const AddCourse: React.FC<AddCourseProps> = (props) => {
 
               <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
                 <Select
-                  labelId="simple-select-label"
-                  id="simple-select"
-                  value={input.participants}
+                  labelId="demo-multiple-name-label"
+                  id="demo-multiple-name"
+                  multiple
+                  value={participants}
                   onChange={handleChangeSelect}
                 >
-                  <MenuItem value={1}>Davis Cacici</MenuItem>
-                  <MenuItem value={2}>Marco Villa</MenuItem>
-                  <MenuItem value={3}>Leonardo Garuti</MenuItem>
-                  <MenuItem value={4}>Alexandro Burgagni</MenuItem>
-                  <MenuItem value={5}>Melania Tizzi</MenuItem>
+      
+                  {_.map(users, (user, index) => {
+                    return <MenuItem key={index} value={user.id}>{user.user_name}</MenuItem>
+                  })}
                 </Select>
               </FormControl>
 
