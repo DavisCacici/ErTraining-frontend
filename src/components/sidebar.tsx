@@ -144,6 +144,31 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
         </DrawerHeader>
         <SearchAppBar open={open} />
         <List>
+          <ListItemButton
+            component={Link}
+            to="dashboard"
+            key={'dashboard'}
+            sx={{
+              color: '#1976D2',
+              minHeight: 48,
+              justifyContent: 'initial',
+              px: 3.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <DashboardTwoTone sx={{ color: '#1976D2' }} />
+            </ListItemIcon>
+            <ListItemText
+              primary={'DASHBOARD'}
+              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
+            />
+          </ListItemButton>
           {GLOBAL_USER.role === 'tutor' ? (
             <ListItemButton
               component={Link}
@@ -172,31 +197,6 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               />
             </ListItemButton>
           ) : null}
-          <ListItemButton
-            component={Link}
-            to="dashboard"
-            key={'dashboard'}
-            sx={{
-              color: '#1976D2',
-              minHeight: 48,
-              justifyContent: 'initial',
-              px: 3.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <DashboardTwoTone sx={{ color: '#1976D2' }} />
-            </ListItemIcon>
-            <ListItemText
-              primary={'DASHBOARD'}
-              sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
-            />
-          </ListItemButton>
           <Divider />
           <ListItemButton
             component={Link}
