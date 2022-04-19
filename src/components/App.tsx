@@ -15,6 +15,7 @@ import { Settings } from './settings';
 import { SideBar } from './sidebar';
 import { ProgressStudent } from './ProgressStudents';
 import { Game } from './planB/game';
+import { AddCourse } from './add-course';
 
 export const App: React.FC = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -36,25 +37,12 @@ export const App: React.FC = () => {
         />
 
         <Route
-          path={AppRoutes.HOME}
-          element={
-            <ProtectedRoute isAuth={isAuth}>
-              <Layout GLOBAL_USER={globalUser} setIsAuth={setIsAuth} />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Dashboard GLOBAL_USER={globalUser} />} />
-
-          {/* <Route path={AppRoutes.LOGIN} element={<Login setIsAuth={setIsAuth} />} /> */}
-          <Route
-            path={AppRoutes.DASHBOARD}
-            element={<Dashboard GLOBAL_USER={globalUser} />}
-          />
-          <Route path={AppRoutes.USERS} element={<AnagraficaRouteWrapper />} />
-          {/*AnagraficaRouteWrapper Anagrafiche GLOBAL_USER={globalUser} */}
-          <Route path={AppRoutes.PROFILE} element={<Profile />} />
-          <Route path={AppRoutes.SETTINGS} element={<Settings />} />
-          <Route path={AppRoutes.ABOUT} element={<Game />} />
+          path={AppRoutes.USERS}
+          element={<AnagraficaRouteWrapper/>} 
+        />{/*AnagraficaRouteWrapper Anagrafiche GLOBAL_USER={globalUser} */}
+        <Route path={AppRoutes.PROFILE} element={<Profile />} />
+        <Route path={AppRoutes.SETTINGS} element={<Settings />} />
+        <Route path={AppRoutes.ABOUT} element={<AddCourse courseID={27} />} />
 
           <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
         </Route>
