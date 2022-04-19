@@ -10,15 +10,6 @@ export const login = (email: string, password: string) => {
     email: email,
     password: password,
   });
-  // .then((value) => {
-  //   // const token = value.data.access_token;
-  //   // sessionStorage.setItem('token', token);
-  //   // const payload = jwt_decode<object>(token);
-  //   // console.log(payload);
-  // })
-  // .catch((error) => {
-  //   alert(error);
-  // });
 };
 
 export const logout = () => {
@@ -32,10 +23,6 @@ export const logout = () => {
       },
     }
   );
-  // .then((value) => console.log(value))
-  // .catch((error) => console.log(error));
-  // sessionStorage.removeItem('token');
-  // sessionStorage.clear();
 };
 
 export const recovery = (email: string) => {

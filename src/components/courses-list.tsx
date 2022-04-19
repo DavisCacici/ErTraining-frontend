@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // MUI
 import {
   Box,
@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { createTheme, style } from "@mui/system";
 
+
 // CSS customizzato
 import "./courses-list.scss";
 
@@ -26,7 +27,10 @@ import "./courses-list.scss";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import PlayCircleTwoToneIcon from "@mui/icons-material/PlayCircleTwoTone";
-import { Course as CourseList, User } from "../models/models";
+import { Course, User } from "../models/models";
+import { coursesList } from "../apis/tutor_call";
+import { coursesTeacher } from '../apis/teacher_call';
+import { coursesStudent } from '../apis/student_call';
 
 const theme = createTheme({
   typography: {
@@ -87,8 +91,32 @@ const IconeAzioniCorso: React.FC = () => {
     </Stack>
   );
 };
+interface DashboardProps {
+  GLOBAL_USER: User;
+}
 
-export const CoursesList: React.FC<CourseList> = () => {
+export const CoursesList: React.FC<DashboardProps> = (props) => {
+  const [courses, setCourses] = useState<Course[]>([]);
+  useEffect(() => {
+    if(props.GLOBAL_USER.role === 'tutor')
+    {
+      coursesList().then((res: any) => setCourses(res.data.data as Course[]))
+      .catch((error: any) => alert(error));
+    }
+    if(props.GLOBAL_USER.role === 'teacher')
+    {
+      coursesTeacher().then((res: any) => setCourses(res.data.data as Course[]))
+      .catch((error: any) => alert(error));
+    }
+    if(props.GLOBAL_USER.role === 'student')
+    {
+      coursesStudent().then((res: any) => setCourses(res.data.data as Course[]))
+      .catch((error: any) => alert(error));
+    }
+    
+  }, []);
+
+ {/* export const CoursesList: React.FC<CourseList> = () => {
 
   const [coursesList, setCoursesList] = useState<CourseList[]>([
     {
@@ -109,7 +137,7 @@ export const CoursesList: React.FC<CourseList> = () => {
       description: "",
       state: "active",
     },
-  ]);
+  ]); */}
 
   return (
     <div className="card-style">
@@ -131,9 +159,9 @@ export const CoursesList: React.FC<CourseList> = () => {
               borderRadius: "5px",
             }}
           >
-            {coursesList.map((Course) => (
+            {courses.map((course) => (
               <ListItemButton
-                key={Course.id}
+                key={course.id}
                 sx={{
                   minHeight: 15,
                   justifyContent: "center",
@@ -141,8 +169,8 @@ export const CoursesList: React.FC<CourseList> = () => {
                 }}
               >
                 <ListItemText
-                  key={Course.name}
-                  primary={Course.name}
+                  key={course.name}
+                  primary={course.name}
                   sx={{ ml: 2, opacity: 1 }}
                   onClick={() => {
                     console.log("Dettaglio corso premuto!");
