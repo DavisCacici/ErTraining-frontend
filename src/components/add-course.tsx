@@ -116,7 +116,7 @@ export const AddCourse: React.FC<Props> = (props) => {
               <Typography gutterBottom variant="h5" component="h2">
                 <div className="add-course-form">Select participants</div>
               </Typography>
-
+              {/*value={input.participants}*/}
               <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
                 <Select
                   labelId="demo-multiple-name-label"
