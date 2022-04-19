@@ -1,4 +1,4 @@
-import { Email, Password } from '@mui/icons-material';
+import { Description, Email, Password } from '@mui/icons-material';
 import axios from 'axios';
 import { transform } from 'typescript';
 import { SERVER_URL } from '../config';
@@ -7,13 +7,9 @@ import { User } from '../models/models'
 //users
 export const usersList = () => {
     const token = sessionStorage.getItem('token');
-    axios.get(`${SERVER_URL}/users/usersList`,{ headers: {
+    return axios.get(`${SERVER_URL}/users/usersList`,{ headers: {
         'Authorization': `Bearer ${token}` 
-    }, transformResponse : [function(value){
-        return value;
-    }]}, )
-    .then((value) => console.log(value))
-    .catch((error)=>console.log(error));
+    }});
 }
 
 export const tutorsList = () => {
@@ -98,9 +94,12 @@ export const getCourse = (id: number) => {
     }});
 }
 
-export const addCourse = () => {
+export const addCourse = async (name: string, description: string) => {
     const token = sessionStorage.getItem('token');
-    return axios.post(`${SERVER_URL}/courses/addCourse`,{ headers: {
+    return await axios.post(`${SERVER_URL}/courses/addCourse`, {
+        name: name,
+        description: description
+    },{ headers: {
         'Authorization': `Bearer ${token}` 
     }});
 }
@@ -130,7 +129,7 @@ export const getUsersCourse = (id: number) => {
     }});
 }
 
-export const addUsersCourse = (id: number, users: Array<User>) => {
+export const addUsersCourse = (id: number, users: string[]) => {
     const token = sessionStorage.getItem('token');
     return axios.put(`${SERVER_URL}/courses/addUsersCourse/${id}`, {
         users: users

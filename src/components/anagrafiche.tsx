@@ -1,6 +1,6 @@
 import { Box,Typography, InputAdornment, TextField, Card, IconButton, Tabs, Tab} from '@mui/material'
 import { User } from '../models/models'
-import { teachersList, studentsList, deleteUser } from '../apis/tutor_call'
+import { teachersList, studentsList, tutorsList } from '../apis/tutor_call'
 import { useState, useCallback } from 'react';
 import { AnagraficaContent } from './anagraficheContent';
 import _ from "lodash";
@@ -10,6 +10,7 @@ import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import CoPresentTwoToneIcon from '@mui/icons-material/CoPresentTwoTone';
 import SchoolTwoToneIcon from '@mui/icons-material/SchoolTwoTone';
+import ManageAccountsTwoToneIcon from '@mui/icons-material/ManageAccountsTwoTone';
 
 
 interface AnagraficheProps {
@@ -38,6 +39,13 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
           console.log(data);
         })
         .catch((error)=>{console.log(error);});
+      }else if(type === 'tutor'){
+          tutorsList().then((res)=> {
+            const data: User[] = res.data.data;
+            setDataEnd(data);
+            console.log(data);
+          })
+          .catch((error)=>{console.log(error);});
       }else{
         console.log("Questo è un problema");
       }
@@ -69,7 +77,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
 
     return (
     <Box>
-        <Box display='flex' justifyContent='space-between' alignItems='end' sx={{ pb: 5 }}>
+        <Box display='flex' justifyContent='space-between' alignItems='end' sx={{ mb:5 }}>
             <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Anagrafiche</Typography>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                 <TextField id="input-searchbar" label="Cerca..." variant="outlined" onChange={(e)=>{setchiaveDiRicerca(e.target.value.toString()) ; console.log(chiaveDiRicerca);}} InputProps={{startAdornment: (<InputAdornment position="start">
@@ -83,6 +91,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
           <Tabs value={type} onChange={handleChange} aria-label="icon label tabs example">
             <Tab value={'student'} icon={<SchoolTwoToneIcon />} label="STUDENTS" />
             <Tab value={'teacher'} icon={<CoPresentTwoToneIcon />} label="TEACHERS" />
+            <Tab value={'tutor'} icon={<ManageAccountsTwoToneIcon  />} label="TUTORS" />
           </Tabs>
           <IconButton color='primary' aria-label='Add' onClick={()=>{props.routeCallback(type)}}>
               <AddCircleTwoToneIcon fontSize='large' ></AddCircleTwoToneIcon>
