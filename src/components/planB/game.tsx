@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './game.scss';
-import Button from './button/Button';
-import Modal, { ModalBody, ModalFooter, ModalHeader } from './modal/Modal';
+import { Button } from './button/Button';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from './modal/Modal';
 
-export const Game = () => {
+export const Game: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const closeModalHandle = () => {
-    document.getElementById('my_game').src = '';
+    // document.getElementById('my_game')!.src = '';
     setShowModal(false);
   };
 
@@ -33,7 +33,6 @@ export const Game = () => {
           ></iframe>
         </ModalBody>
         <ModalFooter>
-          {/* TODO: alla chiusra della modale il video non si ferma, SOLUTION: onclose helper fn => settare src a null */}
           <Button onClick={closeModalHandle}>Close</Button>
         </ModalFooter>
       </Modal>

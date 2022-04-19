@@ -10,6 +10,7 @@ import { App } from './components/App';
 
 import reportWebVitals from './reportWebVitals';
 import { HashRouter } from 'react-router-dom';
+import { Game } from './components/planB/game';
 
 const theme = createTheme({
   palette: {

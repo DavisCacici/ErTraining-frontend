@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import { User } from '../models/models';
+import { Game } from './planB/game';
 
 interface LayoutProps {
   readonly setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
