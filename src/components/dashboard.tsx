@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { CoursesList } from "./courses-list";
 import { ShortcutTutor } from "./shortcut-tutor";
 import { User } from "../models/models";
+import { Course } from "../models/models";
 import { ShortcutTeacher } from "./shortcut-teacher";
 import { AddCourse } from "./add-course";
 import { SetStateAction, useState } from "react";
@@ -26,28 +27,30 @@ export interface AddCourseProps {
 export const Dashboard: React.FC<DashboardProps> = (props) => {
   
   const [route, setRoute] = useState<string|undefined>(undefined);
+  const [passingCourse, setPassingCourse] = useState<Course>();
   const [input, setInput] = useState({ title: "", description: "", participants: "" });
 
   const { GLOBAL_USER } = props;
 
-  const routeBackToDashbord = () =>{
+  const routeBackToDashboard = () =>{
     setRoute(undefined);
   }
 
-  const shortcutTutorRouteHandler = (s:string|undefined) => {
+  const shortcutTutorRouteHandler = (s:string|undefined,c?:Course) => {
     setRoute(s);
+    c?setPassingCourse(c):console.log("No Course");
   }
 
 
   const defineContent = () => {
     if(typeof(route) === 'undefined'){
       return(
-      <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
+      <CoursesList GLOBAL_USER={GLOBAL_USER} CallbackRoute={(s, c) => {shortcutTutorRouteHandler(s, c); console.log(c.name)}}></CoursesList>
       )
     } else if(route === 'addCourse'){
-      return(<AddCourse></AddCourse>)
+      return(<AddCourse course={passingCourse}></AddCourse>)
     } else if(route === 'addUser'){
-      return(<CreateOrEditUser routeHandler={routeBackToDashbord}></CreateOrEditUser>)
+      return(<CreateOrEditUser routeHandler={routeBackToDashboard}></CreateOrEditUser>)
     } else {
       alert("Questo è un problema")
     }
@@ -71,13 +74,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
         <h2>Dashboard</h2>
         <div>
           <ShortcutTeacher></ShortcutTeacher>
-          {/* <CoursesList
-            id={0}
-            name={""}
-            state={""}
-            description={""}
-          ></CoursesList> */}
-          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
+          <CoursesList GLOBAL_USER={GLOBAL_USER} CallbackRoute={(s, c)=>{}}></CoursesList>
         </div>
       </div>
     );
@@ -86,7 +83,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
     <div style={{ margin: 'auto' }}>
       <h2>Dashboard</h2>
       <div>
-        <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
+        <CoursesList GLOBAL_USER={GLOBAL_USER} CallbackRoute={(s, c)=>{}}></CoursesList>
       </div>
     </div>
   );
