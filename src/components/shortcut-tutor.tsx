@@ -33,8 +33,12 @@ const classes = {
   },
 };
 
+interface ShortcutTutorProps {
+  routingCallback(s?:string):void;
+}
 
-export const ShortcutTutor: React.FC = (props) => {
+
+export const ShortcutTutor: React.FC<ShortcutTutorProps> = (props) => {
 
   return (
     <div style={classes.root}>
@@ -75,7 +79,7 @@ export const ShortcutTutor: React.FC = (props) => {
                   variant="outlined"
                   color="primary"
                   sx={{ ml: 0 }}
-                  onClick={()=>{ console.log("Aggiungi corso premuto!")}}
+                  onClick={()=>{props.routingCallback('addCourse')}}
                 >
                   Add course
                 </Button>
@@ -84,10 +88,7 @@ export const ShortcutTutor: React.FC = (props) => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => {
-                    console.log("Aggiungi utente premuto!");
-                    console.log("Aggiungi studente premuto!");
-                  }}
+                  onClick={() => { props.routingCallback('addUser')}}
                 >
                   Add user
                 </Button>

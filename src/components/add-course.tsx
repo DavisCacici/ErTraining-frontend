@@ -23,8 +23,8 @@ import React from "react";
 // la descrizione è multilinea, altrimenti il bottone Publish scompare sotto.
 
 interface AddCourseProps {
-  input: () => ["input"];
-  setInput: React.Dispatch<
+  input?: () => ["input"];
+  setInput?: React.Dispatch<
     React.SetStateAction<{
       title: string;
       description: string;
@@ -106,12 +106,13 @@ export const AddCourse: React.FC<AddCourseProps> = (props) => {
               <Typography gutterBottom variant="h5" component="h2">
                 <div className="add-course-form">Select participants</div>
               </Typography>
-
+              {/*value={input.participants}*/}
               <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
                 <Select
                   labelId="simple-select-label"
                   id="simple-select"
-                  value={input.participants}
+                  defaultValue={"1"}
+                  
                   onChange={handleChangeSelect}
                 >
                   <MenuItem value={1}>Davis Cacici</MenuItem>

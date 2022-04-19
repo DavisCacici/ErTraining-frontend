@@ -5,6 +5,7 @@ import { User } from "../models/models";
 import { ShortcutTeacher } from "./shortcut-teacher";
 import { AddCourse } from "./add-course";
 import { SetStateAction, useState } from "react";
+import { CreateOrEditUser } from "./createOrEditUser";
 
 interface DashboardProps {
   GLOBAL_USER: User;
@@ -24,17 +25,41 @@ export interface AddCourseProps {
 
 export const Dashboard: React.FC<DashboardProps> = (props) => {
   
-  const [route, setRoute] = useState<string|undefined>();
+  const [route, setRoute] = useState<string|undefined>(undefined);
   const [input, setInput] = useState({ title: "", description: "", participants: "" });
 
   const { GLOBAL_USER } = props;
+
+  const routeBackToDashbord = () =>{
+    setRoute(undefined);
+  }
+
+  const shortcutTutorRouteHandler = (s:string|undefined) => {
+    setRoute(s);
+  }
+
+
+  const defineContent = () => {
+    if(typeof(route) === 'undefined'){
+      return(
+      <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
+      )
+    } else if(route === 'addCourse'){
+      return(<AddCourse></AddCourse>)
+    } else if(route === 'addUser'){
+      return(<CreateOrEditUser routeHandler={routeBackToDashbord}></CreateOrEditUser>)
+    } else {
+      alert("Questo è un problema")
+    }
+  }
+
   if (GLOBAL_USER.role === "tutor") {
     return (
       <div style={{ margin: "auto" }}>
         <h2>Dashboard</h2>
         <div>
-          <ShortcutTutor></ShortcutTutor>
-          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
+          <ShortcutTutor routingCallback={shortcutTutorRouteHandler}></ShortcutTutor>
+          {defineContent()}
         </div>
       </div>
     );
