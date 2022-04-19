@@ -80,3 +80,10 @@ export const recoveryPassword = () => {
     .then((value) => console.log(value))
     .catch((error) => console.log(error));
 };
+
+export const getUserCourses = () => {
+  const token = sessionStorage.getItem('token');
+  return axios.get(`${SERVER_URL}/getUserCourses`, { headers: {
+        Authorization: `Bearer ${token}`,
+      }});
+};
