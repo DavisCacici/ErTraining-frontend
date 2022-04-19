@@ -23,7 +23,8 @@ export interface AddCourseProps {
 
 
 export const Dashboard: React.FC<DashboardProps> = (props) => {
-
+  
+  const [route, setRoute] = useState<string|undefined>();
   const [input, setInput] = useState({ title: "", description: "", participants: "" });
 
   const { GLOBAL_USER } = props;
@@ -33,15 +34,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
         <h2>Dashboard</h2>
         <div>
           <ShortcutTutor></ShortcutTutor>
-          {/* <CoursesList
-            id={0}
-            name={""}
-            state={""}
-            description={""}
-          ></CoursesList> */}
-          
           <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
-          {/* <AddCourse></AddCourse> */}
         </div>
       </div>
     );
@@ -65,16 +58,11 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
     );
   }
   return (
-    <div style={{ margin: "auto" }}>
+    <div style={{ margin: 'auto' }}>
       <h2>Dashboard</h2>
       <div>
-    <div style={{ margin: 'auto' }}>
-        <h2>Dashboard</h2>
-        <div>
-          <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
-        </div>
+        <CoursesList GLOBAL_USER={GLOBAL_USER}></CoursesList>
       </div>
     </div>
-  </div>
   );
 };
