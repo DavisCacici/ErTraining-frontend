@@ -3,8 +3,14 @@ import './game.scss';
 import { Button } from './button/Button';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from './modal/Modal';
 
-export const Game: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
+interface GameProps {
+  readonly showModal: boolean;
+  readonly setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Game: React.FC<GameProps> = (props) => {
+  const { showModal, setShowModal } = props;
+  // const [showModal, setShowModal] = useState(sm);
 
   const closeModalHandle = () => {
     // document.getElementById('my_game')!.src = '';
@@ -13,7 +19,7 @@ export const Game: React.FC = () => {
 
   return (
     <div>
-      <Button onClick={() => setShowModal(true)}>Open modal</Button>
+      {/* <Button onClick={() => setShowModal(true)}>Open modal</Button> */}
       <Modal
         show={showModal}
         setShow={setShowModal}

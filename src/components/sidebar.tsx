@@ -299,7 +299,6 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
             />
           </ListItemButton>
-          <div>{GLOBAL_USER.role}</div>
         </List>
       </Drawer>
     </Box>

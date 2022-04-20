@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import './modal.scss';
+import './profileModal.scss';
 
 interface ModalProps {
   readonly show: boolean;
