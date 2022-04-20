@@ -46,8 +46,15 @@ const theme = createTheme({
   },
 });
 
+interface IconeAzioniCorsoProps {
+  GLOBAL_USER: User;
+  CallbackRoute():void;
+}
 
-const IconeAzioniCorso: React.FC<DashboardProps> = (props) => {
+
+
+
+const IconeAzioniCorso: React.FC<IconeAzioniCorsoProps> = (props) => {
   const [clickedButton, setClickedButton] = useState("");
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,7 +81,7 @@ const IconeAzioniCorso: React.FC<DashboardProps> = (props) => {
     <IconButton
         aria-label="edit"
         onClick={() => {
-          console.log("bottone Edit premuto!");
+          props.CallbackRoute();
         }}
         className="button"
         name="edit-button"
@@ -97,11 +104,13 @@ const IconeAzioniCorso: React.FC<DashboardProps> = (props) => {
     </Stack>
   );
 };
-interface DashboardProps {
+
+interface CoursesListProps {
   GLOBAL_USER: User;
+  CallbackRoute(s:string,c:Course):void;
 }
 
-export const CoursesList: React.FC<DashboardProps> = (props) => {
+export const CoursesList: React.FC<CoursesListProps> = (props) => {
   const [courses, setCourses] = useState<Course[]>([]);
   useEffect(() => {
     if(props.GLOBAL_USER.role === 'tutor')
@@ -121,6 +130,8 @@ export const CoursesList: React.FC<DashboardProps> = (props) => {
     }
     
   }, []);
+
+
 
   return (
     <div className="card-style">
@@ -167,7 +178,7 @@ export const CoursesList: React.FC<DashboardProps> = (props) => {
                     color: "secondary",
                   }}
                 >
-                  <IconeAzioniCorso GLOBAL_USER={props.GLOBAL_USER}/>
+                  <IconeAzioniCorso GLOBAL_USER={props.GLOBAL_USER} CallbackRoute={() => {props.CallbackRoute('addCourse', course )}}/>
                 </ListItemIcon>
               </ListItemButton>
             ))}

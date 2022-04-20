@@ -54,7 +54,7 @@ export const App: React.FC = () => {
         />{/*AnagraficaRouteWrapper Anagrafiche GLOBAL_USER={globalUser} */}
         <Route path={AppRoutes.PROFILE} element={<Profile GLOBAL_USER={globalUser} />} />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
-        <Route path={AppRoutes.ABOUT} element={<AddCourse courseID={27} />} />
+        <Route path={AppRoutes.ABOUT} element={<AddCourse />} />
 
         <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
       </Route>

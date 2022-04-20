@@ -4,46 +4,68 @@ import {
   CardContent,
   FormControl,
   Grid,
+  Box,
   IconButton,
-  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
   Stack,
   styled,
+  Paper,
   TextField,
   Typography,
 } from "@mui/material";
-import OutlinedInput from '@mui/material/OutlinedInput';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import "./add-course.scss";
 import { useEffect, useState } from "react";
 import _ from 'lodash';
 import React from "react";
 import { User, Course } from "../models/models";
-import { addCourse, usersList, addUsersCourse } from "../apis/tutor_call";
+import { addCourse, usersList, addUsersCourse, getUsersCourse } from "../apis/tutor_call";
 
 // FIXME: nella card che contiene il form aggiungere barra di scorrimento per quando
 // la descrizione è multilinea, altrimenti il bottone Publish scompare sotto.
 
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 interface Props {
   // readonly GLOBAL_USER: User;
-  readonly courseID?: number;
+  readonly course?: Course;
 }
 
 export const AddCourse: React.FC<Props> = (props) => {
-
-  const [users, setUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    usersList().then((res: any) =>setUsers(res.data.data as User[])).catch((err)=>console.log(err));
-  }, []);
-
+  
   const [input, setInput] = useState({
     title: "",
     description: "",
   });
+  const [partecipants, setPartecipants] = useState<User[]>([]);
+  const [partecipant, setPartecipant] = useState('');
+  const [users, setUsers] = useState<User[]>([]);
+  useEffect(() => {
+    usersList().then((res: any) =>setUsers(res.data.data as User[])).catch((err)=>console.log(err));
+    console.log(props.course);
+    if(props.course)
+    {
+      setInput(prev => ({...prev, title: props.course!.name, description: props.course!.description}))
+      getUsersCourse(props.course.id).then((res: any) => {
+        setPartecipants(res.data.data as User[]);
+      }).catch((err)=>console.log(err));
+      
+    }
+  }, []);
 
+  // const getIdsUsers = (uList:User[]) => {
+  //   let outputList:any[] = [];
+  //   uList.forEach((u) =>{ outputList.push(u.id)});
+  //   return outputList; 
+  // }
 
   const handleChangeForm = (e: React.ChangeEvent<HTMLInputElement>): void => {
 
@@ -54,26 +76,40 @@ export const AddCourse: React.FC<Props> = (props) => {
   const handleClick = async () => {
     try{
       var response = await addCourse(input.title, input.description);
-      if(participants.length > 0 )
+      if(partecipants.length > 0 )
       {
-        addUsersCourse(response.data.data.id, participants).then((res)=>console.log(res)).catch((err)=>console.log(err));
+        // addUsersCourse(response.data.data.id, partecipants).then((res)=>console.log(res)).catch((err)=>console.log(err));
       }
     }
     catch(e){
       console.log(e);
     }
     
-    
-    
     // console.log(participants);
+    
   };
 
-  const [participants, setParticipants] = useState<string[]>([]);
-
-  const handleChangeSelect = (e: SelectChangeEvent<typeof participants>) => { 
-    setParticipants(
-      typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value,
-    );
+  const handleChangeSelect = async (e: SelectChangeEvent) => {
+    setPartecipant(e.target.value);
+    partecipants.find((p) => {
+      if(p.id.toString() !== e.target.value)
+      {
+        const element = users.filter(element => element.id === p.id);
+        console.log(element);
+        setPartecipants(prev =>[...prev, element[0]]);
+      }
+    });
+    // users.find((element) => {
+    //   if(element.id.toString() == e.target.value)
+    //   {
+        
+    //   }
+    // });
+    // setPartecipants(prev => [...prev, e.target.value]);
+    // setPartecipants(
+    //   typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value,
+    // );
+    // console.log(e.target.value);
   };
 
   return (
@@ -116,13 +152,25 @@ export const AddCourse: React.FC<Props> = (props) => {
               <Typography gutterBottom variant="h5" component="h2">
                 <div className="add-course-form">Select participants</div>
               </Typography>
-              {/*value={input.participants}*/}
-              <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
+              {/* <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
                 <Select
                   labelId="demo-multiple-name-label"
                   id="demo-multiple-name"
                   multiple
-                  value={participants}
+                  value={partecipants}
+                  onChange={handleChangeSelect}
+                >
+      
+                  {_.map(users, (user, index) => {
+                    return <MenuItem autoFocus={true} key={index} value={user.id}>{user.user_name}</MenuItem>
+                  })}
+                </Select>
+              </FormControl> */}
+              <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={partecipant}
                   onChange={handleChangeSelect}
                 >
       
@@ -131,6 +179,23 @@ export const AddCourse: React.FC<Props> = (props) => {
                   })}
                 </Select>
               </FormControl>
+              <Grid container spacing={2}>
+              {partecipants.map((user, index) => {
+                return <Grid item xs={2}>
+                <Item>
+                  {user.user_name}
+                  <IconButton 
+                  aria-label="delete"
+                  onClick={() => {
+                    const newValue = partecipants.filter(element => element.id !== user.id)
+                    setPartecipants(newValue);
+                  }}>
+                    <DeleteTwoToneIcon />
+                  </IconButton>
+                </Item>
+                </Grid>
+              })}
+              </Grid>
 
               <div>
                 <Grid container justifyContent={"center"}>
