@@ -23,7 +23,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-} from './profileModal/profileModal';
+} from './planB/modal/Modal';
 
 interface ProfileProps {
   GLOBAL_USER: User;
