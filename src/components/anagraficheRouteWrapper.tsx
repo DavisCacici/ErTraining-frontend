@@ -20,6 +20,7 @@ export const AnagraficaRouteWrapper:React.FC = () => {
     }
     function routeBackToAnagrafics(){
         setCreatingNew(!creatingNew);
+        setPassingUser(undefined);
     }
 
     if(creatingNew){
