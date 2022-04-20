@@ -47,12 +47,13 @@ const theme = createTheme({
 });
 
 interface IACProps {
-  GLOBAL_USER: User;
+  readonly GLOBAL_USER: User;
   readonly setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  CallbackRoute(): void;
 }
 
 const IconeAzioniCorso: React.FC<IACProps> = (props) => {
-  const { GLOBAL_USER, setShowModal } = props;
+  const { GLOBAL_USER, setShowModal, CallbackRoute } = props;
   const [clickedButton, setClickedButton] = useState('');
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -81,7 +82,7 @@ const IconeAzioniCorso: React.FC<IACProps> = (props) => {
           <IconButton
             aria-label="edit"
             onClick={() => {
-              console.log('bottone Edit premuto!');
+              CallbackRoute();
             }}
             className="button"
             name="edit-button"
@@ -103,13 +104,14 @@ const IconeAzioniCorso: React.FC<IACProps> = (props) => {
     </Stack>
   );
 };
-interface DashboardProps {
-  GLOBAL_USER: User;
+
+interface CoursesListProps {
+  readonly GLOBAL_USER: User;
+  CallbackRoute(s: string, c: Course): void;
 }
 
-export const CoursesList: React.FC<DashboardProps> = (props) => {
-  const { GLOBAL_USER } = props;
-
+export const CoursesList: React.FC<CoursesListProps> = (props) => {
+  const { GLOBAL_USER, CallbackRoute } = props;
   const [courses, setCourses] = useState<Course[]>([]);
   const [showModal, setShowModal] = useState(false);
 
@@ -180,6 +182,9 @@ export const CoursesList: React.FC<DashboardProps> = (props) => {
                   <IconeAzioniCorso
                     GLOBAL_USER={GLOBAL_USER}
                     setShowModal={setShowModal}
+                    CallbackRoute={() => {
+                      CallbackRoute('addCourse', course);
+                    }}
                   />
                 </ListItemIcon>
               </ListItemButton>

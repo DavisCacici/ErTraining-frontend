@@ -51,10 +51,13 @@ export const App: React.FC = () => {
           element={<Dashboard GLOBAL_USER={globalUser} />}
         />
         <Route path={AppRoutes.USERS} element={<AnagraficaRouteWrapper />} />
-        {/*AnagraficaRouteWrapper Anagrafiche GLOBAL_USER={globalUser} */}
-        <Route path={AppRoutes.PROFILE} element={<Profile />} />
+        {/*AnagraficaRouteWFrapper Anagrafiche GLOBAL_USER={globalUser} */}
+        <Route
+          path={AppRoutes.PROFILE}
+          element={<Profile GLOBAL_USER={globalUser} />}
+        />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
-        {/* <Route path={AppRoutes.ABOUT} element={<Game />} /> */}
+        <Route path={AppRoutes.ABOUT} element={<AddCourse />} />
 
         <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
       </Route>
