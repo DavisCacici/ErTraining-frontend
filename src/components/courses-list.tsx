@@ -27,7 +27,7 @@ import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import PlayCircleTwoToneIcon from '@mui/icons-material/PlayCircleTwoTone';
 import { Course, User } from '../models/models';
-import { coursesList } from '../apis/tutor_call';
+import { coursesList, deleteCourse } from '../apis/tutor_call';
 import { coursesTeacher } from '../apis/teacher_call';
 import { coursesStudent } from '../apis/student_call';
 import { Game } from './planB/game';
@@ -50,10 +50,12 @@ interface IACProps {
   readonly GLOBAL_USER: User;
   readonly setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   CallbackRoute(): void;
+  readonly courseID: number;
+  CallbackRefresh(): void;
 }
 
 const IconeAzioniCorso: React.FC<IACProps> = (props) => {
-  const { GLOBAL_USER, setShowModal, CallbackRoute } = props;
+  const { GLOBAL_USER, setShowModal, CallbackRoute, courseID, CallbackRefresh } = props;
   const [clickedButton, setClickedButton] = useState('');
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -92,7 +94,8 @@ const IconeAzioniCorso: React.FC<IACProps> = (props) => {
           <IconButton
             aria-label="delete"
             onClick={() => {
-              console.log('bottone Delete premuto!');
+              deleteCourse(courseID).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+              CallbackRefresh();
             }}
             className="button"
             name="delete-button"
@@ -114,6 +117,7 @@ export const CoursesList: React.FC<CoursesListProps> = (props) => {
   const { GLOBAL_USER, CallbackRoute } = props;
   const [courses, setCourses] = useState<Course[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     if (GLOBAL_USER.role === 'tutor') {
@@ -131,7 +135,7 @@ export const CoursesList: React.FC<CoursesListProps> = (props) => {
         .then((res: any) => setCourses(res.data.data as Course[]))
         .catch((error: any) => alert(error));
     }
-  }, []);
+  }, [refresh]);
 
   return (
     <div className="card-style">
@@ -180,11 +184,13 @@ export const CoursesList: React.FC<CoursesListProps> = (props) => {
                   }}
                 >
                   <IconeAzioniCorso
+                    courseID={course.id}
                     GLOBAL_USER={GLOBAL_USER}
                     setShowModal={setShowModal}
                     CallbackRoute={() => {
                       CallbackRoute('addCourse', course);
                     }}
+                    CallbackRefresh={()=>setRefresh(!refresh)}
                   />
                 </ListItemIcon>
               </ListItemButton>

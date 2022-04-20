@@ -104,10 +104,11 @@ export const addCourse = async (name: string, description: string) => {
     }});
 }
 
-export const editCourse = (id: number) => {
+export const editCourse = (id: number, name: string, description: string) => {
     const token = sessionStorage.getItem('token');
     return axios.put(`${SERVER_URL}/courses/editCourse/${id}`, {
-
+        name: name,
+        description: description
     },{ headers: {
         'Authorization': `Bearer ${token}` 
     }});

@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import _ from 'lodash';
 import React from "react";
 import { User, Course } from "../models/models";
-import { addCourse, usersList, addUsersCourse, getUsersCourse } from "../apis/tutor_call";
+import { addCourse, usersList, addUsersCourse, getUsersCourse, editCourse } from "../apis/tutor_call";
 
 // FIXME: nella card che contiene il form aggiungere barra di scorrimento per quando
 // la descrizione è multilinea, altrimenti il bottone Publish scompare sotto.
@@ -35,12 +35,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 interface Props {
-  // readonly GLOBAL_USER: User;
   readonly course?: Course;
 }
 
 export const AddCourse: React.FC<Props> = (props) => {
-  // const [part, setPart] = useState<number[]>([]);
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -50,7 +48,6 @@ export const AddCourse: React.FC<Props> = (props) => {
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
     usersList().then((res: any) =>setUsers(res.data.data as User[])).catch((err)=>console.log(err));
-    console.log(props.course);
     if(props.course)
     {
       setInput(prev => ({...prev, title: props.course!.name, description: props.course!.description}))
@@ -67,20 +64,40 @@ export const AddCourse: React.FC<Props> = (props) => {
   };
   
   const handleClick = async () => {
-    try{
-      var response = await addCourse(input.title, input.description);
-      var part: number[] = [];
-      if(partecipants.length > 0 )
-      {        
-        partecipants.forEach((element, index) =>{
-          part.push(element.id);
-        });
-        addUsersCourse(response.data.data.id, part).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+    if(!props.course)
+    {
+      try{
+        var response = await addCourse(input.title, input.description);
+        var part: number[] = [];
+        if(partecipants.length > 0 )
+        {        
+          partecipants.forEach((element) =>{
+            part.push(element.id);
+          });
+          addUsersCourse(response.data.data.id, part).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+        }
+      }
+      catch(e){
+        console.log(e);
       }
     }
-    catch(e){
-      console.log(e);
+    else{
+      try{
+        editCourse(props.course.id, input.title, input.description).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+        var part: number[] = [];
+        if(partecipants.length > 0 )
+        {        
+          partecipants.forEach((element) =>{
+            part.push(element.id);
+          });
+          addUsersCourse(props.course.id, part).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+        }
+      }
+      catch(e){
+        console.log(e);
+      }
     }
+    
     
     // console.log(participants);
     
@@ -92,7 +109,7 @@ export const AddCourse: React.FC<Props> = (props) => {
     user = users.find((element) => {
       return  element.id == parseInt(e.target.value);
     });
-    console.log(user);
+
     if(user != null)
     {
       let flag = true
@@ -147,20 +164,6 @@ export const AddCourse: React.FC<Props> = (props) => {
               <Typography gutterBottom variant="h5" component="h2">
                 <div className="add-course-form">Select participants</div>
               </Typography>
-              {/* <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
-                <Select
-                  labelId="demo-multiple-name-label"
-                  id="demo-multiple-name"
-                  multiple
-                  value={partecipants}
-                  onChange={handleChangeSelect}
-                >
-      
-                  {_.map(users, (user, index) => {
-                    return <MenuItem autoFocus={true} key={index} value={user.id}>{user.user_name}</MenuItem>
-                  })}
-                </Select>
-              </FormControl> */}
               <FormControl fullWidth sx={{  minWidth: 120 }} size="small">
                 <Select
                   labelId="demo-simple-select-label"
@@ -191,7 +194,7 @@ export const AddCourse: React.FC<Props> = (props) => {
                 </Grid>
               })}
               </Grid>
-
+              <br></br>
               <div>
                 <Grid container justifyContent={"center"}>
                   <Button
