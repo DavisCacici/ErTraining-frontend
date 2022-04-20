@@ -248,7 +248,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
             />
           </ListItemButton>
-          <ListItemButton
+          {/* <ListItemButton
             component={Link}
             to="about"
             key={'about'}
@@ -258,8 +258,8 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               justifyContent: 'initial',
               px: 3.5,
             }}
-          >
-            <ListItemIcon
+          > */}
+            {/* <ListItemIcon
               sx={{
                 minWidth: 0,
                 mr: open ? 3 : 'auto',
@@ -272,7 +272,7 @@ export const SideBar: React.FC<SideBarProps> = (props) => {
               primary={'ABOUT'}
               sx={{ ml: 1, my: 1, opacity: open ? 1 : 0 }}
             />
-          </ListItemButton>
+          </ListItemButton> */}
           <ListItemButton
             component={Link}
             onClick={handleLogout}
