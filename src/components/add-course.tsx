@@ -40,7 +40,7 @@ interface Props {
 }
 
 export const AddCourse: React.FC<Props> = (props) => {
-  
+  // const [part, setPart] = useState<number[]>([]);
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -61,24 +61,21 @@ export const AddCourse: React.FC<Props> = (props) => {
     }
   }, []);
 
-  // const getIdsUsers = (uList:User[]) => {
-  //   let outputList:any[] = [];
-  //   uList.forEach((u) =>{ outputList.push(u.id)});
-  //   return outputList; 
-  // }
 
   const handleChangeForm = (e: React.ChangeEvent<HTMLInputElement>): void => {
-
     setInput(prev => ({...prev, [e.target.name]: e.target.value}));    
-    // console.log(input);
   };
   
   const handleClick = async () => {
     try{
       var response = await addCourse(input.title, input.description);
+      var part: number[] = [];
       if(partecipants.length > 0 )
-      {
-        // addUsersCourse(response.data.data.id, partecipants).then((res)=>console.log(res)).catch((err)=>console.log(err));
+      {        
+        partecipants.forEach((element, index) =>{
+          part.push(element.id);
+        });
+        addUsersCourse(response.data.data.id, part).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
       }
     }
     catch(e){
@@ -91,35 +88,33 @@ export const AddCourse: React.FC<Props> = (props) => {
 
   const handleChangeSelect = async (e: SelectChangeEvent) => {
     setPartecipant(e.target.value);
-    partecipants.find((p) => {
-      if(p.id.toString() !== e.target.value)
-      {
-        const element = users.filter(element => element.id === p.id);
-        console.log(element);
-        setPartecipants(prev =>[...prev, element[0]]);
-      }
+    let user: any = null;
+    user = users.find((element) => {
+      return  element.id == parseInt(e.target.value);
     });
-    // users.find((element) => {
-    //   if(element.id.toString() == e.target.value)
-    //   {
-        
-    //   }
-    // });
-    // setPartecipants(prev => [...prev, e.target.value]);
-    // setPartecipants(
-    //   typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value,
-    // );
-    // console.log(e.target.value);
+    console.log(user);
+    if(user != null)
+    {
+      let flag = true
+      partecipants.forEach((element) => {
+        if (element.id == parseInt(e.target.value)) {
+          flag = false;
+        }   
+      });
+      if (flag) {
+        setPartecipants(prev => [...prev, user]);
+      }
+    }
   };
 
   return (
     <div>
-      <h2>Add course</h2>
+      {props.course ? <h2>Edit course</h2>:<h2>Add course</h2>}
       <div>
         <Card>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2" sx={{ mt: 2 }}>
-              <div className="add-course-form">Add a course title</div>
+              <div className="add-course-form">Title</div>
             </Typography>
             <form>
               <TextField
@@ -135,7 +130,7 @@ export const AddCourse: React.FC<Props> = (props) => {
               />
 
               <Typography gutterBottom variant="h5" component="h2">
-                <div className="add-course-form">Add a description</div>
+                <div className="add-course-form">Description</div>
               </Typography>
               <TextField
                 id="outlined-multiline-flexible"
@@ -181,7 +176,7 @@ export const AddCourse: React.FC<Props> = (props) => {
               </FormControl>
               <Grid container spacing={2}>
               {partecipants.map((user, index) => {
-                return <Grid item xs={2}>
+                return <Grid item xs={2} key={index}>
                 <Item>
                   {user.user_name}
                   <IconButton 

@@ -129,7 +129,7 @@ export const getUsersCourse = (id: number) => {
     }});
 }
 
-export const addUsersCourse = (id: number, users: string[]) => {
+export const addUsersCourse = (id: number, users: number[]) => {
     const token = sessionStorage.getItem('token');
     return axios.put(`${SERVER_URL}/courses/addUsersCourse/${id}`, {
         users: users
