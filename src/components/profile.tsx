@@ -115,7 +115,7 @@ interface ProfileProps {
             component="div"
             sx={{ fontWeight: "bold" }}
           >
-            <h5 className="card-title">Courses</h5>
+            <h5 className="card-title">Corsi</h5>
           </Typography>
 
           <List
