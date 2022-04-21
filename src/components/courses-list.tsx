@@ -140,7 +140,7 @@ export const CoursesList: React.FC<CoursesListProps> = (props) => {
   return (
     <div className="card-style">
       <Game showModal={showModal} setShowModal={setShowModal} />
-      <Card sx={{ maxWidth: 1010, position: 'relative' }}>
+      <Card>
         <CardContent>
           <Typography
             gutterBottom

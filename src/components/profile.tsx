@@ -222,7 +222,8 @@ const handleCourseId = (e:number) => {
                 </CardContent>  
             </Card>   
             <div className="card-style">
-      <Card sx={{ maxWidth: 1010, position: "relative" }}>
+              <br></br>
+      <Card>
         <CardContent>
           <Typography
             gutterBottom
