@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-import { CoursesList } from "./courses-list";
+import { ActiveCourses, CompletedCourses, CoursesList } from "./courses-list";
 import { ShortcutTutor } from "./shortcut-tutor";
 import { User } from "../models/models";
 import { Course } from "../models/models";
 import { ShortcutTeacher } from "./shortcut-teacher";
 import { AddCourse } from "./add-course";
-import { ActiveCourses } from "./active-courses";
-import { CompletedCourses } from "./completed-courses";
 import { SetStateAction, useState } from "react";
 import { CreateOrEditUser } from "./createOrEditUser";
 
