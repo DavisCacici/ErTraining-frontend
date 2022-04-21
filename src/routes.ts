@@ -8,6 +8,7 @@ export const Routes = {
   // REGISTER: 'register',
   LOGIN: 'login',
   LOGOUT: 'logout',
+  PWDRECOVER: 'passwordrecover',
 
   DASHBOARD: 'dashboard',
   USERS: 'anagrafiche',

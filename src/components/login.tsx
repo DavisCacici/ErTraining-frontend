@@ -19,7 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { Routes as AppRoutes } from '../routes';
 import { User } from '../models/models';
 import { login } from '../apis/generale_call';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import { AxiosResponse } from 'axios';
 
 interface Payload {
@@ -46,6 +46,7 @@ export const Login: React.FC<LoginProps> = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [pwdRecover, setPwdRecover] = useState(false);
   const navigate = useNavigate();
 
   //TODO: error handling - ??
@@ -96,6 +97,11 @@ export const Login: React.FC<LoginProps> = (props) => {
     navigate(AppRoutes.DASHBOARD);
   };
 
+  const handleSubmitResetPWD = () => {
+    console.log('Button Test');
+    setPwdRecover(false);
+  };
+
   /*useEffect(()=>{login(email, password);}, []);*/
   const handleEmail = (e: any) => {
     setEmail(e.target.value);
@@ -104,83 +110,132 @@ export const Login: React.FC<LoginProps> = (props) => {
     setPassword(e.target.value);
   };
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      style={{ minHeight: '100vh' }}
-    >
-      <Grid item>
-        <Card
-          sx={{
-            px: '20px',
-            py: '30px',
-            borderRadius: '25px',
-            transform: 'scale(0.95)',
-          }}
+    <Box>
+      {!pwdRecover ? (
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          style={{ minHeight: '100vh' }}
         >
-          <CardContent>
-            <CardMedia
-              component="img"
-              height="125"
-              src="logo192Er.png"
-              alt="Er Training Logo"
-              sx={{ mb: 5, transform: 'scale(0.85)' }}
-            />
-            <FormControl margin="dense">
-              <TextField
-                required
-                id="mail-required"
-                label="Mail"
-                type="email"
-                onChange={handleEmail}
-                sx={{ mb: 2 }}
-              />
-              <br />
-              <TextField
-                required
-                id="password-required"
-                label="Password"
-                type="password"
-                onChange={handlePassword}
-                sx={{ mt: 2, mb: 2 }}
-              />
-              <Box sx={{ mb: 5 }}>
-                <FormControlLabel control={<Checkbox />} label="Ricordami" />
-                <FormControlLabel
-                  control={<LockIcon />}
-                  label={<Link href="#">Recupera Password</Link>}
+          <Grid item>
+            <Card
+              sx={{
+                px: '20px',
+                py: '30px',
+                borderRadius: '25px',
+                transform: 'scale(0.95)',
+              }}
+            >
+              <CardContent>
+                <CardMedia
+                  component="img"
+                  height="125"
+                  src="logo192Er.png"
+                  alt="Er Training Logo"
+                  sx={{ mb: 5, transform: 'scale(0.85)' }}
                 />
-              </Box>
-            </FormControl>
-            <CardActions sx={{ display: 'block' }}>
-              <Button
-                sx={{ mb: 5 }}
-                fullWidth
-                variant="contained"
-                onClick={() => handleLogin(email, password)}
-              >
-                Login
-              </Button>
-            </CardActions>
-          </CardContent>  
-        </Card>
-        {/* per test senza servizio api attivo */}
-        <div>
-            Select Role:
+                <FormControl margin="dense">
+                  <TextField
+                    required
+                    id="mail-required"
+                    label="Mail"
+                    type="email"
+                    onChange={handleEmail}
+                    sx={{ mb: 2 }}
+                  />
+                  <br />
+                  <TextField
+                    required
+                    id="password-required"
+                    label="Password"
+                    type="password"
+                    onChange={handlePassword}
+                    sx={{ mt: 2, mb: 2 }}
+                  />
+                  <Box sx={{ mb: 5 }}>
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label="Ricordami"
+                    />
+                    <FormControlLabel
+                      control={<LockIcon />}
+                      label="Recupera Password"
+                      onClick={() => {
+                        setPwdRecover(true);
+                      }}
+                    />
+                  </Box>
+                </FormControl>
+                <CardActions sx={{ display: 'block' }}>
+                  <Button
+                    sx={{ mb: 5 }}
+                    fullWidth
+                    variant="contained"
+                    onClick={() => handleLogin(email, password)}
+                  >
+                    Login
+                  </Button>
+                </CardActions>
+              </CardContent>
+            </Card>
+            {/* per test senza servizio api attivo */}
             <div>
-              <select name="Role" onChange={fakeLogin}>
-                <option value="">None</option>
-                <option value="tutor">Tutor</option>
-                <option value="teacher">Teacher</option>
-                <option value="student">Student</option>
-              </select>
+              Select Role:
+              <div>
+                <select name="Role" onChange={fakeLogin}>
+                  <option value="">None</option>
+                  <option value="tutor">Tutor</option>
+                  <option value="teacher">Teacher</option>
+                  <option value="student">Student</option>
+                </select>
+              </div>
             </div>
-          </div>
-      </Grid>
-    </Grid>
-    
-          
+          </Grid>
+        </Grid>
+      ) : (
+        <Box>
+          <Typography
+            textAlign="left"
+            variant="h5"
+            sx={{ fontWeight: 'bold', mb: 5 }}
+          >
+            Resetta Password
+          </Typography>
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: '30vh' }}
+          >
+            <Grid item>
+              <Card sx={{ py: '20px' }}>
+                <CardContent>
+                  <TextField
+                    required
+                    fullWidth
+                    id="mail-required"
+                    label="Mail"
+                    type="email"
+                  />
+                  <Button
+                    sx={{ mt: 5 }}
+                    fullWidth
+                    variant="contained"
+                    onClick={() => {
+                      handleSubmitResetPWD();
+                    }}
+                  >
+                    Richiedi Password
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
+      )}
+    </Box>
   );
 };

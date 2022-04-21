@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Stack, IconButton} from '@mui/material'
-import {Table, TableBody, TableCell, TableHead, TableContainer, TableRow, TablePagination } from '@mui/material';
+import { Table, TableBody, TableCell, TableHead, TableContainer, TableRow, TablePagination } from '@mui/material';
 import { User } from '../models/models'
 import _ from "lodash";
 
@@ -23,18 +23,23 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
 
     //Hooks
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(1);
     
   
     //Handler
     const handleChangePage = (event: unknown, newPage: number) => {
       setPage(newPage);
     };
-  
+
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setRowsPerPage(parseInt(event.target.value, 10));
+      setRowsPerPage(+event.target.value);
       setPage(0);
     };
+  
+    //const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+      //setRowsPerPage(parseInt(event.target.value, 10));
+      //setPage(0);
+    //};
 
     const deleteRequest = (id:number) =>{
       deleteUser(id).then(() => {props.decideCall()}).catch((e)=>{console.log(e); props.decideCall();})
@@ -73,7 +78,7 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {_.map(richiediRicerca(), (row, index) => {
+                    {_.map(richiediRicerca().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage), (row, index) => {
                     return <TableRow
                         key={index}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -100,7 +105,7 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
             </Table>
         </TableContainer>
         <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[1, 5, 10, 25]}
         component="div"
         count={props.tableData.length}
         rowsPerPage={rowsPerPage}

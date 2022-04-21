@@ -16,6 +16,7 @@ import { SideBar } from './sidebar';
 import { ProgressStudent } from './ProgressStudents';
 import { Game } from './planB/game';
 import { AddCourse } from './add-course';
+import { PasswordRecover } from './passwordRecover';
 
 export const App: React.FC = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -32,6 +33,7 @@ export const App: React.FC = () => {
         path={AppRoutes.LOGIN}
         element={<Login setIsAuth={setIsAuth} setGlobalUser={setGlobalUser} />}
       />
+      <Route path={AppRoutes.PWDRECOVER} element={<PasswordRecover />} />
 
       <Route
         path={AppRoutes.HOME}
@@ -48,11 +50,12 @@ export const App: React.FC = () => {
           path={AppRoutes.DASHBOARD}
           element={<Dashboard GLOBAL_USER={globalUser} />}
         />
+        <Route path={AppRoutes.USERS} element={<AnagraficaRouteWrapper />} />
+        {/*AnagraficaRouteWFrapper Anagrafiche GLOBAL_USER={globalUser} */}
         <Route
-          path={AppRoutes.USERS}
-          element={<AnagraficaRouteWrapper/>} 
-        />{/*AnagraficaRouteWrapper Anagrafiche GLOBAL_USER={globalUser} */}
-        <Route path={AppRoutes.PROFILE} element={<Profile GLOBAL_USER={globalUser} />} />
+          path={AppRoutes.PROFILE}
+          element={<Profile GLOBAL_USER={globalUser} />}
+        />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
         <Route path={AppRoutes.ABOUT} element={<AddCourse />} />
 

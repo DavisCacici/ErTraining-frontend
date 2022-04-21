@@ -13,7 +13,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
 }) => {
   if (isAuth) {
-    // return children;
     return children;
   }
   return <Navigate to={AppRoutes.LOGIN} />;

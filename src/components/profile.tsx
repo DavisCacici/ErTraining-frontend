@@ -1,15 +1,25 @@
-import {List, ListItemButton, ListItemIcon, ListItemText, Card, CardActions ,Button, FormControl, Grid, TextField, Box, Typography, CardContent, ListItem } from '@mui/material'
+import {
+  List, 
+  ListItemButton, 
+  ListItemIcon, 
+  ListItemText, 
+  Card, CardActions ,Button, FormControl, Grid, TextField, Box, Typography, CardContent, ListItem } from '@mui/material'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { User, Course, Progress } from '../models/models';
 import { CoursesList } from "./courses-list";
 import { editPassword, editUser, getProgressUser, getUserCourses } from '../apis/generale_call';
 
-
+import {
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from './planB/modal/Modal';
 
 interface ProfileProps {
-    GLOBAL_USER: User;
-  }
+  GLOBAL_USER: User;
+}
 
  export const Profile:React.FunctionComponent<ProfileProps> = (props) => {
     const  {GLOBAL_USER}  = props;
@@ -23,14 +33,20 @@ interface ProfileProps {
   const [password, setPassword] = useState('');
   const [progress, setProgress] = useState<Progress[]>([])
   const [courseId, setCourseId] = useState(0)
+  const [detailUser, setDetailUser] = useState(false);
+
+
   const [courses, setData] = useState<Course[]>([]);
 
   useEffect(() => {
     setLoading(true);
-      getUserCourses().then((res) => setData(res.data as Course[]))
+    getUserCourses()
+      .then((res) => setData(res.data as Course[]))
       .catch((error: any) => setError(error))
-      .finally(() => {setLoading(false);});
- }, []);
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
  
  const EditUser = () => {
@@ -105,7 +121,7 @@ const handleCourseId = (e:number) => {
  if (loading)
  {return <p>Data is loading...</p>;}
 
- if (error || !Array.isArray(courses)) {
+  if (error || !Array.isArray(courses)) {
     return <p>There was an error loading your data!</p>;
   }
 
@@ -134,11 +150,19 @@ const handleCourseId = (e:number) => {
           <Button variant="contained" onClick={()=>{console.log("Hello from Button")}}>Cambia Password</Button>
       </CardActions>
   </CardContent>  
-</Card> */  
+</Card> */
   return (
     <Box>
-        <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Gestione profilo</Typography>
-        <Grid container direction="column" alignItems="stretch" justifyContent="center" style={{minHeight:"40vh"}}>
+      <Typography textAlign="left" variant="h5" sx={{ fontWeight: 'bold' }}>
+        Gestione profilo
+      </Typography>
+      <Grid
+        container
+        direction="column"
+        alignItems="stretch"
+        justifyContent="center"
+        style={{ minHeight: '40vh' }}
+      >
         <Grid item>
             <Card sx={{ pb: '20px'}} >
                 <CardContent sx={{ pb: '10px'}}>
@@ -264,7 +288,7 @@ const handleCourseId = (e:number) => {
       </Card>
     </div>
         </Grid>    
-        </Grid>
-    </Box>   
-  )
-}
+      </Grid>
+    </Box>
+  );
+};
