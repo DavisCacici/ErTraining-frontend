@@ -5,6 +5,8 @@ import { User } from "../models/models";
 import { Course } from "../models/models";
 import { ShortcutTeacher } from "./shortcut-teacher";
 import { AddCourse } from "./add-course";
+import { ActiveCourses } from "./active-courses";
+import { CompletedCourses } from "./completed-courses";
 import { SetStateAction, useState } from "react";
 import { CreateOrEditUser } from "./createOrEditUser";
 
@@ -38,7 +40,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
 
   const shortcutTutorRouteHandler = (s:string|undefined,c?:Course) => {
     setRoute(s);
-    c?setPassingCourse(c):console.log("No Course");
+    c?setPassingCourse(c):console.log();
   }
 
 
@@ -47,8 +49,12 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
       return(
       <CoursesList GLOBAL_USER={GLOBAL_USER} CallbackRoute={(s, c) => {shortcutTutorRouteHandler(s, c); console.log(c.name)}}></CoursesList>
       )
+    } else if(route === 'activeCourses'){
+      return(<ActiveCourses course={passingCourse}></ActiveCourses>)
+    } else if(route === 'completedCourses'){
+      return(<CompletedCourses course={passingCourse}></CompletedCourses>)
     } else if(route === 'addCourse'){
-      return(<AddCourse course={passingCourse}></AddCourse>)
+        return(<AddCourse course={passingCourse}></AddCourse>)
     } else if(route === 'addUser'){
       return(<CreateOrEditUser routeHandler={routeBackToDashboard}></CreateOrEditUser>)
     } else {

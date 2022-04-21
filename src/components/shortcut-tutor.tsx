@@ -55,7 +55,7 @@ export const ShortcutTutor: React.FC<ShortcutTutorProps> = (props) => {
                   color="primary"
                   sx={{ ml: 1 }}
                   onClick={() => {
-                    console.log("Corsi attivi premuto!");
+                    props.routingCallback('activeCourses');
                   }}
                 >
                   Active <br />
@@ -67,7 +67,7 @@ export const ShortcutTutor: React.FC<ShortcutTutorProps> = (props) => {
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    console.log("Corsi completati premuto!");
+                    props.routingCallback('completedCourses');
                   }}
                 >
                   Completed <br />
