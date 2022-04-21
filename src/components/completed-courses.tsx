@@ -59,7 +59,7 @@ import {
   var courses: Course[] = [];
   if (completedCourses.length > 0){
      for(var i =0; i<completedCourses.length; i++){
-       if (completedCourses[i].state === "Finito"){
+       if (completedCourses[i].state === "Completato"){
          courses.push(completedCourses[i])
        }
      }
