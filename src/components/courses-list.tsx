@@ -10,6 +10,7 @@ import {
   Grid,
   IconButton,
   List,
+  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -155,24 +156,29 @@ export const CoursesList: React.FC<CoursesListProps> = (props) => {
               backgroundColor: '#E4F7FF',
               margin: 10,
               borderRadius: '5px',
+              
             }}
           >
             {courses.map((course) => (
-              <ListItemButton
+              <ListItem
                 key={course.id}
                 sx={{
                   minHeight: 15,
                   justifyContent: 'center',
                   px: 1,
                 }}
+                alignItems= "flex-start"
               >
                 <ListItemText
-                  key={course.name}
+                  // key={course.name}
                   primary={course.name}
-                  sx={{ ml: 2, opacity: 1 }}
-                  onClick={() => {
-                    // console.log('Dettaglio corso premuto!');
-                  }}
+                  sx={{ ml: 2, opacity: 1, width: 20 }}
+                />
+                <ListItemText
+                  // key={course.description}
+                  primary={course.description}
+                  sx={{ ml: 2, opacity: 1, width: 60 }}
+
                 />
                 <ListItemIcon
                   sx={{
@@ -192,7 +198,7 @@ export const CoursesList: React.FC<CoursesListProps> = (props) => {
                     CallbackRefresh={()=>setRefresh(!refresh)}
                   />
                 </ListItemIcon>
-              </ListItemButton>
+              </ListItem>
             ))}
           </List>
         </CardContent>

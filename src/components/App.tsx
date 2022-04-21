@@ -57,7 +57,7 @@ export const App: React.FC = () => {
           element={<Profile GLOBAL_USER={globalUser} />}
         />
         <Route path={AppRoutes.SETTINGS} element={<Settings />} />
-        <Route path={AppRoutes.ABOUT} element={<AddCourse />} />
+
 
         <Route path={AppRoutes.NOMATCH} element={<NoMatch />} />
       </Route>

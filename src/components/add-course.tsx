@@ -36,6 +36,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 interface Props {
   readonly course?: Course;
+  CallbackRoute():void;
 }
 
 export const AddCourse: React.FC<Props> = (props) => {
@@ -76,6 +77,7 @@ export const AddCourse: React.FC<Props> = (props) => {
           });
           addUsersCourse(response.data.data.id, part).then((res)=>{}).catch((err)=>console.log(err));
         }
+        props.CallbackRoute();
       }
       catch(e){
         console.log(e);
@@ -92,6 +94,7 @@ export const AddCourse: React.FC<Props> = (props) => {
           });
           addUsersCourse(props.course.id, part).then((res)=>{}).catch((err)=>console.log(err));
         }
+        props.CallbackRoute();
       }
       catch(e){
         console.log(e);

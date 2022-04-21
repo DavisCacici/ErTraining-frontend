@@ -7,6 +7,8 @@ import { ShortcutTeacher } from "./shortcut-teacher";
 import { AddCourse } from "./add-course";
 import { SetStateAction, useState } from "react";
 import { CreateOrEditUser } from "./createOrEditUser";
+import { Box, Typography, IconButton } from "@mui/material";
+import RestartAltTwoToneIcon from '@mui/icons-material/RestartAltTwoTone';;
 
 interface DashboardProps {
   GLOBAL_USER: User;
@@ -34,6 +36,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
 
   const routeBackToDashboard = () =>{
     setRoute(undefined);
+    setPassingCourse(undefined);
   }
 
   const shortcutTutorRouteHandler = (s:string|undefined,c?:Course) => {
@@ -52,7 +55,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
     } else if(route === 'completedCourses'){
       return(<CompletedCourses course={passingCourse}></CompletedCourses>)
     } else if(route === 'addCourse'){
-        return(<AddCourse course={passingCourse}></AddCourse>)
+        return(<AddCourse course={passingCourse} CallbackRoute={routeBackToDashboard}></AddCourse>)
     } else if(route === 'addUser'){
       return(<CreateOrEditUser routeHandler={routeBackToDashboard}></CreateOrEditUser>)
     } else {
@@ -63,7 +66,12 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
   if (GLOBAL_USER.role === "tutor") {
     return (
       <div style={{ margin: "auto" }}>
-        <h2>Dashboard</h2>
+        <Box display='flex' justifyContent='start' alignItems='end' >
+          <Typography textAlign='left' variant="h4" sx={{ fontWeight: "bold" }}> Dashboard </Typography>
+          <IconButton onClick={ () => {routeBackToDashboard()}} aria-label="edit">
+            <RestartAltTwoToneIcon color="primary"></RestartAltTwoToneIcon>
+          </IconButton>
+        </Box>
         <div>
           <ShortcutTutor routingCallback={shortcutTutorRouteHandler}></ShortcutTutor>
           {defineContent()}
@@ -75,7 +83,12 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
   if (GLOBAL_USER.role === "teacher") {
     return (
       <div style={{ margin: "auto" }}>
-        <h2>Dashboard</h2>
+        <Box display='flex' justifyContent='start' alignItems='end' >
+          <Typography textAlign='left' variant="h4" sx={{ fontWeight: "bold" }}> Dashboard </Typography>
+          <IconButton onClick={ () => {routeBackToDashboard()}} aria-label="edit">
+            <RestartAltTwoToneIcon color="primary"></RestartAltTwoToneIcon>
+          </IconButton>
+        </Box>
         <div>
           <ShortcutTeacher></ShortcutTeacher>
           <CoursesList GLOBAL_USER={GLOBAL_USER} CallbackRoute={(s, c)=>{}}></CoursesList>

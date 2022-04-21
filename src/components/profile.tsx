@@ -230,7 +230,7 @@ const handleCourseId = (e:number) => {
             </Card>   
             <div className="card-style">
               <br></br>
-      <Card>
+      {/* <Card>
         <CardContent>
           <Typography
             gutterBottom
@@ -253,7 +253,7 @@ const handleCourseId = (e:number) => {
                 key={course.id}
                 sx={{
                   minHeight: 15,
-                  justifyContent: "center",
+                  justifyContent: "left",
                   px: 1,
                 }}
                 onClick={() => {
@@ -293,7 +293,7 @@ const handleCourseId = (e:number) => {
             ))}
           </List>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
         </Grid>    
       </Grid>

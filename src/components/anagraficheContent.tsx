@@ -23,7 +23,7 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
 
     //Hooks
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
     
   
     //Handler
