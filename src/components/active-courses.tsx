@@ -59,7 +59,7 @@ import {
   var courses: Course[] = [];
   if (activeCourses.length > 0){
      for(var i =0; i<activeCourses.length; i++){
-       if (activeCourses[i].state !== "In corso"){
+       if (activeCourses[i].state === "In corso"){
          courses.push(activeCourses[i])
        }
      }
