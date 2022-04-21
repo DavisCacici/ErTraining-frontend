@@ -43,7 +43,7 @@ export const ShortcutTutor: React.FC<ShortcutTutorProps> = (props) => {
   return (
     <div style={classes.root}>
       <div className="card-style">
-        <Card sx={{ maxWidth: 1010, position: "relative" }}>
+        <Card>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               <h5 className="card-title">Shortcuts</h5>

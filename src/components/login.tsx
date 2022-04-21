@@ -181,7 +181,7 @@ export const Login: React.FC<LoginProps> = (props) => {
               </CardContent>
             </Card>
             {/* per test senza servizio api attivo */}
-            <div>
+            {/* <div>
               Select Role:
               <div>
                 <select name="Role" onChange={fakeLogin}>
@@ -191,7 +191,7 @@ export const Login: React.FC<LoginProps> = (props) => {
                   <option value="student">Student</option>
                 </select>
               </div>
-            </div>
+            </div> */}
           </Grid>
         </Grid>
       ) : (

@@ -128,7 +128,7 @@ export const AddCourse: React.FC<Props> = (props) => {
     <div>
       {props.course ? <h2>Edit course</h2>:<h2>Add course</h2>}
       <div>
-        <Card sx={{ maxWidth: 1010, position: "relative" }}>
+        <Card>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2" sx={{ mt: 2 }}>
               <div className="add-course-form">Title</div>
