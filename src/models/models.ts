@@ -7,8 +7,8 @@ export interface Course {
 
 export interface User {
   readonly id: number;
-  readonly user_name: string;
-  readonly email: string;
+  user_name: string;
+  email: string;
   readonly role: string;
 }
 

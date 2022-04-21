@@ -87,3 +87,31 @@ export const getUserCourses = () => {
         Authorization: `Bearer ${token}`,
       }});
 };
+
+export const editUser = (id: number, email: string, username: string) => {
+  const token = sessionStorage.getItem('token');
+  return axios.put(`${SERVER_URL}/users/editUser/${id}`, {
+      email: email,
+      user_name: username
+  },{ headers: {
+      'Authorization': `Bearer ${token}` 
+  }});
+}
+
+export const editPassword = (id: number, password: string) => {
+  const token = sessionStorage.getItem('token');
+  return axios.put(`${SERVER_URL}/users/editPassword/${id}`, {
+      password: password
+  },{ headers: {
+      'Authorization': `Bearer ${token}` 
+  }});
+}
+
+export function getProgressUser(id: number){
+  console.log("getProgressUser")
+  console.log(id)
+  const token = sessionStorage.getItem('token');
+  return axios.get(`${SERVER_URL}/getProgressUser/${id}`,{ headers: {
+    'Authorization': `Bearer ${token}` 
+}});
+}

@@ -1,9 +1,10 @@
-import {List, ListItemButton, ListItemIcon, ListItemText, Card, CardActions ,Button, FormControl, Grid, TextField, Box, Typography, CardContent } from '@mui/material'
+import {List, ListItemButton, ListItemIcon, ListItemText, Card, CardActions ,Button, FormControl, Grid, TextField, Box, Typography, CardContent, ListItem } from '@mui/material'
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { User, Course } from '../models/models';
+import { User, Course, Progress } from '../models/models';
 import { CoursesList } from "./courses-list";
-import { getUserCourses } from '../apis/generale_call';
+import { editPassword, editUser, getProgressUser, getUserCourses } from '../apis/generale_call';
+
 
 
 interface ProfileProps {
@@ -11,21 +12,95 @@ interface ProfileProps {
   }
 
  export const Profile:React.FunctionComponent<ProfileProps> = (props) => {
-/*Qui andranno richiesti ed importati l'email e il nome utente tramite chiamata Api
+    const  {GLOBAL_USER}  = props;
+    /*Qui andranno richiesti ed importati l'email e il nome utente tramite chiamata Api
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');*/
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-  const [detailUser, setDetailUser] = useState(false);
-
-  const  {GLOBAL_USER}  = props;
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [progress, setProgress] = useState<Progress[]>([])
+  const [courseId, setCourseId] = useState(0)
   const [courses, setData] = useState<Course[]>([]);
+
   useEffect(() => {
     setLoading(true);
       getUserCourses().then((res) => setData(res.data as Course[]))
       .catch((error: any) => setError(error))
       .finally(() => {setLoading(false);});
  }, []);
+
+ 
+ const EditUser = () => {
+    setLoading(true);
+     console.log(username)
+     console.log(email)
+     if(email === '' && username !== ''){
+        setEmail(GLOBAL_USER.email)
+        editUser(GLOBAL_USER.id, email, username)
+        .then((value) => console.log(value))
+        .catch((error) => console.log(error))
+        .finally(() => {setLoading(false);});
+        GLOBAL_USER.user_name = username;
+        alert("Username modificato con successo")
+     }
+     else if(username ==='' && email !== ''){
+        setUsername(GLOBAL_USER.user_name)
+        editUser(GLOBAL_USER.id, email, username)
+        .then((value) => console.log(value))
+        .catch((error) => console.log(error))
+        .finally(() => {setLoading(false);});
+        GLOBAL_USER.email = email;
+        alert("email modificata con successo")
+     }
+     else if (username !== '' && email !== ''){
+        editUser(GLOBAL_USER.id, email, username)
+        .then((value) => console.log(value))
+        .catch((error) => console.log(error))
+        .finally(() => {setLoading(false);});
+        GLOBAL_USER.user_name = username;
+        GLOBAL_USER.email = email;
+        alert("Username ed email modificate con successo")
+     }
+    };
+
+
+const EditPassword = () => {
+    if(password !== undefined)
+    {
+        editPassword(GLOBAL_USER.id, password)
+        .then((value) => console.log(value))
+        .catch((error) => console.log(error));
+    }
+}
+var c:number;
+const handleProgress = () => {
+          try{
+            setLoading(true);
+           console.log("handleProgress courseId",courseId)
+           getProgressUser(courseId).then((res) => setProgress(res.data as Progress[]))
+           .catch((error: any) => setError(error))
+           .finally(() => {setLoading(false);});
+           console.log(progress)
+          } finally {setProgress([])}
+            
+    }
+
+const handleCourseId = (e:number) => {
+    setCourseId(e)
+}
+
+ const handleUsername = (e: any) => {
+    setUsername(e.target.value);
+  };
+ const handleEmail = (e: any) => {
+    setEmail(e.target.value);
+  };
+  const handlePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
 
  if (loading)
  {return <p>Data is loading...</p>;}
@@ -80,8 +155,8 @@ interface ProfileProps {
                                 label="Modifica username"
                                 type="email"
                                 margin='dense'
-                                onChange={() => {console.log("Hello !")}}
-                                ></TextField>
+                                onChange={handleUsername}>
+                                </TextField>
                             </FormControl>
                         </th>
                     </tr>
@@ -95,14 +170,30 @@ interface ProfileProps {
                             label="Modifica email"
                             type="email"
                             margin='dense'
-                            onChange={() => {console.log("Hello !")}}
-                            ></TextField>
+                            onChange={handleEmail}></TextField>
                         </th>
                     </tr>
                 </table>
                     <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
-                        <Button variant="contained" onClick={()=>{setDetailUser(true)}}>Modifica dettagli</Button>
-                        <Button variant="contained" onClick={()=>{console.log("Hello from Button")}}>Cambia Password</Button>
+                        <Button variant="contained" onClick={EditUser}>Modifica dettagli</Button>
+                    </CardActions>
+                    <table>  
+                    <tr>
+                        <th align='left'>
+                            <h3>Nuova Password</h3>
+                        </th>
+                        <th align='right'>
+                            <TextField
+                            id="password"
+                            label="Modifica password"
+                            type="password"
+                            margin='dense'
+                            onChange={handlePassword}></TextField>
+                        </th>
+                    </tr>
+                </table>
+                <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
+                        <Button variant="contained" onClick={EditPassword}>Cambia Password</Button>
                     </CardActions>
                 </CardContent>  
             </Card>   
@@ -133,23 +224,30 @@ interface ProfileProps {
                   justifyContent: "center",
                   px: 1,
                 }}
+                onClick={() => {
+                    handleCourseId(course.id)
+                    handleProgress()
+                  }}
               >
+                  <ListItemText
+                  key={course.id}
+                  primary={course.id}
+                  sx={{ ml: 2, opacity: 1 }}
+                />
                 <ListItemText
                   key={course.name}
                   primary={course.name}
                   sx={{ ml: 2, opacity: 1 }}
-                  onClick={() => {
-                    console.log("Dettaglio nome corso premuto!");
-                  }}
                 />
                 <ListItemText
                   key={course.description}
                   primary={course.description}
                   sx={{ ml: 2, opacity: 1 }}
                   onClick={() => {
-                    console.log("Dettaglio descrizione corso premuto!");
+                    console.log(course.id)
                   }}
                 />
+                
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -157,7 +255,7 @@ interface ProfileProps {
                     justifyContent: "center",
                     color: "secondary",
                   }}
-                >
+                > 
                 </ListItemIcon>
               </ListItemButton>
             ))}
