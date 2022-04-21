@@ -74,7 +74,7 @@ export const AddCourse: React.FC<Props> = (props) => {
           partecipants.forEach((element) =>{
             part.push(element.id);
           });
-          addUsersCourse(response.data.data.id, part).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+          addUsersCourse(response.data.data.id, part).then((res)=>{}).catch((err)=>console.log(err));
         }
       }
       catch(e){
@@ -83,23 +83,20 @@ export const AddCourse: React.FC<Props> = (props) => {
     }
     else{
       try{
-        editCourse(props.course.id, input.title, input.description).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+        editCourse(props.course.id, input.title, input.description).then((res)=>{}).catch((err)=>console.log(err));
         var part: number[] = [];
         if(partecipants.length > 0 )
         {        
           partecipants.forEach((element) =>{
             part.push(element.id);
           });
-          addUsersCourse(props.course.id, part).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+          addUsersCourse(props.course.id, part).then((res)=>{}).catch((err)=>console.log(err));
         }
       }
       catch(e){
         console.log(e);
       }
     }
-    
-    
-    // console.log(participants);
     
   };
 
@@ -126,7 +123,7 @@ export const AddCourse: React.FC<Props> = (props) => {
 
   return (
     <div>
-      {props.course ? <h2>Edit course</h2>:<h2>Add course</h2>}
+      {props.course ? <h2>Edit course</h2>:<h2>Create course</h2>}
       <div>
         <Card>
           <CardContent>

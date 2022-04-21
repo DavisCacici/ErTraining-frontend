@@ -72,9 +72,9 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
                 <TableHead>
                     <TableRow >
                         <TableCell align='left'> ID </TableCell>
-                        <TableCell align="left"> User_Name </TableCell>
+                        <TableCell align="left"> Username </TableCell>
                         <TableCell align="left"> Email </TableCell>
-                        <TableCell align="right"> Azioni </TableCell>
+                        <TableCell align="right"> Action </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -105,7 +105,7 @@ export const AnagraficaContent:React.FunctionComponent<AnagraficheContentProps> 
             </Table>
         </TableContainer>
         <TablePagination
-        rowsPerPageOptions={[1, 5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={props.tableData.length}
         rowsPerPage={rowsPerPage}

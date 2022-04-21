@@ -26,8 +26,7 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
     function decideCalls(type:string){
       if(type === 'teacher'){
         teachersList().then((res)=> {
-          setDataEnd(res.data.data as User[]);  
-          console.log(res.data.data);    
+          setDataEnd(res.data.data as User[]);      
         })
         .catch((error)=>{console.log(error); setDataEnd([user1])});
       }
@@ -35,15 +34,13 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
       {
         studentsList().then((res)=> {
           const data: User[] = res.data.data;
-          setDataEnd(data);
-          console.log(data);
+          setDataEnd(data);         
         })
         .catch((error)=>{console.log(error);});
       }else if(type === 'tutor'){
           tutorsList().then((res)=> {
             const data: User[] = res.data.data;
             setDataEnd(data);
-            console.log(data);
           })
           .catch((error)=>{console.log(error);});
       }else{
@@ -78,9 +75,9 @@ export const Anagrafiche: React.FunctionComponent<AnagraficheProps> = (props) =>
     return (
     <Box>
         <Box display='flex' justifyContent='space-between' alignItems='end' sx={{ mb:5 }}>
-            <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Anagrafiche</Typography>
+            <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Users</Typography>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                <TextField id="input-searchbar" label="Cerca..." variant="outlined" onChange={(e)=>{setchiaveDiRicerca(e.target.value.toString()) ; console.log(chiaveDiRicerca);}} InputProps={{startAdornment: (<InputAdornment position="start">
+                <TextField id="input-searchbar" label="Search..." variant="outlined" onChange={(e)=>{setchiaveDiRicerca(e.target.value.toString()) ; console.log(chiaveDiRicerca);}} InputProps={{startAdornment: (<InputAdornment position="start">
                   <SearchTwoToneIcon fontSize='medium'></SearchTwoToneIcon>
                 </InputAdornment>
               )}}/>

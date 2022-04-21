@@ -38,7 +38,7 @@ export const ShortcutTeacher: React.FC = () => {
   return (
     <div style={classes.root}>
       <div className="card-style">
-        <Card sx={{ maxWidth: 1010, position: "relative" }}>
+        <Card>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               <h5 className="card-title">Shortcuts</h5>
@@ -48,9 +48,9 @@ export const ShortcutTeacher: React.FC = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  sx={{ ml: 1 }}
+                  sx={{ width: 120 , height:100, borderRadius:4 }}
                   onClick={() => {
-                    console.log("Corsi attivi premuto!");
+                    // console.log("Corsi attivi premuto!");
                   }}
                 >
                   Active <br />
@@ -61,8 +61,9 @@ export const ShortcutTeacher: React.FC = () => {
                 <Button
                   variant="contained"
                   color="primary"
+                  sx={{ width: 120 , height:100, borderRadius:4 }}
                   onClick={() => {
-                    console.log("Corsi completati premuto!");
+                    // console.log("Corsi completati premuto!");
                   }}
                 >
                   Completed <br />
@@ -73,9 +74,9 @@ export const ShortcutTeacher: React.FC = () => {
                 <Button
                   variant="outlined"
                   color="primary"
-                  sx={{ ml: 0 }}
+                  sx={{ width: 120 , height:100, borderRadius:4 }}
                   onClick={() => {
-                    console.log("Search course premuto!");
+                    // console.log("Search course premuto!");
                   }}
                 >
                   Search course

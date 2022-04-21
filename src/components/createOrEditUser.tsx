@@ -14,18 +14,17 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
 
     const EditUser = () => {
         editUser(user.id, user.email, user.user_name)
-        .then((value) => console.log(value))
+        .then((value) => {})
         .catch((error) => console.log(error));
         if(password !== undefined)
         {
             editPassword(user.id, password)
-            .then((value) => console.log(value))
+            .then((value) => {})
             .catch((error) => console.log(error));
         }
     }
 
     const CreateUser = () => {
-        console.log(user);
         let role = 0;
         if(password){
             if(user.role === 'tutor')
@@ -41,7 +40,7 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
                 role = 3
             }
             addUser(user.user_name, user.email, password, role)
-            .then((value) => console.log(value))
+            .then((value) => {})
             .catch((error) => console.log(error));
         }
         else{
@@ -67,7 +66,7 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
     }
     return (
     <Box>
-        <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Crea Nuovo Utente</Typography>
+        <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>{props.startingUser ? 'Edit User' : 'Create User'}</Typography>
         <Grid container direction="column" alignItems="stretch" justifyContent="center" style={{minHeight:"40vh"}}>
         <Grid item>
             <Card sx={{ pb: '20px'}} >
@@ -88,12 +87,12 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
                             <MenuItem value={'teacher'}>Teacher</MenuItem>
                             <MenuItem value={'tutor'}>Tutor</MenuItem>
                         </Select>
-                        <FormHelperText>Selezionare un Ruolo è obbligatorio*</FormHelperText>
+                        <FormHelperText>A role must be selected*</FormHelperText>
                         <TextField
                         required
                         defaultValue={autoCompleteIfPossibile(props.startingUser?.user_name)}
                         id="username"
-                        label="Nome"
+                        label="Name"
                         type="text"
                         margin='dense'
                         onChange={(e)=>{
@@ -118,18 +117,20 @@ export const CreateOrEditUser:React.FunctionComponent<CreateUserProps> = (props)
                         margin='dense'
                         onChange={(e) => {setPassword(e.target.value)}}
                         ></TextField>
-                        <FormHelperText>Lasciare questo campo vuoto nel caso non si voglia modificare la password corrente</FormHelperText>
+                        {props.startingUser ? 
+                        <FormHelperText>Leave this field empty if you don't want to change the password</FormHelperText>
+                        : <FormHelperText></FormHelperText>}
                     </FormControl>
                     <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
                         {props.startingUser ? 
                             <Button variant="contained" onClick={()=>{
                                 EditUser();
                                 props.routeHandler();
-                            }}>Modifica</Button>:
+                            }}>Edit</Button>:
                             <Button variant="contained" onClick={()=>{
                                 CreateUser();
                                 
-                            }}>Crea</Button>
+                            }}>Create</Button>
                         }               
                     </CardActions>
                 </CardContent>    

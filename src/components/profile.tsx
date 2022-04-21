@@ -51,12 +51,10 @@ interface ProfileProps {
  
  const EditUser = () => {
     setLoading(true);
-     console.log(username)
-     console.log(email)
      if(email === '' && username !== ''){
         setEmail(GLOBAL_USER.email)
         editUser(GLOBAL_USER.id, email, username)
-        .then((value) => console.log(value))
+        .then((value) => {})
         .catch((error) => console.log(error))
         .finally(() => {setLoading(false);});
         GLOBAL_USER.user_name = username;
@@ -65,7 +63,7 @@ interface ProfileProps {
      else if(username ==='' && email !== ''){
         setUsername(GLOBAL_USER.user_name)
         editUser(GLOBAL_USER.id, email, username)
-        .then((value) => console.log(value))
+        .then((value) => {})
         .catch((error) => console.log(error))
         .finally(() => {setLoading(false);});
         GLOBAL_USER.email = email;
@@ -73,7 +71,7 @@ interface ProfileProps {
      }
      else if (username !== '' && email !== ''){
         editUser(GLOBAL_USER.id, email, username)
-        .then((value) => console.log(value))
+        .then((value) => {})
         .catch((error) => console.log(error))
         .finally(() => {setLoading(false);});
         GLOBAL_USER.user_name = username;
@@ -87,7 +85,7 @@ const EditPassword = () => {
     if(password !== undefined)
     {
         editPassword(GLOBAL_USER.id, password)
-        .then((value) => console.log(value))
+        .then((value) => {})
         .catch((error) => console.log(error));
     }
 }
@@ -95,11 +93,9 @@ var c:number;
 const handleProgress = () => {
           try{
             setLoading(true);
-           console.log("handleProgress courseId",courseId)
            getProgressUser(courseId).then((res) => setProgress(res.data as Progress[]))
            .catch((error: any) => setError(error))
            .finally(() => {setLoading(false);});
-           console.log(progress)
           } finally {setProgress([])}
             
     }
@@ -154,7 +150,7 @@ const handleCourseId = (e:number) => {
   return (
     <Box>
       <Typography textAlign="left" variant="h5" sx={{ fontWeight: 'bold' }}>
-        Gestione profilo
+        Profile Settings
       </Typography>
       <Grid
         container
@@ -166,14 +162,12 @@ const handleCourseId = (e:number) => {
         <Grid item>
             <Card sx={{ pb: '20px'}} >
                 <CardContent sx={{ pb: '10px'}}>
-                    <Typography textAlign='left' variant="h6">Dati Utente</Typography>
+                  {/* <Typography textAlign='left' variant="h6">Dati Utente</Typography> */}
                   <table>  
                       <tr>
                        <th align='left'> 
-                           <h3> Nome utente : {GLOBAL_USER.user_name} </h3>
-                        </th>
-                       <th align='right'>
-                           <FormControl fullWidth margin='dense'>
+                           <p> Username: {GLOBAL_USER.user_name} </p>
+                           {/* <FormControl fullWidth margin='dense'>
                                <TextField
                                 id="username"
                                 label="Modifica username"
@@ -181,27 +175,42 @@ const handleCourseId = (e:number) => {
                                 margin='dense'
                                 onChange={handleUsername}>
                                 </TextField>
-                            </FormControl>
+                            </FormControl> */}
+                        </th>
+                       <th align='right'>
+                          
                         </th>
                     </tr>
                     <tr>
                         <th align='left'>
-                            <h3> Email : {GLOBAL_USER.email} </h3>
-                        </th>
-                        <th align='right'>
-                            <TextField
+                            <p> Email: {GLOBAL_USER.email} </p>
+                            {/* <TextField
                             id="mail"
                             label="Modifica email"
                             type="email"
                             margin='dense'
-                            onChange={handleEmail}></TextField>
+                            onChange={handleEmail}></TextField> */}
+                        </th>
+                        <th align='right'>
+                          
                         </th>
                     </tr>
+                    <tr>
+                      <th align='left'>
+                        <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
+                          <Button variant="contained" onClick={EditUser}>Edit</Button>
+                        </CardActions>
+                      </th>
+
+                      <th align='right'>
+                        <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
+                          <Button variant="contained" onClick={EditPassword}>Change Password</Button>
+                        </CardActions>
+                      </th>
+                    </tr>
                 </table>
-                    <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
-                        <Button variant="contained" onClick={EditUser}>Modifica dettagli</Button>
-                    </CardActions>
-                    <table>  
+                    
+                  {/* <table>  
                     <tr>
                         <th align='left'>
                             <h3>Nuova Password</h3>
@@ -215,10 +224,8 @@ const handleCourseId = (e:number) => {
                             onChange={handlePassword}></TextField>
                         </th>
                     </tr>
-                </table>
-                <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
-                        <Button variant="contained" onClick={EditPassword}>Cambia Password</Button>
-                    </CardActions>
+                </table> */}
+                
                 </CardContent>  
             </Card>   
             <div className="card-style">
@@ -231,7 +238,7 @@ const handleCourseId = (e:number) => {
             component="div"
             sx={{ fontWeight: "bold" }}
           >
-            <h5 className="card-title">Corsi</h5>
+            <h5 className="card-title">Courses</h5>
           </Typography>
 
           <List
@@ -269,7 +276,7 @@ const handleCourseId = (e:number) => {
                   primary={course.description}
                   sx={{ ml: 2, opacity: 1 }}
                   onClick={() => {
-                    console.log(course.id)
+                    // console.log(course.id)
                   }}
                 />
                 

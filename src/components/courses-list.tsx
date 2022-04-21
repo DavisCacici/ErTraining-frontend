@@ -71,7 +71,6 @@ const IconeAzioniCorso: React.FC<IACProps> = (props) => {
         <IconButton
           aria-label="play game"
           onClick={() => {
-            console.log('bottone Play Game premuto!');
             setShowModal(true);
           }}
           className="button"
@@ -79,7 +78,7 @@ const IconeAzioniCorso: React.FC<IACProps> = (props) => {
         >
           <PlayCircleTwoToneIcon color="primary" />
         </IconButton>
-      ) : (
+      ) : GLOBAL_USER.role ==='tutor' ? (
         <>
           <IconButton
             aria-label="edit"
@@ -94,7 +93,7 @@ const IconeAzioniCorso: React.FC<IACProps> = (props) => {
           <IconButton
             aria-label="delete"
             onClick={() => {
-              deleteCourse(courseID).then((res)=>console.log(res.data)).catch((err)=>console.log(err));
+              deleteCourse(courseID).then((res)=>{}).catch((err)=>console.log(err));
               CallbackRefresh();
             }}
             className="button"
@@ -103,7 +102,7 @@ const IconeAzioniCorso: React.FC<IACProps> = (props) => {
             <DeleteTwoToneIcon color="primary" />
           </IconButton>
         </>
-      )}
+      ): null}
     </Stack>
   );
 };
@@ -172,7 +171,7 @@ export const CoursesList: React.FC<CoursesListProps> = (props) => {
                   primary={course.name}
                   sx={{ ml: 2, opacity: 1 }}
                   onClick={() => {
-                    console.log('Dettaglio corso premuto!');
+                    // console.log('Dettaglio corso premuto!');
                   }}
                 />
                 <ListItemIcon
@@ -249,7 +248,7 @@ return (
       <Grid item>
           
           <div className="card-style">
-    <Card sx={{ maxWidth: 1010, position: "relative" }}>
+    <Card>
       <CardContent>
         <Typography
           gutterBottom
@@ -348,7 +347,7 @@ return (
       <Grid item>
           
           <div className="card-style">
-    <Card sx={{ maxWidth: 1010, position: "relative" }}>
+    <Card>
       <CardContent>
         <Typography
           gutterBottom

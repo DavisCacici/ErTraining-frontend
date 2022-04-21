@@ -7,13 +7,13 @@ import React from 'react'
   const [enableDarkTheme, setEnableDarkTheme] = useState('OFF');
   return (
     <Box>
-        <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Impostazioni profilo</Typography>
+        <Typography textAlign='left' variant="h5" sx={{ fontWeight: "bold" }}>Settings</Typography>
         <Grid container direction="column" alignItems="stretch" justifyContent="center" style={{minHeight:"40vh"}}>
         <Grid item>
         
             <Card sx={{py: '20px'}}>
                 <CardContent>
-                    <Typography textAlign='left' variant="h6">Abilita tema scuro:</Typography>
+                    <Typography textAlign='left' variant="h6">Night mode:</Typography>
                     <FormControlLabel control={<Switch onChange={ (e) => {
                         if(e.target.checked){
                         setEnableDarkTheme('ON');

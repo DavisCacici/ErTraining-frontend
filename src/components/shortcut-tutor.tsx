@@ -53,7 +53,7 @@ export const ShortcutTutor: React.FC<ShortcutTutorProps> = (props) => {
                 <Button
                   variant="contained"
                   color="primary"
-                  sx={{ ml: 1 }}
+                  sx={{ width: 120 , height:100, borderRadius:4 }}
                   onClick={() => {
                     props.routingCallback('activeCourses');
                   }}
@@ -64,6 +64,7 @@ export const ShortcutTutor: React.FC<ShortcutTutorProps> = (props) => {
               </Grid>
               <Grid item xs={3}>
                 <Button
+                  sx={{ width: 120 , height:100, borderRadius:4 }}
                   variant="contained"
                   color="primary"
                   onClick={() => {
@@ -78,19 +79,20 @@ export const ShortcutTutor: React.FC<ShortcutTutorProps> = (props) => {
                 <Button
                   variant="outlined"
                   color="primary"
-                  sx={{ ml: 0 }}
+                  sx={{ width: 120 , height:100, borderRadius:4 }}
                   onClick={()=>{props.routingCallback('addCourse')}}
                 >
-                  Add course
+                  Create course
                 </Button>
               </Grid>
               <Grid item xs={3}>
                 <Button
+                  sx={{ width: 120 , height:100, borderRadius:4 }}
                   variant="contained"
                   color="primary"
                   onClick={() => { props.routingCallback('addUser')}}
                 >
-                  Add user
+                  Create user
                 </Button>
               </Grid>
             </Grid>
